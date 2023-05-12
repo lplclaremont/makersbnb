@@ -1,5 +1,7 @@
-require "spec_helper"
-require "rack/test"
+# frozen_string_literal: true
+
+require 'spec_helper'
+require 'rack/test'
 require_relative '../../app'
 require 'json'
 
@@ -16,7 +18,6 @@ describe Application do
   # accross multiple RSpec files (for example, have
   # one test suite for each set of related features),
   # you can duplicate this test file to create a new one.
-
 
   context 'GET /' do
     it 'should get the homepage' do
