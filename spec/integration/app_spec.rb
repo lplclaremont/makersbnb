@@ -6,6 +6,9 @@ require_relative '../../app'
 require 'json'
 
 describe Application do
+  before(:each) do
+    reset_tables
+  end
   # This is so we can use rack-test helper methods.
   include Rack::Test::Methods
 
