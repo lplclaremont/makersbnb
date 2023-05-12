@@ -7,6 +7,9 @@ Someone in your team should fork this seed repo to their Github account. Everyon
 ## Setup
 
 ```bash
+# Create the test database
+createdb makersbnb_test
+
 # Install gems
 bundle install
 
