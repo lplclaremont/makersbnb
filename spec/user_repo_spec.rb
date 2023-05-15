@@ -11,8 +11,8 @@ RSpec.describe UserRepo do
 
       users = repo.all
       expect(users.length).to eq 3
-      expect(users.name.first).to eq 'Shrek'
-      expect(users.name.last).to eq 'Donkey'
+      expect(users.first.name).to eq 'Shrek'
+      expect(users.last.name).to eq 'Donkey'
     end
   end
 end
