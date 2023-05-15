@@ -3,6 +3,11 @@ require_relative './database_connection'
 
 class ListingRepository
   def add(listing)
+    fail "Listing already exists" if all.map { |current_listings| 
+    current_listings.listing_name }.include?(listing.listing_name)
+
+    fail "Missing input" if listing.user_id == nil
+
     sql = 'INSERT INTO listings 
     (listing_name, listing_description, price, user_id)
     VALUES ($1, $2, $3, $4)'

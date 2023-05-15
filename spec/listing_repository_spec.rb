@@ -22,5 +22,26 @@ RSpec.describe ListingRepository do
       expect(new_listing.price).to eq(50)
       expect(new_listing.user_id).to eq(1)
     end
+
+    it 'fails if listing name already exists' do
+      repo = ListingRepository.new
+      listing = Listing.new
+      listing.listing_name = 'Swamp'
+      listing.listing_description = 'New description'
+      listing.price = 50
+      listing.user_id = 1
+
+      expect{ repo.add(listing) }.to raise_error "Listing already exists"
+    end
+
+    it 'fails if missing input value' do
+      repo = ListingRepository.new
+      listing = Listing.new
+      listing.listing_name = 'New place!'
+      listing.listing_description = 'New description'
+      listing.price = 50
+
+      expect{ repo.add(listing) }.to raise_error "Missing input"
+    end
   end
 end
