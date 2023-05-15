@@ -57,4 +57,15 @@ describe Application do
       expect(response.body).to include '<a href="/logout">Log out</a>'
     end
   end
+
+  context 'GET /login' do
+    it 'should show the login form' do
+      response = get('/login')
+
+      expect(response.status).to eq 200
+      expect(response.body).to include '<input type="text" placeholder="Name" required="required" name="name">'
+      expect(response.body).to include '<input type="text" placeholder="Email" required="required" name="email">'
+      expect(response.body).to include '<input type="password" placeholder="Password" required="required" name="password">'
+    end
+  end
 end

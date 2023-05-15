@@ -37,4 +37,8 @@ class Application < Sinatra::Base
     @session_id = session[:user_id]
     return erb(:index)
   end
+
+  get '/login' do
+    return erb(:login)
+  end
 end
