@@ -5,8 +5,8 @@ RSpec.describe ListingRepository do
     reset_tables
   end
 
-  context 'the #add method' do
-    it 'adds new listing to database' do
+  context 'the #create method' do
+    it 'creates new listing to database' do
       repo = ListingRepository.new
       listing = Listing.new
       listing.listing_name = 'New listing'
@@ -14,7 +14,7 @@ RSpec.describe ListingRepository do
       listing.price = 50
       listing.user_id = 1
 
-      repo.add(listing)
+      repo.create(listing)
       new_listing = repo.all.last
 
       expect(new_listing.listing_name).to eq('New listing')
@@ -31,7 +31,7 @@ RSpec.describe ListingRepository do
       listing.price = 50
       listing.user_id = 1
 
-      expect{ repo.add(listing) }.to raise_error "Listing already exists"
+      expect{ repo.create(listing) }.to raise_error "Listing already exists"
     end
 
     it 'fails if missing input value' do
@@ -41,7 +41,25 @@ RSpec.describe ListingRepository do
       listing.listing_description = 'New description'
       listing.price = 50
 
-      expect{ repo.add(listing) }.to raise_error "Missing input"
+      expect{ repo.create(listing) }.to raise_error "Missing input"
+    end
+
+    it 'fails if missing input value' do
+      repo = ListingRepository.new
+      listing = Listing.new
+      listing.listing_name = 'New place!'
+      listing.listing_description = 'New description'
+      listing.price = 50
+      listing.user_id = ''
+
+      expect{ repo.create(listing) }.to raise_error "Missing input"
+    end
+  end
+  context '#all method' do
+    it 'returns all current listings' do 
+      repo = ListingRepository.new
+      listings = repo.all
+      expect(listings.length).to eq 2 
     end
   end
 end
