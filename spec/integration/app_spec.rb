@@ -40,4 +40,17 @@ describe Application do
       expect(response.body).to include('<input type="text" name="listing_name">')
     end
   end
+
+  context "POST /listing/new" do
+    it "adds a new listing" do
+      response = post("/listing/new", listing_name: "New Listing", listing_description: "Description", price: 0, user_id: 1)
+
+      expect(response.status).to eq 200
+      expect(response.body).to include("<h1>Makersbnb</h1>")
+      expect(response.body).to include('<p>Your new listing has been added!</p>')
+    end
+  end
+
+  
+
 end
