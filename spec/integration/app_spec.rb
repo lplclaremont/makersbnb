@@ -40,6 +40,20 @@ describe Application do
       expect(response.body).to include '<input type="text" placeholder="Email" required="required" name="email">'
       expect(response.body).to include '<input type="password" placeholder="Password" required="required" name="password">'
     end
+
+    it "shows all listings" do
+      response = get("/")
+
+      expect(response.body).to include("<p>Property name: Swamp</p>")
+      expect(response.body).to include("<p>Description: Lovely swamp. Shrek lives here. Scenic outhouse. Donkey not included!</p>")
+      expect(response.body).to include("<p>Price per night: £69</p>")
+      expect(response.body).to include("<p>Hosted by: Shrek</p>")
+      
+      expect(response.body).to include("<p>Property name: Far Far Away Castle</p>")
+      expect(response.body).to include("<p>Description: Big castle. Very far away.</p>")
+      expect(response.body).to include("<p>Price per night: £420</p>")
+      expect(response.body).to include("<p>Hosted by: Fiona</p>")
+    end
   end
 
   context 'POST /signup' do
