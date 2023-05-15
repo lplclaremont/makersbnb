@@ -54,4 +54,28 @@ RSpec.describe UserRepo do
       expect(repo.all.length).to eq 3
     end
   end
+
+  context 'login' do
+    it 'returns false if the user doesnt exist' do
+      repo = UserRepo.new
+      email = 'dragon@dragonskeep.com'
+      password = 'lust_for_donkey'
+      result = repo.log_in(email, password)
+      expect(result).to eq false
+    end
+    it 'returns the user.id when passwords match' do
+      repo = UserRepo.new
+      email = 'shrek@swamp.com'
+      password = 'fiona_lover420'
+      result = repo.log_in(email, password)
+      expect(result).to eq 1
+    end
+    it 'returns false if the passwords dont match' do
+      repo = UserRepo.new
+      email = 'shrek@swamp.com'
+      password = 'fiona_lover42'
+      result = repo.log_in(email, password)
+      expect(result).to eq false
+    end
+  end
 end

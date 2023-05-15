@@ -32,6 +32,14 @@ class UserRepo
     DatabaseConnection.exec_params(sql, params)
   end
 
+  def log_in(email, password)
+    user = find_by_email(email)
+    return false if !user
+    stored_password = BCrypt::Password.new(user.password)
+    return user.id.to_i if stored_password == password
+    return false
+  end
+
   private
 
   def user(record)
