@@ -29,4 +29,16 @@ describe Application do
       expect(response.status).to eq(200)
     end
   end
+
+  context 'GET /signup' do
+    it 'should get the signup page' do
+      response = get('/signup')
+
+      expect(response.status).to eq 200
+      expect(response.body).to include '<form'
+      expect(response.body).to include '<input type="text" name="name">'
+      expect(response.body).to include '<input type="text" name="email">'
+      expect(response.body).to include '<input type="text" name="password">'
+    end
+  end
 end
