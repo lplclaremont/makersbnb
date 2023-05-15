@@ -12,5 +12,3 @@ class Application < Sinatra::Base
     return erb(:index)
   end
 end
-
-test
