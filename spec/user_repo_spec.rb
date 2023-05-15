@@ -61,7 +61,7 @@ RSpec.describe UserRepo do
       email = 'dragon@dragonskeep.com'
       password = 'lust_for_donkey'
       result = repo.log_in(email, password)
-      expect(result).to eq false
+      expect(result).to eq nil
     end
 
     it 'returns false if the passwords dont match' do
@@ -69,7 +69,7 @@ RSpec.describe UserRepo do
       email = 'shrek@swamp.com'
       password = 'fiona_lover42'
       result = repo.log_in(email, password)
-      expect(result).to eq false
+      expect(result).to eq nil
     end
 
     it 'returns the user.id when passwords match' do

@@ -47,6 +47,14 @@ class Application < Sinatra::Base
     return erb(:login)
   end
 
+  post '/login' do
+    session[:user_id] = UserRepo.new.log_in(params[:email], params[:password])
+
+    @session_id = session[:user_id]
+    return erb(:login) if @session_id.nil?
+    return erb(:index)
+  end
+
   get '/listing/new' do
     return erb(:new_listing)
   end
