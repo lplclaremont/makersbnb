@@ -4,8 +4,6 @@ ENV['ENV'] = 'test'
 
 require 'database_connection'
 
-DatabaseConnection.connect('makersbnb_test')
-
 def reset_tables
   seeds = File.read('spec/seeds/test_seeds.sql')
   connection = PG.connect({ host: '127.0.0.1', dbname: 'makersbnb_test' })

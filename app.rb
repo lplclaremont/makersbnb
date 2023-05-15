@@ -49,8 +49,7 @@ class Application < Sinatra::Base
     return erb(:new_listing)
   end
 
-  post '/listing/new' do 
-    #post("/listing/new", listing_name: "New Listing", listing_description: "Description", price: 0, user_id: 1)
+  post '/listing/new' do
     repo = ListingRepository.new
     listing = Listing.new
     listing.listing_name = params['listing_name']

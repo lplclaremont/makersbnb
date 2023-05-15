@@ -16,6 +16,11 @@ class DatabaseConnection
   def self.connect(database_name)
     @host = '127.0.0.1'
     @database_name = database_name
+    
+    if test_mode?
+      @database_name += '_test'
+    end
+    
     puts "Connecting to database `#{@database_name}`...".blue unless test_mode?
 
     if test_mode? && !@database_name.end_with?('_test')
