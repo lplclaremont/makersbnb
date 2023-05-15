@@ -15,6 +15,13 @@ class UserRepo
     return users
   end
 
+  def find_by_email(email)
+    sql = 'SELECT * FROM users WHERE email=$1;'
+    result = DatabaseConnection.exec_params(sql, [email]).first
+    return false if result.nil?
+    return user(result)
+  end
+
   def create(new_user)
     encrypted_password = BCrypt::Password.create(new_user.password)
 
