@@ -45,9 +45,9 @@ CREATE TABLE dates_users_join(
 TRUNCATE TABLE users, listings, dates, dates_users_join RESTART IDENTITY;
 
 INSERT INTO users(name, email, password) VALUES
-('Shrek', 'shrek@swamp.com', 'fiona_lover420'),
-('Fiona', 'fiona@farfaraway.com', 'save_me9001'),
-('Donkey', 'donkey@donkey.com', 'lust_for_dragons');
+('Shrek', 'shrek@swamp.com', '$2a$12$hX0Z4NXcrNZTWfWfKszW/eUFLU.ajoIE1QbAN6SHy/WGuZ5flsMrW'),
+('Fiona', 'fiona@farfaraway.com', '$2a$12$iPm6cit/e1/d28nCpbRsHebtWAKTO9pXY68ZlX/8XgNQoOShI4q5S'),
+('Donkey', 'donkey@donkey.com', '$2a$12$/VB68Mtdk1i93tQuw5BtaeZRAGdBp2jDubwh4ZngYuKrMYu3kobh.');
 
 INSERT INTO listings(listing_name, listing_description, price, user_id) VALUES
 ('Swamp', 'Lovely swamp. Shrek lives here. Scenic outhouse. Donkey not included!', '69', '1'),

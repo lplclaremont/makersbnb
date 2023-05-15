@@ -25,3 +25,8 @@ rackup
 ## Deleting branches
 
 https://www.freecodecamp.org/news/how-to-delete-a-git-branch-both-locally-and-remotely/
+
+## User passwords for testing
+- Shrek, fiona_lover420
+- Fiona, save_me9001
+- Donkey, lust_for_dragons

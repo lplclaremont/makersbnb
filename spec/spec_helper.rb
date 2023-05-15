@@ -8,7 +8,7 @@ DatabaseConnection.connect('makersbnb_test')
 
 def reset_tables
   seeds = File.read('spec/seeds/test_seeds.sql')
-  connection = PG.connect({ host: '127.0.0.1', dbname: 'makersbnb_test'})
+  connection = PG.connect({ host: '127.0.0.1', dbname: 'makersbnb_test' })
   connection.exec(seeds)
 end
 
