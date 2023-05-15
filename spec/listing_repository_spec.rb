@@ -55,11 +55,22 @@ RSpec.describe ListingRepository do
       expect{ repo.create(listing) }.to raise_error "Missing input"
     end
   end
+
   context '#all method' do
     it 'returns all current listings' do 
       repo = ListingRepository.new
       listings = repo.all
       expect(listings.length).to eq 2 
+    end
+  end
+
+  context '#find_host_name' do
+    it 'finds host name of the listing' do
+      repo = ListingRepository.new
+      listing = repo.all.first
+      host = repo.find_host_name(listing)
+
+      expect(host).to eq("Shrek")
     end
   end
 end

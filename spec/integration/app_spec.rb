@@ -28,6 +28,20 @@ describe Application do
 
       expect(response.status).to eq(200)
     end
+
+    it "shows all listings" do
+      response = get("/")
+
+      expect(response.body).to include("Property name: Swamp")
+      expect(response.body).to include("Description: Lovely swamp. Shrek lives here. Scenic outhouse. Donkey not included!")
+      expect(response.body).to include("Price per night: £69")
+      expect(response.body).to include("Hosted by: Shrek")
+      
+      expect(response.body).to include("Property name: Far Far Away Castle")
+      expect(response.body).to include("Description: Big castle. Very far away.")
+      expect(response.body).to include("Price per night: £420")
+      expect(response.body).to include("Hosted by: Fiona")
+    end
   end
 
   context 'GET /signup' do
@@ -39,20 +53,6 @@ describe Application do
       expect(response.body).to include '<input type="text" placeholder="Name" required="required" name="name">'
       expect(response.body).to include '<input type="text" placeholder="Email" required="required" name="email">'
       expect(response.body).to include '<input type="password" placeholder="Password" required="required" name="password">'
-    end
-
-    it "shows all listings" do
-      response = get("/")
-
-      expect(response.body).to include("<p>Property name: Swamp</p>")
-      expect(response.body).to include("<p>Description: Lovely swamp. Shrek lives here. Scenic outhouse. Donkey not included!</p>")
-      expect(response.body).to include("<p>Price per night: £69</p>")
-      expect(response.body).to include("<p>Hosted by: Shrek</p>")
-      
-      expect(response.body).to include("<p>Property name: Far Far Away Castle</p>")
-      expect(response.body).to include("<p>Description: Big castle. Very far away.</p>")
-      expect(response.body).to include("<p>Price per night: £420</p>")
-      expect(response.body).to include("<p>Hosted by: Fiona</p>")
     end
   end
 

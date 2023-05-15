@@ -39,4 +39,20 @@ class ListingRepository
     end
     return listings
   end
+
+  def find_host_name(listing)
+    sql = 'SELECT users.name,
+                users.id,
+                listings.user_id
+          FROM users
+          JOIN listings
+          ON users.id = listings.user_id
+          WHERE users.id = $1;'
+    params = [listing.user_id]
+
+    result_set = DatabaseConnection.exec_params(sql, params)
+
+    host_name = result_set.first['name']
+    return host_name
+  end
 end

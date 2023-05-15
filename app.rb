@@ -17,6 +17,8 @@ class Application < Sinatra::Base
   end
 
   get '/' do
+    @listing_repo = ListingRepository.new
+    @listings = @listing_repo.all
     return erb(:index)
   end
 
@@ -25,6 +27,7 @@ class Application < Sinatra::Base
   end
 
   post '/signup' do
+    @listings_repo = ListingRepository.new
     repo = UserRepo.new
     new_user = User.new
 
@@ -37,6 +40,7 @@ class Application < Sinatra::Base
     user = repo.find_by_email(new_user.email)
     session[:user_id] = user.id
 
+    @listings = @listings_repo.all
     @session_id = session[:user_id]
     return erb(:index)
   end
