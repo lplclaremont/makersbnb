@@ -35,10 +35,7 @@ class UserRepo
   def log_in(email, password)
     user = find_by_email(email)
     return nil if !user
-    stored_password = BCrypt::Password.new(user.password)
-    # return user.id.to_i if stored_password == password
-    # return nil
-    stored_password == password ? user.id.to_i : nil
+    BCrypt::Password.new(user.password) == password ? user.id.to_i : nil
   end
 
   private
