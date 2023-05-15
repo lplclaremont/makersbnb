@@ -28,14 +28,7 @@ class ListingRepository
 
     listings = []
     result_set.each do |record|
-      listing = Listing.new
-      listing.id = record['id'].to_i
-      listing.listing_name = record['listing_name']
-      listing.listing_description = record['listing_description']
-      listing.price = record['price'].to_i
-      listing.user_id = record['user_id'].to_i
-
-      listings << listing
+      listings << record_to_listing(record)
     end
     return listings
   end
@@ -54,5 +47,17 @@ class ListingRepository
 
     host_name = result_set.first['name']
     return host_name
+  end
+
+  private
+
+  def record_to_listing(record)
+    listing = Listing.new
+    listing.id = record['id'].to_i
+    listing.listing_name = record['listing_name']
+    listing.listing_description = record['listing_description']
+    listing.price = record['price'].to_i
+    listing.user_id = record['user_id'].to_i
+    return listing
   end
 end
