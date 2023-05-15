@@ -64,6 +64,9 @@ describe Application do
         email: 'elizabeth@dragonskeep.com',
         password: 'lust_for_donkey'
         )
+      
+
+      puts "We are adding new user"
 
       expect(response.status).to eq 200
       expect(response.body).not_to include '<a href="/signup">Sign up</a>'
