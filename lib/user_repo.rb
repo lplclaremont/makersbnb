@@ -23,7 +23,7 @@ class UserRepo
   end
 
   def create(new_user)
-    return if find_by_email(new_user.email)
+    return false if find_by_email(new_user.email)
     encrypted_password = BCrypt::Password.create(new_user.password)
 
     sql = 'INSERT INTO users (name, email, password) VALUES ($1, $2, $3);'

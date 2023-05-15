@@ -12,9 +12,15 @@
     <body>
         <p>This is the homepage.</h1>
 
-        <div>
-            <a href="/signup">Sign up</a>
-            <a href="/login">Log in</a>
-        </div>
+        <% if @session_id.nil? %>
+            <div>
+                <a href="/signup">Sign up</a>
+                <a href="/login">Log in</a>
+            </div>
+        <% else %>
+            <div>
+                <a href="/logout">Log out</a>
+            </div>
+        <% end %>
     </body>
 </html>

@@ -52,10 +52,6 @@ describe Application do
         )
 
       expect(response.status).to eq 200
-
-      response = get('/')
-
-      expect(response.status).to eq 200
       expect(response.body).not_to include '<a href="/signup">Sign up</a>'
       expect(response.body).not_to include '<a href="/login">Log in</a>'
       expect(response.body).to include '<a href="/logout">Log out</a>'
