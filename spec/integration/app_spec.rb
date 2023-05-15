@@ -109,6 +109,18 @@ describe Application do
       expect(response.body).to include '<input type="password" placeholder="Password" required="required" name="password">'
     end
   end
+    
+  context 'GET /logout' do
+    it 'logs out' do
+      response = get('/logout')
+        
+      expect(response.status).to eq 200
+        
+      expect(response.body).to include '<a href="/signup">Sign up</a>'
+      expect(response.body).to include '<a href="/login">Log in</a>'
+      expect(response.body).not_to include '<a href="/logout">Log out</a>'
+    end
+  end
   
   context "GET /listing/new" do
     it "contains a form for a new listing" do

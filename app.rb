@@ -55,6 +55,10 @@ class Application < Sinatra::Base
     return erb(:index)
   end
 
+  get '/logout' do
+
+  end
+
   get '/listing/new' do
     return erb(:new_listing)
   end
