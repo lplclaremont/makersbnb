@@ -5,8 +5,8 @@ RSpec.describe UserRepo do
     reset_tables
   end
 
-  context "find" do
-    it "returns all users" do
+  context 'find' do
+    it 'returns all users' do
       repo = UserRepo.new
 
       users = repo.all
