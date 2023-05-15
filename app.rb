@@ -11,4 +11,8 @@ class Application < Sinatra::Base
   get '/' do
     return erb(:index)
   end
+
+  get '/listing/new' do
+    return erb(:new_listing)
+  end
 end

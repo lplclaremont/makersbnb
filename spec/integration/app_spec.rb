@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
-require 'spec_helper'
-require 'rack/test'
-require_relative '../../app'
-require 'json'
+require "spec_helper"
+require "rack/test"
+require_relative "../../app"
+require "json"
 
 describe Application do
   before(:each) do
@@ -22,11 +22,22 @@ describe Application do
   # one test suite for each set of related features),
   # you can duplicate this test file to create a new one.
 
-  context 'GET /' do
-    it 'should get the homepage' do
-      response = get('/')
+  context "GET /" do
+    it "should get the homepage" do
+      response = get("/")
 
       expect(response.status).to eq(200)
+    end
+  end
+
+  context "GET /listing/new" do
+    it "contains a form for a new listing" do
+      response = get "/listing/new"
+
+      expect(response.status).to eq 200
+      expect(response.body).to include("<h1>Makersbnb</h1>")
+      expect(response.body).to include('<form action="/listing/new" method="POST">')
+      expect(response.body).to include('<input type="text" name="listing_name">')
     end
   end
 end
