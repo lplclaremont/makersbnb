@@ -32,13 +32,15 @@ class Application < Sinatra::Base
     new_user.email = params[:email]
     new_user.password = params[:password]
 
-    repo.create(new_user)
+    if !repo.create(new_user)
+      return erb(:signup)
+    else
+      user = repo.find_by_email(new_user.email)
+      session[:user_id] = user.id
 
-    user = repo.find_by_email(new_user.email)
-    session[:user_id] = user.id
-
-    @session_id = session[:user_id]
-    return erb(:index)
+      @session_id = session[:user_id]
+      return erb(:index)
+    end
   end
 
   get '/login' do

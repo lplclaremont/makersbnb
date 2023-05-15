@@ -63,19 +63,21 @@ RSpec.describe UserRepo do
       result = repo.log_in(email, password)
       expect(result).to eq false
     end
-    it 'returns the user.id when passwords match' do
-      repo = UserRepo.new
-      email = 'shrek@swamp.com'
-      password = 'fiona_lover420'
-      result = repo.log_in(email, password)
-      expect(result).to eq 1
-    end
+
     it 'returns false if the passwords dont match' do
       repo = UserRepo.new
       email = 'shrek@swamp.com'
       password = 'fiona_lover42'
       result = repo.log_in(email, password)
       expect(result).to eq false
+    end
+
+    it 'returns the user.id when passwords match' do
+      repo = UserRepo.new
+      email = 'shrek@swamp.com'
+      password = 'fiona_lover420'
+      result = repo.log_in(email, password)
+      expect(result).to eq 1
     end
   end
 end
