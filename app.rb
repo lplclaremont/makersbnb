@@ -11,4 +11,8 @@ class Application < Sinatra::Base
   get '/' do
     return erb(:index)
   end
+
+  get '/signup' do
+    return erb(:signup)
+  end
 end

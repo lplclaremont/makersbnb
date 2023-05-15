@@ -36,9 +36,29 @@ describe Application do
 
       expect(response.status).to eq 200
       expect(response.body).to include '<form'
-      expect(response.body).to include '<input type="text" name="name">'
-      expect(response.body).to include '<input type="text" name="email">'
-      expect(response.body).to include '<input type="text" name="password">'
+      expect(response.body).to include '<input type="text" placeholder="Name" required="required" name="name">'
+      expect(response.body).to include '<input type="text" placeholder="Email" required="required" name="email">'
+      expect(response.body).to include '<input type="password" placeholder="Password" required="required" name="password">'
+    end
+  end
+
+  context 'POST /signup' do
+    it 'should create and log in to a new user account' do
+      response = post(
+        '/signup',
+        name: 'Dragon',
+        email: 'elizabeth@dragonskeep.com',
+        password: 'lust_for_donkey'
+        )
+
+      expect(response.status).to eq 200
+
+      response = get('/')
+
+      expect(response.status).to eq 200
+      expect(response.body).not_to include '<a href="/signup">Sign up</a>'
+      expect(response.body).not_to include '<a href="/login">Log in</a>'
+      expect(response.body).to include '<a href="/logout">Log out</a>'
     end
   end
 end
