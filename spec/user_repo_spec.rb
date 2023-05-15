@@ -42,7 +42,7 @@ RSpec.describe UserRepo do
       expect(repo.all.last.name).to eq 'Muffin Man'
     end
 
-    xit 'doesnt make user if email is taken' do
+    it 'doesnt make user if email is taken' do
       repo = UserRepo.new
 
       new_user = User.new
