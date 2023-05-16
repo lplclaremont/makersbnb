@@ -86,6 +86,13 @@ class Application < Sinatra::Base
     @user = repo.find_by_id(session[:user_id])
     @listings = listing_repo.all_by_id(session[:user_id])
     return erb(:account_page)
+
+  get '/listing/:id' do
+    repo = ListingRepository.new
+    @listing = repo.find(params[:id])
+
+    return erb(:listing_details)
+
   end
 
   private

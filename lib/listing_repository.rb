@@ -36,18 +36,28 @@ class ListingRepository
     return listings
   end
 
-  def all_by_id(id)
+  def all_by_id(user_id)
     sql = 'SELECT listings.*, users.name
       FROM listings JOIN users
       ON users.id = listings.user_id
       WHERE users.id=$1;'
 
-    results = DatabaseConnection.exec_params(sql, [id])
+    results = DatabaseConnection.exec_params(sql, [user_id])
     listings = []
     results.each do |record|
       listings << record_to_listing(record)
     end
     return listings
+
+  def find(id) 
+    sql = 'SELECT listings.id, listings.listing_name, listings.listing_description,
+          listings.price, listings.user_id, users.name
+          FROM listings JOIN users
+          ON users.id = listings.user_id
+          WHERE listings.id = $1;'
+    result_set = DatabaseConnection.exec_params(sql, [id])
+    
+    return record_to_listing(result_set[0])
   end
 
   private
