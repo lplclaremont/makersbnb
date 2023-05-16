@@ -236,8 +236,8 @@ describe Application do
       expect(response.status).to eq 200
       expect(response.body).to include "<h2>Add dates for Swamp</h2>"
       expect(response.body).to include '<form action="/available_dates/1" method="POST">'
-      expect(response.body).to include '<input type="date" name="start_date" pattern="\d{4}-\d{2}-\d{2}" />'
-      expect(response.body).to include '<input type="date" name="end_date" pattern="\d{4}-\d{2}-\d{2}" />'
+      expect(response.body).to include '<input type="date" name="start_date" />'
+      expect(response.body).to include '<input type="date" name="end_date" />'
     end
   end
 end

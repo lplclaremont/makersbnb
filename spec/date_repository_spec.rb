@@ -60,7 +60,7 @@ RSpec.describe DateRepository do
       expect(date2.listing_id).to eq 1
     end
 
-    it 'adds date within a range' do
+    it 'adds multiple dates within a range' do
       repo = DateRepository.new
       repo.add_dates(1, "2023-10-10", "2023-10-10")
       dates = repo.all
@@ -72,7 +72,20 @@ RSpec.describe DateRepository do
 
     it 'throws an error if dates already exist' do
       repo = DateRepository.new
-      expect { repo.add_dates(1, '2023-05-10', '2023-05-13') }.to raise_error "Date already exists for this listing"
+      repo.add_dates(1, '2023-10-11', '2023-10-12')
+      expect { repo.add_dates(1, '2023-10-10', '2023-10-11') }.to raise_error "Date already exists for this listing"
+    end
+
+    it 'throws an error if end date before start date' do
+      repo = DateRepository.new
+      expect{ repo.add_dates(1, '2024-01-01', '2023-10-10') }
+      .to raise_error "End date must be after start date"
+    end
+
+    it 'throws an error if start date in the past' do
+      repo = DateRepository.new
+      expect{ repo.add_dates(1, '2023-01-10', '2023-10-09') }
+      .to raise_error "Start date must not be in the past"
     end
   end
 end

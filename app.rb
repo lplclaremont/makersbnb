@@ -129,6 +129,14 @@ class Application < Sinatra::Base
     return false
   end
 
+  def invalid_date_params
+    if params['date'] == nil ||
+      params['date'] == ''
+      return true
+    end
+    return false
+  end
+
   def post_listing
     repo = ListingRepository.new
     listing = Listing.new
