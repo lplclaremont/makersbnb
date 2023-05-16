@@ -70,6 +70,21 @@ describe Application do
       expect(response.body).not_to include '<a href="/login">Log in</a>'
       expect(response.body).to include '<a href="/logout">Log out</a>'
     end
+    
+    it 'should return to sign up form if email already taken' do
+      response = post(
+        '/signup',
+        name: 'Dragon',
+        email: 'donkey@donkey.com',
+        password: 'lust_for_donkey'
+        )
+  
+      expect(response.status).to eq 200
+      expect(response.body).to include '<form'
+      expect(response.body).to include '<input type="text" placeholder="Name" required="required" name="name">'
+      expect(response.body).to include '<input type="text" placeholder="Email" required="required" name="email">'
+      expect(response.body).to include '<input type="password" placeholder="Password" required="required" name="password">'
+    end
   end
 
   context 'GET /login' do
@@ -77,9 +92,47 @@ describe Application do
       response = get('/login')
 
       expect(response.status).to eq 200
-      expect(response.body).to include '<input type="text" placeholder="Name" required="required" name="name">'
       expect(response.body).to include '<input type="text" placeholder="Email" required="required" name="email">'
       expect(response.body).to include '<input type="password" placeholder="Password" required="required" name="password">'
+    end
+  end
+  
+  context 'POST /login' do
+    it 'should log in' do
+      response = post(
+        '/login',
+        email: 'shrek@swamp.com',
+        password: 'fiona_lover420'
+        )
+        
+      expect(response.status).to eq 200
+      expect(response.body).not_to include '<a href="/signup">Sign up</a>'
+      expect(response.body).not_to include '<a href="/login">Log in</a>'
+      expect(response.body).to include '<a href="/logout">Log out</a>'
+    end
+    
+    it 'should fail to log in if password is wrong' do
+      response = post(
+        '/login',
+        email: 'shrek@swamp.com',
+        password: 'fiona_lover42'
+        )
+        
+      expect(response.status).to eq 200
+      expect(response.body).to include '<input type="text" placeholder="Email" required="required" name="email">'
+      expect(response.body).to include '<input type="password" placeholder="Password" required="required" name="password">'
+    end
+  end
+    
+  context 'GET /logout' do
+    it 'logs out' do
+      response = get('/logout')
+        
+      expect(response.status).to eq 200
+        
+      expect(response.body).to include '<a href="/signup">Sign up</a>'
+      expect(response.body).to include '<a href="/login">Log in</a>'
+      expect(response.body).not_to include '<a href="/logout">Log out</a>'
     end
   end
   
