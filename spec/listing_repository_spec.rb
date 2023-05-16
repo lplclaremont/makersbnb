@@ -42,7 +42,7 @@ RSpec.describe ListingRepository do
       listing.listing_description = 'New description'
       listing.price = 50
 
-      expect{ repo.create(listing) }.to raise_error "Missing input"
+      expect{ repo.create(listing) }.to raise_error "Missing user id"
     end
 
     it 'fails if missing input value' do
@@ -53,7 +53,7 @@ RSpec.describe ListingRepository do
       listing.price = 50
       listing.user_id = ''
 
-      expect{ repo.create(listing) }.to raise_error "Missing input"
+      expect{ repo.create(listing) }.to raise_error "Missing user id"
     end
   end
 

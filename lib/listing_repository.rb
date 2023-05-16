@@ -6,7 +6,7 @@ class ListingRepository
     fail "Listing already exists" if all.map { |current_listings| 
     current_listings.listing_name }.include?(listing.listing_name)
 
-    fail "Missing input" if listing.user_id == nil || listing.user_id == ""
+    fail "Missing user id" if listing.user_id == nil || listing.user_id == ""
 
     sql = 'INSERT INTO listings 
     (listing_name, listing_description, price, user_id)
