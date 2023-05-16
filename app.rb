@@ -104,6 +104,11 @@ class Application < Sinatra::Base
   end
 
   post '/available_dates/:id' do
+    repo = ListingRepository.new
+    listing = repo.find(params[:id])
+    if session[:user_id] != listing.user_id
+      redirect '/login'
+    end
     repo = DateRepository.new
     id = params[:id]
     start_date = params[:start_date]

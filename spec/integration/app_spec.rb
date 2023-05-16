@@ -243,10 +243,21 @@ describe Application do
 
   context 'POST /available_dates/:id' do
     it 'returns 200 OK with confirmation message' do
-      response = post('/available_dates/1', start_date:'2023-11-05', end_date: '2023-12-05')
-
+      session = { user_id: 1 }
+      params = {start_date: '2023-11-05', end_date: '2023-12-05'}
+      response = post('/available_dates/1', params, "rack.session" => session)
+      
       expect(response.status).to eq 200
       expect(response.body).to include "<h2>Date successfully added</h2>"
+    end
+
+    it 'redirects to login page if wrong user logged in' do
+      session = { user_id: 2 }
+      params = {start_date: '2023-11-05', end_date: '2023-12-05'}
+      response = post('/available_dates/1', params, "rack.session" => session)
+      
+      expect(response.body).not_to include "<h2>Date successfully added</h2>"
+      expect(response.status).to eq 302
     end
   end
 end
