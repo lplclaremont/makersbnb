@@ -69,37 +69,6 @@ RSpec.describe ListingRepository do
       expect(listings.first.price).to eq(69)
     end
   end
-
-  context '#add_dates' do
-    it 'adds date within a range' do
-      repo = ListingRepository.new
-      repo.add_dates(1, "2023-10-10", "2023-10-11")
-      dates = DateRepository.new.all
-      date1 = dates[-2]
-      date2 = dates[-1]
-      
-      expect(date1.date).to eq "2023-10-10"
-      expect(date2.date).to eq "2023-10-11"
-      expect(date1.listing_id).to eq 1
-      expect(date2.listing_id).to eq 1
-    end
-
-    it 'adds date within a range' do
-      repo = ListingRepository.new
-      repo.add_dates(1, "2023-10-10", "2023-10-10")
-      dates = DateRepository.new.all
-      date1 = dates[-1]
-      
-      expect(date1.date).to eq "2023-10-10"
-      expect(date1.listing_id).to eq 1
-    end
-
-    it 'thros an error if dates already exist' do
-      repo = ListingRepository.new
-
-      expect { repo.add_dates(1, '2023-05-10', '2023-05-13') }.to raise_error "Date already exists for this listing"
-    end
-  end
   
   context '#all_by_id method' do
     it 'returns all listings hosted by an id' do
