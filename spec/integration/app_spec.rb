@@ -228,4 +228,36 @@ describe Application do
       expect(response.body).to include '<input type="password" placeholder="Password" required="required" name="password">'
     end
   end
+
+  context 'GET /available_dates/:id' do
+    it 'returns 200 OK with a date form' do
+      response = get('/available_dates/1')
+
+      expect(response.status).to eq 200
+      expect(response.body).to include "<h2>Add dates for Swamp</h2>"
+      expect(response.body).to include '<form action="/available_dates/1" method="POST">'
+      expect(response.body).to include '<input type="date" name="start_date" />'
+      expect(response.body).to include '<input type="date" name="end_date" />'
+    end
+  end
+
+  context 'POST /available_dates/:id' do
+    it 'returns 200 OK with confirmation message' do
+      session = { user_id: 1 }
+      params = {start_date: '2023-11-05', end_date: '2023-12-05'}
+      response = post('/available_dates/1', params, "rack.session" => session)
+      
+      expect(response.status).to eq 200
+      expect(response.body).to include "<h2>Date successfully added</h2>"
+    end
+
+    it 'redirects to login page if wrong user logged in' do
+      session = { user_id: 2 }
+      params = {start_date: '2023-11-05', end_date: '2023-12-05'}
+      response = post('/available_dates/1', params, "rack.session" => session)
+      
+      expect(response.body).not_to include "<h2>Date successfully added</h2>"
+      expect(response.status).to eq 302
+    end
+  end
 end

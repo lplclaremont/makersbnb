@@ -24,6 +24,20 @@ class DateRepository
     return dates
   end
 
+  def add_dates(id, start_date, end_date)
+    start_date = Date.parse(start_date)
+    end_date = Date.parse(end_date)
+
+    check_dates(start_date, end_date)
+
+    (start_date).upto(end_date).each do |day|
+      date = DateModel.new
+      date.date = day.to_s 
+      date.listing_id = id
+      create(date)
+    end
+  end
+
   private
 
   def date_exists?(date)
@@ -31,6 +45,11 @@ class DateRepository
           existing_date.date == date.date &&
           existing_date.listing_id == date.listing_id
         }
+  end
+
+  def check_dates(start_date, end_date)
+    fail "End date must be after start date" if start_date > end_date
+    fail "Start date must not be in the past" if start_date < Date.today
   end
 
   def record_to_date(record)
