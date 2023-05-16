@@ -93,6 +93,24 @@ RSpec.describe UserRepo do
     end
   end
 
+  context 'check password' do
+    it 'returns true if the password is correct' do
+      repo = UserRepo.new
+      current_id = 1
+      password = 'fiona_lover420'
+      result = repo.check_password(current_id, password)
+      expect(result).to eq true
+    end
+    
+    it 'returns false if the password is incorrect' do
+      repo = UserRepo.new
+      current_id = 1
+      password = 'incorrect_password'
+      result = repo.check_password(current_id, password)
+      expect(result).to eq false
+    end
+  end
+
   context 'update' do
     it 'updates the users email in the database' do
       repo = UserRepo.new
@@ -109,6 +127,14 @@ RSpec.describe UserRepo do
       email = 'shrek2@newswamp.com'
       name = nil
       result = repo.update(69, email, name)
+      expect(result).to eq nil
+    end
+
+    it 'fails to update a user email if new email is already taken' do
+      repo = UserRepo.new
+      email = 'donkey@donkey.com'
+      name = nil
+      result = repo.update(1, email, name)
       expect(result).to eq nil
     end
 

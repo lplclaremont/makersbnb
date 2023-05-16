@@ -40,13 +40,19 @@ class UserRepo
   def log_in(email, password)
     user = find_by_email(email)
     return nil if !user
-    BCrypt::Password.new(user.password) == password ? user.id.to_i : nil
+    check_password(user.id, password) ? user.id.to_i : nil
+  end
+
+  def check_password(current_id, password)
+    user = find_by_id(current_id)
+    return BCrypt::Password.new(user.password) == password
   end
 
   def update(current_id, new_email, new_username)
     user_info = find_by_id(current_id)
     
     return if !user_info
+    return if find_by_email(new_email)
 
     new_username == nil ? username = user_info.name : username = new_username
     new_email == nil ? email = user_info.email : email = new_email
@@ -60,7 +66,7 @@ class UserRepo
 
   def update_password(current_id, old_password, new_password, confirm_password)
     user = find_by_id(current_id)
-    return if BCrypt::Password.new(user.password) != old_password
+    return if !check_password(current_id, old_password)
     return if new_password != confirm_password
 
     new_password = BCrypt::Password.create(new_password)
