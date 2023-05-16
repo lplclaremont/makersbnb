@@ -79,6 +79,13 @@ class Application < Sinatra::Base
     end
   end
 
+  get '/listing/:id' do
+    repo = ListingRepository.new
+    @listing = repo.find(params[:id])
+
+    return erb(:listing_details)
+  end
+
   private
 
   def go_to_homepage

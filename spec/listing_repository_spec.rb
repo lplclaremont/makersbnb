@@ -69,4 +69,17 @@ RSpec.describe ListingRepository do
       expect(listings.first.price).to eq(69)
     end
   end
+
+  context "#find method" do
+    it "finds listing by id" do
+      repo = ListingRepository.new
+      listing = repo.find(1)
+
+      expect(listing.id).to eq 1
+      expect(listing.listing_name).to eq("Swamp")
+      expect(listing.listing_description).to eq("Lovely swamp. Shrek lives here. Scenic outhouse. Donkey not included!")
+      expect(listing.price).to eq(69)
+      expect(listing.host_name).to eq("Shrek")
+    end
+  end
 end

@@ -36,6 +36,17 @@ class ListingRepository
     return listings
   end
 
+  def find(id) 
+    sql = 'SELECT listings.id, listings.listing_name, listings.listing_description,
+          listings.price, listings.user_id, users.name
+          FROM listings JOIN users
+          ON users.id = listings.user_id
+          WHERE listings.id = $1;'
+    result_set = DatabaseConnection.exec_params(sql, [id])
+    
+    return record_to_listing(result_set[0])
+  end
+
   private
 
   def record_to_listing(record)
