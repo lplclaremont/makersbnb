@@ -1,4 +1,4 @@
 class Listing
-  attr_accessor :id, :listing_name, :listing_description, :price,
-  :user_id
+  attr_accessor :id, :listing_name, :listing_description,
+                :price, :user_id, :host_name
 end

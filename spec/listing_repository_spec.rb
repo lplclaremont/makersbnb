@@ -21,6 +21,7 @@ RSpec.describe ListingRepository do
       expect(new_listing.listing_description).to eq('New description')
       expect(new_listing.price).to eq(50)
       expect(new_listing.user_id).to eq(1)
+      expect(new_listing.host_name).to eq('Shrek')
     end
 
     it 'fails if listing name already exists' do
@@ -41,7 +42,7 @@ RSpec.describe ListingRepository do
       listing.listing_description = 'New description'
       listing.price = 50
 
-      expect{ repo.create(listing) }.to raise_error "Missing input"
+      expect{ repo.create(listing) }.to raise_error "Missing user id"
     end
 
     it 'fails if missing input value' do
@@ -52,14 +53,20 @@ RSpec.describe ListingRepository do
       listing.price = 50
       listing.user_id = ''
 
-      expect{ repo.create(listing) }.to raise_error "Missing input"
+      expect{ repo.create(listing) }.to raise_error "Missing user id"
     end
   end
+
   context '#all method' do
     it 'returns all current listings' do 
       repo = ListingRepository.new
       listings = repo.all
-      expect(listings.length).to eq 2 
+      expect(listings.length).to eq 2
+
+      expect(listings.first.id).to eq 1
+      expect(listings.first.listing_name).to eq("Swamp")
+      expect(listings.first.listing_description).to eq("Lovely swamp. Shrek lives here. Scenic outhouse. Donkey not included!")
+      expect(listings.first.price).to eq(69)
     end
   end
 end

@@ -10,7 +10,7 @@
         <link rel="stylesheet" href="/style.css" >
     </head>
     <body>
-        <p>This is the homepage.</h1>
+        <h1>Makersbnb</h1>
 
         <% if @session_id.nil? %>
             <div>
@@ -21,6 +21,18 @@
             <div>
                 <a href="/logout">Log out</a>
             </div>
+        <% end %>
+
+        <h2>View current properties:</h2>
+        <% @listings.each do |listing| %>
+            <div>
+            Property name: <%= listing.listing_name %><br />
+            Price per night: £<%= listing.price %><br />
+            Hosted by: <%= listing.host_name %><br />
+            View full details <a href="/listings/<%= listing.id %>">here</a>
+            </div>
+            <br />
+            <p>------</p>
         <% end %>
     </body>
 </html>

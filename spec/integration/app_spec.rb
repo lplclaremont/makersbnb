@@ -28,6 +28,20 @@ describe Application do
 
       expect(response.status).to eq(200)
     end
+
+    it "shows all listings" do
+      response = get("/")
+
+      expect(response.body).to include("Property name: Swamp")
+      expect(response.body).to include("Price per night: £69")
+      expect(response.body).to include("Hosted by: Shrek")
+      expect(response.body).to include('<a href="/listings/1">')
+      
+      expect(response.body).to include("Property name: Far Far Away Castle")
+      expect(response.body).to include("Price per night: £420")
+      expect(response.body).to include("Hosted by: Fiona")
+      expect(response.body).to include('<a href="/listings/2">')
+    end
   end
 
   context 'GET /signup' do
@@ -81,12 +95,46 @@ describe Application do
   end
 
   context "POST /listing/new" do
-    it "adds a new listing" do
-      response = post("/listing/new", listing_name: "New Listing", listing_description: "Description", price: 0, user_id: 1)
+    it "adds a new listing when user logged in" do
+      session = { user_id: 1 }
+      params = {
+        listing_name: "New Listing",
+        listing_description: "Description",
+        price: 0
+      }
+
+      response = post("/listing/new", params, 'rack.session' => session)
 
       expect(response.status).to eq 200
       expect(response.body).to include("<h1>Makersbnb</h1>")
       expect(response.body).to include('<p>Your new listing has been added!</p>')
+    end
+
+    it "runs error if no user logged in" do
+      session = { user_id: nil }
+      params = {
+        listing_name: "New Listing",
+        listing_description: "Description",
+        price: 0
+      }
+
+      response = post("/listing/new", params, 'rack.session' => session)
+
+      expect(response.status).to eq 400
+      expect(response.body).to include('Sorry, try <a href="/login">logging in</a> to add a listing!')
+    end
+
+    it "runs error if parameters not valid" do
+      session = { user_id: 1 }
+      params = {
+        listing_name: "",
+        listing_description: "",
+        price: "hello?"
+      }
+      response = post("/listing/new", params, 'rack.session' => session)
+      
+      expect(response.status).to eq 400
+      expect(response.body).to eq("We didn't like that... go back to try again!")
     end
   end
 end
