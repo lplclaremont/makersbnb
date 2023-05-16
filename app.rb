@@ -79,6 +79,15 @@ class Application < Sinatra::Base
     end
   end
 
+  get '/account' do
+    return erb(:login) if session[:user_id].nil?
+    repo = UserRepo.new
+    listing_repo = ListingRepository.new
+    @user = repo.find_by_id(session[:user_id])
+    @listings = listing_repo.all_by_id(session[:user_id])
+    return erb(:account_page)
+  end
+
   private
 
   def go_to_homepage
