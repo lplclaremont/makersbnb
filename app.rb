@@ -49,12 +49,12 @@ class Application < Sinatra::Base
 
     @session_id = session[:user_id]
     return erb(:login) if @session_id.nil?
-    return erb(:index)
+    go_to_homepage
   end
 
   get '/logout' do
     @session_id = nil
-    return erb(:index)
+    go_to_homepage
   end
 
   get '/listing/new' do
