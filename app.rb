@@ -6,6 +6,7 @@ require 'sinatra/reloader'
 require_relative 'lib/database_connection'
 require_relative 'lib/user_repo'
 require_relative 'lib/listing_repository'
+require_relative 'lib/date_repository'
 
 DatabaseConnection.connect('makersbnb')
 
@@ -103,7 +104,13 @@ class Application < Sinatra::Base
   end
 
   post '/available_dates/:id' do
-    return "start: #{params[:start_date]}, end: #{params[:end_date]}"
+    repo = DateRepository.new
+    id = params[:id]
+    start_date = params[:start_date]
+    end_date = params[:end_date]
+    repo.add_dates(id, start_date, end_date)
+
+    return erb(:dates_added)
   end
 
   private

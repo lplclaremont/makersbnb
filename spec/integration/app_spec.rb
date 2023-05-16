@@ -240,4 +240,13 @@ describe Application do
       expect(response.body).to include '<input type="date" name="end_date" />'
     end
   end
+
+  context 'POST /available_dates/:id' do
+    it 'returns 200 OK with confirmation message' do
+      response = post('/available_dates/1', start_date:'2023-11-05', end_date: '2023-12-05')
+
+      expect(response.status).to eq 200
+      expect(response.body).to include "<h2>Date successfully added</h2>"
+    end
+  end
 end
