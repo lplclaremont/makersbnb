@@ -79,6 +79,8 @@ RSpec.describe ListingRepository do
       expect(listings.first.listing_name).to eq 'Swamp'
       expect(listings.first.listing_description).to eq("Lovely swamp. Shrek lives here. Scenic outhouse. Donkey not included!")
       expect(listings.first.price).to eq(69)
+    end
+  end
 
   context "#find method" do
     it "finds listing by id" do

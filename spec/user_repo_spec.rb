@@ -92,4 +92,30 @@ RSpec.describe UserRepo do
       expect(result).to eq 1
     end
   end
+
+  context 'update' do
+    it 'updates the users email in the database' do
+      repo = UserRepo.new
+      email = 'shrek2@newswamp.com'
+      name = nil
+      result = repo.update(1, email, name)
+      
+      user = repo.find_by_id('1')
+      expect(user.email).to eq 'shrek2@newswamp.com'
+    end
+
+    it 'updates the users name in the database' do
+      repo = UserRepo.new
+      email = nil
+      name = 'Shrek but better'
+      result = repo.update(1, email, name)
+      
+      user = repo.find_by_id('1')
+      expect(user.name).to eq 'Shrek but better'
+    end
+
+    xit 'updates the users password in the database' do
+
+    end
+  end
 end

@@ -43,6 +43,18 @@ class UserRepo
     BCrypt::Password.new(user.password) == password ? user.id.to_i : nil
   end
 
+  def update(current_id, new_email = nil, new_username = nil)
+    user_info = find_by_id(current_id)
+    new_username == nil ? username = user_info.name : username = new_username
+    new_email == nil ? email = user_info.email : email = new_email
+    
+    params = [current_id, username, email]
+
+    sql = 'UPDATE users SET name=$2, email=$3 WHERE id=$1;'
+
+    DatabaseConnection.exec_params(sql, params)
+  end
+
   private
 
   def user(record)

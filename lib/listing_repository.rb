@@ -48,6 +48,7 @@ class ListingRepository
       listings << record_to_listing(record)
     end
     return listings
+  end
 
   def find(id) 
     sql = 'SELECT listings.id, listings.listing_name, listings.listing_description,
