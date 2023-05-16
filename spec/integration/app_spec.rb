@@ -123,5 +123,18 @@ describe Application do
       expect(response.status).to eq 400
       expect(response.body).to include('Sorry, try <a href="/login">logging in</a> to add a listing!')
     end
+
+    it "runs error if parameters not valid" do
+      session = { user_id: 1 }
+      params = {
+        listing_name: "",
+        listing_description: "",
+        price: "hello?"
+      }
+      response = post("/listing/new", params, 'rack.session' => session)
+      
+      expect(response.status).to eq 400
+      expect(response.body).to eq("We didn't like that... go back to try again!")
+    end
   end
 end

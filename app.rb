@@ -49,19 +49,15 @@ class Application < Sinatra::Base
   end
 
   post '/listing/new' do
+    if invalid_listing_params
+      status 400
+      return "We didn't like that... go back to try again!"
+    end
     if session[:user_id].nil?
       status 400
       return 'Sorry, try <a href="/login">logging in</a> to add a listing!'
     end
-    repo = ListingRepository.new
-    listing = Listing.new
-    listing.listing_name = params['listing_name']
-    listing.listing_description = params['listing_description']
-    listing.price = params['price'].to_i
-    listing.user_id = session[:user_id]
-    repo.create(listing)
-
-    return erb(:listing_created)
+    post_listing
   end
 
   private
@@ -71,5 +67,31 @@ class Application < Sinatra::Base
     @listings = listing_repo.all
     @session_id = session[:user_id]
     return erb(:index)
+  end
+
+  def invalid_listing_params
+    if params['listing_name'] == nil ||
+      params['listing_description'] == nil ||
+      params['price'] == nil
+      return true
+    end
+    if params['listing_name'] == '' ||
+      params['listing_description'] == '' ||
+      params['price'] == ''
+      return true
+    end
+    return false
+  end
+
+  def post_listing
+    repo = ListingRepository.new
+    listing = Listing.new
+    listing.listing_name = params['listing_name']
+    listing.listing_description = params['listing_description']
+    listing.price = params['price'].to_i
+    listing.user_id = session[:user_id]
+    repo.create(listing)
+
+    return erb(:listing_created)
   end
 end
