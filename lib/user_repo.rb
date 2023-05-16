@@ -18,16 +18,13 @@ class UserRepo
   def find_by_email(email)
     sql = 'SELECT * FROM users WHERE email=$1;'
     result = DatabaseConnection.exec_params(sql, [email]).first
-    # return false if result.nil?
-    # return user(result)
     return result_of_find(result)
   end
 
   def find_by_id(id)
     sql = 'SELECT * FROM users WHERE id=$1;'
     result = DatabaseConnection.exec_params(sql, [id]).first
-    return false if result.nil?
-    return user(result)
+    return result_of_find(result)
   end
 
   def create(new_user)
