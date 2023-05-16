@@ -27,9 +27,9 @@
         <% @listings.each do |listing| %>
             <div>
             Property name: <%= listing.listing_name %><br />
-            Description: <%= listing.listing_description %><br />
             Price per night: £<%= listing.price %><br />
-            Hosted by: <%= @listing_repo.find_host_name(listing) %><br />
+            Hosted by: <%= listing.host_name %><br />
+            View full details <a href="/listings/<%= listing.id %>">here</a>
             </div>
             <br />
             <p>------</p>

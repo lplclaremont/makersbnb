@@ -23,7 +23,10 @@ class ListingRepository
   end
 
   def all
-    sql = 'SELECT * FROM listings;'
+    sql = 'SELECT listings.id, listings.listing_name, listings.listing_description,
+          listings.price, listings.user_id, users.name
+          FROM listings JOIN users
+          ON users.id = listings.user_id;'
     result_set = DatabaseConnection.exec_params(sql, [])
 
     listings = []
@@ -31,22 +34,6 @@ class ListingRepository
       listings << record_to_listing(record)
     end
     return listings
-  end
-
-  def find_host_name(listing)
-    sql = 'SELECT users.name,
-                users.id,
-                listings.user_id
-          FROM users
-          JOIN listings
-          ON users.id = listings.user_id
-          WHERE users.id = $1;'
-    params = [listing.user_id]
-
-    result_set = DatabaseConnection.exec_params(sql, params)
-
-    host_name = result_set.first['name']
-    return host_name
   end
 
   private
@@ -58,6 +45,7 @@ class ListingRepository
     listing.listing_description = record['listing_description']
     listing.price = record['price'].to_i
     listing.user_id = record['user_id'].to_i
+    listing.host_name = record['name']
     return listing
   end
 end

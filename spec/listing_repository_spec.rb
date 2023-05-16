@@ -21,6 +21,7 @@ RSpec.describe ListingRepository do
       expect(new_listing.listing_description).to eq('New description')
       expect(new_listing.price).to eq(50)
       expect(new_listing.user_id).to eq(1)
+      expect(new_listing.host_name).to eq('Shrek')
     end
 
     it 'fails if listing name already exists' do
@@ -60,17 +61,12 @@ RSpec.describe ListingRepository do
     it 'returns all current listings' do 
       repo = ListingRepository.new
       listings = repo.all
-      expect(listings.length).to eq 2 
-    end
-  end
+      expect(listings.length).to eq 2
 
-  context '#find_host_name' do
-    it 'finds host name of the listing' do
-      repo = ListingRepository.new
-      listing = repo.all.first
-      host = repo.find_host_name(listing)
-
-      expect(host).to eq("Shrek")
+      expect(listings.first.id).to eq 1
+      expect(listings.first.listing_name).to eq("Swamp")
+      expect(listings.first.listing_description).to eq("Lovely swamp. Shrek lives here. Scenic outhouse. Donkey not included!")
+      expect(listings.first.price).to eq(69)
     end
   end
 end

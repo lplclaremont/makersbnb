@@ -33,14 +33,14 @@ describe Application do
       response = get("/")
 
       expect(response.body).to include("Property name: Swamp")
-      expect(response.body).to include("Description: Lovely swamp. Shrek lives here. Scenic outhouse. Donkey not included!")
       expect(response.body).to include("Price per night: £69")
       expect(response.body).to include("Hosted by: Shrek")
+      expect(response.body).to include('<a href="/listings/1">')
       
       expect(response.body).to include("Property name: Far Far Away Castle")
-      expect(response.body).to include("Description: Big castle. Very far away.")
       expect(response.body).to include("Price per night: £420")
       expect(response.body).to include("Hosted by: Fiona")
+      expect(response.body).to include('<a href="/listings/2">')
     end
   end
 

@@ -63,8 +63,8 @@ class Application < Sinatra::Base
   private
 
   def go_to_homepage
-    @listing_repo = ListingRepository.new
-    @listings = @listing_repo.all
+    listing_repo = ListingRepository.new
+    @listings = listing_repo.all
     @session_id = session[:user_id]
     return erb(:index)
   end
