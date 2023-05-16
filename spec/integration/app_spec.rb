@@ -335,5 +335,23 @@ describe Application do
       expect(response.body).not_to include "<h2>Date successfully added</h2>"
       expect(response.status).to eq 302
     end
+
+    it 'returns 400 error if end date before start date' do
+      session = { user_id: 1 }
+      params = {start_date: '2023-11-05', end_date: '2023-10-05'}
+      response = post('/available_dates/1', params, "rack.session" => session)
+
+      expect(response.status).to eq 400
+      expect(response.body).to eq "End date must be after start date"
+    end
+
+    it 'returns 400 error if end date before start date' do
+      session = { user_id: 1 }
+      params = {start_date: '2023-01-05', end_date: '2023-10-05'}
+      response = post('/available_dates/1', params, "rack.session" => session)
+
+      expect(response.status).to eq 400
+      expect(response.body).to eq "Start date must not be in the past"
+    end
   end
 end

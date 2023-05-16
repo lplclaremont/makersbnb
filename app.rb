@@ -131,13 +131,18 @@ class Application < Sinatra::Base
     if session[:user_id] != listing.user_id
       redirect '/login'
     end
-    repo = DateRepository.new
-    id = params[:id]
-    start_date = params[:start_date]
-    end_date = params[:end_date]
-    repo.add_dates(id, start_date, end_date)
+    begin
+      repo = DateRepository.new
+      id = params[:id]
+      start_date = params[:start_date]
+      end_date = params[:end_date]
+      repo.add_dates(id, start_date, end_date)
 
-    return erb(:dates_added)
+      return erb(:dates_added)
+    rescue RuntimeError => e
+      status 400
+      return e.message
+    end
   end
 
   private
