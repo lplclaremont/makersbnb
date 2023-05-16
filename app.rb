@@ -54,7 +54,7 @@ class Application < Sinatra::Base
     listing.listing_name = params['listing_name']
     listing.listing_description = params['listing_description']
     listing.price = params['price'].to_i
-    listing.user_id = params['user_id'].to_i
+    listing.user_id = session[:user_id]
     repo.create(listing)
 
     return erb(:listing_created)

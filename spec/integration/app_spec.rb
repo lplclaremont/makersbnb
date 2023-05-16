@@ -95,12 +95,33 @@ describe Application do
   end
 
   context "POST /listing/new" do
-    it "adds a new listing" do
-      response = post("/listing/new", listing_name: "New Listing", listing_description: "Description", price: 0, user_id: 1)
+    it "adds a new listing when user logged in" do
+      session = { user_id: 1 }
+      params = {
+        listing_name: "New Listing",
+        listing_description: "Description",
+        price: 0
+      }
+
+      response = post("/listing/new", params, 'rack.session' => session)
 
       expect(response.status).to eq 200
       expect(response.body).to include("<h1>Makersbnb</h1>")
       expect(response.body).to include('<p>Your new listing has been added!</p>')
+    end
+
+    it "runs error if no user logged in" do
+      session = { user_id: nil }
+      params = {
+        listing_name: "New Listing",
+        listing_description: "Description",
+        price: 0
+      }
+
+      response = post("/listing/new", params, 'rack.session' => session)
+
+      expect(response.status).to eq 400
+      expect(response.body).to include("Sorry, try <a href='/login'>logging in</a> to add a listing!")
     end
   end
 end
