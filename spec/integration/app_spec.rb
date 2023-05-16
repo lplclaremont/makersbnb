@@ -121,7 +121,7 @@ describe Application do
       response = post("/listing/new", params, 'rack.session' => session)
 
       expect(response.status).to eq 400
-      expect(response.body).to include("Sorry, try <a href='/login'>logging in</a> to add a listing!")
+      expect(response.body).to include('Sorry, try <a href="/login">logging in</a> to add a listing!')
     end
   end
 end

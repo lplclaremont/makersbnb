@@ -49,6 +49,10 @@ class Application < Sinatra::Base
   end
 
   post '/listing/new' do
+    if session[:user_id].nil?
+      status 400
+      return 'Sorry, try <a href="/login">logging in</a> to add a listing!'
+    end
     repo = ListingRepository.new
     listing = Listing.new
     listing.listing_name = params['listing_name']
