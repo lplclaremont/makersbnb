@@ -8,7 +8,7 @@ RSpec.describe DateRepository do
   context "#creates new date" do
     it "adds new date to a listing" do
       repo = DateRepository.new
-      date = Date.new
+      date = DateModel.new
       date.date = "2023-10-10"
       date.listing_id = 1
 
@@ -21,8 +21,8 @@ RSpec.describe DateRepository do
 
     it "adds 2 new dates to listing" do
       repo = DateRepository.new
-      date1 = Date.new
-      date2 = Date.new
+      date1 = DateModel.new
+      date2 = DateModel.new
       date1.date = "2023-10-10"
       date1.listing_id = 1
       date2.date = "2023-10-12"
@@ -38,7 +38,7 @@ RSpec.describe DateRepository do
 
     it "throws error when date already exists" do
       repo = DateRepository.new
-      date = Date.new
+      date = DateModel.new
       date.date = "2023-05-12"
       date.listing_id = 1
 

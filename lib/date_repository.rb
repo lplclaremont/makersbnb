@@ -1,4 +1,4 @@
-require_relative './date'
+require_relative './date_model'
 
 class DateRepository
   def create(date)
@@ -34,7 +34,7 @@ class DateRepository
   end
 
   def record_to_date(record)
-    date = Date.new
+    date = DateModel.new
     date.id = record['id'].to_i
     date.date = record['date']
     date.listing_id = record['listing_id'].to_i
