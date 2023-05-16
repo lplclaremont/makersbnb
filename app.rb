@@ -102,6 +102,10 @@ class Application < Sinatra::Base
     return erb(:add_dates)
   end
 
+  post '/available_dates/:id' do
+    return "start: #{params[:start_date]}, end: #{params[:end_date]}"
+  end
+
   private
 
   def go_to_homepage

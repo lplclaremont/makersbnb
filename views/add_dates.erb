@@ -3,11 +3,11 @@
 <form action="/available_dates/<%= @listing.id %>" method="POST">
   <label>
     Enter start date:
-    <input type="date" name="start_date" pattern="\d{4}-\d{2}-\d{2}" />
+    <input type="date" name="start_date" />
   </label>
   <label>
     Enter end date:
-    <input type="date" name="end_date" pattern="\d{4}-\d{2}-\d{2}" />
+    <input type="date" name="end_date" />
   </label>
 
   <p><button>Add dates to listing!</button></p>
