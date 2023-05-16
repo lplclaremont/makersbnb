@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>MakersBnB - Account Settings</title>
+    </head>
+    <body>
+        <% if @can_update %>
+            <h1>Account Settings</h1>
+        <% else %>
+            <form action='/account-settings' method='POST'>
+              <input type='password' required='required' name='password'>
+              <input type='submit' value='Enter'>
+            </form>
+        <% end %>
+            <a href="/">Homepage</a>
+    </body>
+</html>

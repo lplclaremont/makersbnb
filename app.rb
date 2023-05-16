@@ -88,6 +88,16 @@ class Application < Sinatra::Base
     return erb(:account_page)
   end
 
+  get '/account-settings' do
+    return erb(:account_settings)
+  end
+
+  post '/account-settings' do
+    password = params[:password]
+    @can_update = UserRepo.new.check_password(session[:user_id], password)
+    return erb(:account_settings)
+  end
+
   get '/listing/:id' do
     repo = ListingRepository.new
     @listing = repo.find(params[:id])

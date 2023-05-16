@@ -220,12 +220,57 @@ describe Application do
       expect(response.body).to include '<a href="/listing/1">here</a>'
     end
 
-    it 'returns the login page whe nnot logged in' do
+    it 'returns the login page when not logged in' do
       response = get('/account')
 
       expect(response.status).to eq 200
       expect(response.body).to include '<input type="text" placeholder="Email" required="required" name="email">'
       expect(response.body).to include '<input type="password" placeholder="Password" required="required" name="password">'
+    end
+  end
+
+  context 'GET /account-settings' do
+    it 'shows password form on first entry' do
+      response = get('/account-settings')
+
+      expect(response.status).to eq 200
+      expect(response.body).to include "<form action='/account-settings' method='POST'>"
+      expect(response.body).to include "<input type='password' required='required' name='password'>"
+      expect(response.body).to include "<input type='submit' value='Enter'>"
+    end
+  end
+
+  context 'POST /account-settings' do
+    it 'shows the account settings if the password is correct' do
+      response = post(
+        '/login',
+        email: 'shrek@swamp.com',
+        password: 'fiona_lover420'
+        )
+      
+      response = post('/account-settings',
+        password: 'fiona_lover420'
+        )
+
+      expect(response.status).to eq 200
+      expect(response.body).to include '<h1>Account Settings</h1>'
+    end
+
+    it 'shows password form if password is incorrect' do
+      response = post(
+        '/login',
+        email: 'shrek@swamp.com',
+        password: 'fiona_lover420'
+        )
+      
+      response = post('/account-settings',
+        password: 'incorrect_password'
+        )
+
+      expect(response.status).to eq 200
+      expect(response.body).to include "<form action='/account-settings' method='POST'>"
+      expect(response.body).to include "<input type='password' required='required' name='password'>"
+      expect(response.body).to include "<input type='submit' value='Enter'>"
     end
   end
 end
