@@ -217,6 +217,7 @@ describe Application do
       expect(response.body).to include 'Property name: Swamp'
       expect(response.body).to include 'Price per night: £69'
       expect(response.body).to include 'Hosted by: Shrek'
+      expect(response.body).to include '<a href="available_dates/1">Add dates</a>'
       expect(response.body).to include '<a href="/listing/1">here</a>'
     end
 
