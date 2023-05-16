@@ -69,6 +69,16 @@ RSpec.describe ListingRepository do
       expect(listings.first.price).to eq(69)
     end
   end
+  
+  context '#all_by_id method' do
+    it 'returns all listings hosted by an id' do
+      repo = ListingRepository.new
+      listings = repo.all_by_id(1)
+      expect(listings.length).to eq 1
+      
+      expect(listings.first.listing_name).to eq 'Swamp'
+      expect(listings.first.listing_description).to eq("Lovely swamp. Shrek lives here. Scenic outhouse. Donkey not included!")
+      expect(listings.first.price).to eq(69)
 
   context "#find method" do
     it "finds listing by id" do

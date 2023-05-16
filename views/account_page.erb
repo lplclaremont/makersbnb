@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>MakersBnB - Account Page</title>
+    </head>
+    <body>
+        <h1>Welcome <%= @user.name %></h1>
+        <div>
+        Number of Listings: <%= @listings.length %>
+        </div><br>
+        <hr>
+        <h2>View your current properties:</h2>
+        <% @listings.each do |listing| %>
+            <div>
+            Property name: <%= listing.listing_name %><br />
+            Price per night: £<%= listing.price %><br />
+            Hosted by: <%= listing.host_name %><br />
+            View full details <a href="/listing/<%= listing.id %>">here</a>
+            </div>
+            <br />
+            <p>------</p>
+        <% end %>
+        <a href="/">Homepage</a>
+    </body>
+</html>

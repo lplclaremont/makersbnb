@@ -26,6 +26,18 @@ RSpec.describe UserRepo do
       user = repo.find_by_email('shreky@swamp.com')
       expect(user).to eq false
     end
+    
+    it 'returns a single user from an id' do
+      repo = UserRepo.new
+      user = repo.find_by_id('1')
+      expect(user.name).to eq 'Shrek'
+    end
+    
+    it 'returns nil if id doesnt exist' do
+      repo = UserRepo.new
+      user = repo.find_by_id('69')
+      expect(user).to eq false
+    end
   end
 
   context 'create' do

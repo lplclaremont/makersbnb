@@ -106,6 +106,7 @@ describe Application do
       expect(response.status).to eq 200
       expect(response.body).not_to include '<a href="/signup">Sign up</a>'
       expect(response.body).not_to include '<a href="/login">Log in</a>'
+      expect(response.body).to include '<a href="/account">Account page</a>'
       expect(response.body).to include '<a href="/logout">Log out</a>'
     end
 
@@ -188,7 +189,7 @@ describe Application do
       expect(response.body).to eq("We didn't like that... go back to try again!")
     end
   end
-
+  
   context "GET /listing/:id" do
     it "displays listing details of listing with id 1" do
       response = get("/listing/1")
@@ -198,6 +199,33 @@ describe Application do
       expect(response.body).to include "Lovely swamp. Shrek lives here. Scenic outhouse. Donkey not included!"
       expect(response.body).to include "Hosted by: Shrek"
       expect(response.body).to include "Price per night: £69"
+    end
+  end
+
+  context 'GET /account' do
+    it 'returns the account page for the logged in user' do
+      response = post(
+        '/login',
+        email: 'shrek@swamp.com',
+        password: 'fiona_lover420'
+        )
+      response = get('/account')
+
+      expect(response.status).to eq 200
+      expect(response.body).to include '<h1>Welcome Shrek</h1>'
+      expect(response.body).to include 'Listings: 1'
+      expect(response.body).to include 'Property name: Swamp'
+      expect(response.body).to include 'Price per night: £69'
+      expect(response.body).to include 'Hosted by: Shrek'
+      expect(response.body).to include '<a href="/listing/1">here</a>'
+    end
+
+    it 'returns the login page whe nnot logged in' do
+      response = get('/account')
+
+      expect(response.status).to eq 200
+      expect(response.body).to include '<input type="text" placeholder="Email" required="required" name="email">'
+      expect(response.body).to include '<input type="password" placeholder="Password" required="required" name="password">'
     end
   end
 end
