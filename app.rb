@@ -53,10 +53,7 @@ class Application < Sinatra::Base
       status 400
       return "We didn't like that... go back to try again!"
     end
-    # if session[:user_id].nil?
-    #   status 400
-    #   return 'Sorry, try <a href="/login">logging in</a> to add a listing!'
-    # end
+    
     begin
       post_listing
     rescue RuntimeError => e
