@@ -95,6 +95,18 @@ class Application < Sinatra::Base
   post '/account-settings' do
     password = params[:password]
     @can_update = UserRepo.new.check_password(session[:user_id], password)
+    @user = UserRepo.new.find_by_id(session[:user_id])
+    return erb(:account_settings)
+  end
+
+  post '/update-username-email' do
+    @can_update = true
+    repo = UserRepo.new
+    params[:name] == "" ? name = nil : name = params[:name]
+    params[:email] == "" ? email = nil : email = params[:email]
+
+    repo.update(session[:user_id], email, name)
+    @user = repo.find_by_id(session[:user_id])
     return erb(:account_settings)
   end
 
