@@ -100,4 +100,29 @@ RSpec.describe ListingRepository do
       expect { repo.add_dates(1, '2023-05-10', '2023-05-13') }.to raise_error "Date already exists for this listing"
     end
   end
+  
+  context '#all_by_id method' do
+    it 'returns all listings hosted by an id' do
+      repo = ListingRepository.new
+      listings = repo.all_by_id(1)
+      expect(listings.length).to eq 1
+      
+      expect(listings.first.listing_name).to eq 'Swamp'
+      expect(listings.first.listing_description).to eq("Lovely swamp. Shrek lives here. Scenic outhouse. Donkey not included!")
+      expect(listings.first.price).to eq(69)
+    end
+  end
+
+  context "#find method" do
+    it "finds listing by id" do
+      repo = ListingRepository.new
+      listing = repo.find(1)
+
+      expect(listing.id).to eq 1
+      expect(listing.listing_name).to eq("Swamp")
+      expect(listing.listing_description).to eq("Lovely swamp. Shrek lives here. Scenic outhouse. Donkey not included!")
+      expect(listing.price).to eq(69)
+      expect(listing.host_name).to eq("Shrek")
+    end
+  end
 end

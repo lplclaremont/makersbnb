@@ -19,6 +19,7 @@
             </div>
         <% else %>
             <div>
+                <a href="/account">Account page</a>
                 <a href="/logout">Log out</a>
             </div>
         <% end %>
@@ -28,7 +29,6 @@
             <div>
             Property name: <%= listing.listing_name %><br />
             Price per night: £<%= listing.price %><br />
-            Hosted by: <%= listing.host_name %><br />
             View full details <a href="/listing/<%= listing.id %>">here</a>
             </div>
             <br />
