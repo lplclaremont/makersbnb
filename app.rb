@@ -95,6 +95,13 @@ class Application < Sinatra::Base
     return erb(:listing_details)
   end
 
+  get '/available_dates/:id' do
+    repo = ListingRepository.new
+    @listing = repo.find(params[:id])
+
+    return erb(:add_dates)
+  end
+
   private
 
   def go_to_homepage
