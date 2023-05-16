@@ -52,6 +52,7 @@ class UserRepo
     user_info = find_by_id(current_id)
     
     return if !user_info
+    return if find_by_email(new_email)
 
     new_username == nil ? username = user_info.name : username = new_username
     new_email == nil ? email = user_info.email : email = new_email

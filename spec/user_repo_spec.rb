@@ -130,6 +130,14 @@ RSpec.describe UserRepo do
       expect(result).to eq nil
     end
 
+    it 'fails to update a user email if new email is already taken' do
+      repo = UserRepo.new
+      email = 'donkey@donkey.com'
+      name = nil
+      result = repo.update(1, email, name)
+      expect(result).to eq nil
+    end
+
     it 'updates the users name in the database' do
       repo = UserRepo.new
       email = nil

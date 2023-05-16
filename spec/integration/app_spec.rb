@@ -273,4 +273,8 @@ describe Application do
       expect(response.body).to include "<input type='submit' value='Enter'>"
     end
   end
+
+  context 'POST /update-username-email' do
+    
+  end
 end
