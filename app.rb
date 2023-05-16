@@ -53,7 +53,7 @@ class Application < Sinatra::Base
   end
 
   get '/logout' do
-    @session_id = nil
+    session[:user_id] = nil
     go_to_homepage
   end
 
