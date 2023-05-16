@@ -37,19 +37,6 @@ class ListingRepository
     return listings
   end
 
-  def add_dates(id, start_date, end_date)
-    start_date = Date.parse(start_date)
-    end_date = Date.parse(end_date)
-
-    date_repo = DateRepository.new
-    (start_date).upto(end_date).each do |day|
-      date = DateModel.new
-      date.date = day.to_s 
-      date.listing_id = id
-      date_repo.create(date)
-    end
-  end
-
   def all_by_id(user_id)
     sql = 'SELECT listings.*, users.name
       FROM listings JOIN users

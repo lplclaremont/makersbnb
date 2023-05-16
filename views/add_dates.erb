@@ -1,0 +1,14 @@
+<h1>Makersbnb</h1>
+<h2>Add dates for <%= @listing.listing_name %></h2>
+<form action="/available_dates/<%= @listing.id %>" method="POST">
+  <label>
+    Enter start date:
+    <input type="date" name="start_date" />
+  </label>
+  <label>
+    Enter end date:
+    <input type="date" name="end_date" />
+  </label>
+
+  <p><button>Add dates to listing!</button></p>
+</form>

@@ -6,6 +6,7 @@ require 'sinatra/reloader'
 require_relative 'lib/database_connection'
 require_relative 'lib/user_repo'
 require_relative 'lib/listing_repository'
+require_relative 'lib/date_repository'
 
 DatabaseConnection.connect('makersbnb')
 
@@ -117,6 +118,28 @@ class Application < Sinatra::Base
     return erb(:listing_details)
   end
 
+  get '/available_dates/:id' do
+    repo = ListingRepository.new
+    @listing = repo.find(params[:id])
+
+    return erb(:add_dates)
+  end
+
+  post '/available_dates/:id' do
+    repo = ListingRepository.new
+    listing = repo.find(params[:id])
+    if session[:user_id] != listing.user_id
+      redirect '/login'
+    end
+    repo = DateRepository.new
+    id = params[:id]
+    start_date = params[:start_date]
+    end_date = params[:end_date]
+    repo.add_dates(id, start_date, end_date)
+
+    return erb(:dates_added)
+  end
+
   private
 
   def go_to_homepage
@@ -135,6 +158,14 @@ class Application < Sinatra::Base
     if params['listing_name'] == '' ||
       params['listing_description'] == '' ||
       params['price'] == ''
+      return true
+    end
+    return false
+  end
+
+  def invalid_date_params
+    if params['date'] == nil ||
+      params['date'] == ''
       return true
     end
     return false
