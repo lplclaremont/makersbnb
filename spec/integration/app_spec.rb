@@ -35,12 +35,12 @@ describe Application do
       expect(response.body).to include("Property name: Swamp")
       expect(response.body).to include("Price per night: £69")
       expect(response.body).to include("Hosted by: Shrek")
-      expect(response.body).to include('<a href="/listings/1">')
+      expect(response.body).to include('<a href="/listing/1">')
       
       expect(response.body).to include("Property name: Far Far Away Castle")
       expect(response.body).to include("Price per night: £420")
       expect(response.body).to include("Hosted by: Fiona")
-      expect(response.body).to include('<a href="/listings/2">')
+      expect(response.body).to include('<a href="/listing/2">')
     end
   end
 
