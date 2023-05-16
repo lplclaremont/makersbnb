@@ -95,7 +95,7 @@ class Application < Sinatra::Base
   post '/account-settings' do
     password = params[:password]
     @can_update = UserRepo.new.check_password(session[:user_id], password)
-    return erb(:account_settings)
+    return erb(:account_settings
   end
 
   get '/listing/:id' do
