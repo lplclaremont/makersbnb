@@ -7,6 +7,7 @@ require_relative 'lib/database_connection'
 require_relative 'lib/user_repo'
 require_relative 'lib/listing_repository'
 require_relative 'lib/date_repository'
+require_relative 'lib/booking_repo'
 
 DatabaseConnection.connect('makersbnb')
 
@@ -87,6 +88,13 @@ class Application < Sinatra::Base
     @user = repo.find_by_id(session[:user_id])
     @listings = listing_repo.all_by_id(session[:user_id])
     return erb(:account_page)
+  end
+
+  get '/view-requests/listing/:id' do
+    @listing = ListingRepository.new.find(params[:id])
+    return erb(:login) if session[:user_id] != @listing.user_id
+    @requests = BookingRepo.new.find_requests_by_listing_id(params[:id])
+    return erb(:view_requests)
   end
 
   get '/account-settings' do

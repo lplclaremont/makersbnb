@@ -1,6 +1,7 @@
 require_relative "booking"
 
 class BookingRepo
+  
   def all
     sql = "SELECT users.id AS booking_user_id, 
 	        users.name AS booking_user_name,
@@ -19,6 +20,26 @@ class BookingRepo
       bookings << record_to_booking(record)
     end
     return bookings
+  end
+  
+  def find_requests_by_listing_id(listing_id)
+    requests = []
+    sql = 'SELECT users.id AS booking_user_id, 
+            users.name AS booking_user_name,
+            listings.id AS listing_id,
+            dates.id AS date_id,
+            dates.date
+                FROM users 
+                  JOIN dates_users_join ON dates_users_join.user_id = users.id
+                  JOIN dates ON dates_users_join.dates_id = dates.id
+                  JOIN listings ON dates.listing_id = listings.id
+                WHERE listing_id=$1;'
+    results = DatabaseConnection.exec_params(sql, [listing_id])
+    return false if results.first.nil?
+    results.each do |record|
+      requests << record_to_booking(record)
+    end
+    return requests
   end
 
   def create(booking)
