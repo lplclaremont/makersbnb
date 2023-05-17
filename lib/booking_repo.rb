@@ -15,6 +15,7 @@ class BookingRepo
                   JOIN listings ON dates.listing_id = listings.id
                 WHERE listing_id=$1;'
     results = DatabaseConnection.exec_params(sql, [listing_id])
+    return false if results.first.nil?
     results.each do |result|
       requests << new_booking(result)
     end

@@ -18,12 +18,14 @@ RSpec.describe BookingRepo do
       expect(results.last.date).to eq '2023-05-13'
     end
 
-    xit 'finds no requests when listing doesnt have any' do
-
+    it 'finds no requests when listing doesnt have any' do
+      repo = BookingRepo.new
+      expect(repo.find_requests_by_listing_id(2)).to eq false
     end
 
-    xit 'it fails when the listing doesnt exist' do
-
+    it 'it fails when the listing doesnt exist' do
+      repo = BookingRepo.new
+      expect(repo.find_requests_by_listing_id(3)).to eq false
     end
   end
 end
