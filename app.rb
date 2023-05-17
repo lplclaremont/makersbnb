@@ -126,6 +126,11 @@ class Application < Sinatra::Base
   end
 
   post '/available_dates/:id' do
+    if invalid_date_params
+      status 400
+      return "We didn't like that... go back to try again!"
+    end
+
     repo = ListingRepository.new
     listing = repo.find(params[:id])
     if session[:user_id] != listing.user_id
@@ -163,8 +168,12 @@ class Application < Sinatra::Base
   end
 
   def invalid_date_params
-    if params['date'] == nil ||
-      params['date'] == ''
+    if params['start_date'] == nil ||
+      params['end_date'] == nil
+      return true
+    end
+    if params['start_date'] == '' ||
+      params['end_date'] == ''
       return true
     end
     return false
