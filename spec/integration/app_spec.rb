@@ -342,7 +342,93 @@ describe Application do
   end
 
   context 'POST /update-password' do
-    
+    it 'updates the password' do
+      post(
+        '/login',
+        email: 'shrek@swamp.com',
+        password: 'fiona_lover420'
+      )
+
+      response = post(
+        '/update-password',
+        old_password: 'fiona_lover420',
+        new_password: 'lust_for_fiona',
+        confirm_password: 'lust_for_fiona'
+      )
+
+      expect(response.status).to eq 200
+
+      response = post('/account-settings',
+        password: 'lust_for_fiona'
+      )
+
+      expect(response.status).to eq 200
+      expect(response.body).to include '<h1>Account Settings</h1>'
+      expect(response.body).to include "<form action='/update-username-email' method='POST'>"
+      expect(response.body).to include 'Current username: Shrek'
+      expect(response.body).to include "<input type='text' placeholder='New username' name='name'>"
+      expect(response.body).to include 'Current email: shrek@swamp.com'
+      expect(response.body).to include "<input type='text' placeholder='New email' name='email'>"
+      expect(response.body).to include "<input type='submit' value='Update'>"
+
+      expect(response.body).to include "<form action='/update-password' method='POST'>"
+      expect(response.body).to include "<input type='password' placeholder='Password' required='required' name='old_password'>"
+      expect(response.body).to include "<input type='password' placeholder='New password' required='required' name='new_password'>"
+      expect(response.body).to include "<input type='password' placeholder='Confirm password' required='required' name='confirm_password'>"
+      expect(response.body).to include "<input type='submit' value='Update'>"
+    end
+
+    it 'doesnt update password if old_password is incorrect' do
+      post(
+        '/login',
+        email: 'shrek@swamp.com',
+        password: 'fiona_lover420'
+      )
+
+      response = post(
+        '/update-password',
+        old_password: 'incorrect_password',
+        new_password: 'lust_for_fiona',
+        confirm_password: 'lust_for_fiona'
+      )
+
+      expect(response.status).to eq 200
+
+      response = post('/account-settings',
+        password: 'lust_for_fiona'
+      )
+
+      expect(response.status).to eq 200
+      expect(response.body).to include "<form action='/account-settings' method='POST'>"
+      expect(response.body).to include "<input type='password' required='required' name='password'>"
+      expect(response.body).to include "<input type='submit' value='Enter'>"
+    end
+
+    it 'doesnt update password if new and confirm_password not matching' do
+      post(
+        '/login',
+        email: 'shrek@swamp.com',
+        password: 'fiona_lover420'
+      )
+
+      response = post(
+        '/update-password',
+        old_password: 'fiona_lover420',
+        new_password: 'lust_for_fiona',
+        confirm_password: 'passwords_dont_match'
+      )
+
+      expect(response.status).to eq 200
+
+      response = post('/account-settings',
+        password: 'lust_for_fiona'
+      )
+
+      expect(response.status).to eq 200
+      expect(response.body).to include "<form action='/account-settings' method='POST'>"
+      expect(response.body).to include "<input type='password' required='required' name='password'>"
+      expect(response.body).to include "<input type='submit' value='Enter'>"
+    end
   end
   
   context 'GET /available_dates/:id' do
