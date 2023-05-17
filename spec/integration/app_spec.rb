@@ -284,6 +284,19 @@ describe Application do
       expect(response.body).to include '<input type="text" placeholder="Email" required="required" name="email">'
       expect(response.body).to include '<input type="password" placeholder="Password" required="required" name="password">'
     end
+
+    it 'shows you have no requests if your listing has no requests' do
+      post(
+        '/login',
+        email: 'fiona@farfaraway.com',
+        password: 'save_me9001'
+        )
+
+      response = get('/view-requests/listing/2')
+      expect(response.status).to eq 200
+      expect(response.body).to include '<h1>These are the requests for: Far Far Away Castle</h1>'
+      expect(response.body).to include '<h2> Your listing currently has no requests </h2>'
+    end
   end
 
   context 'GET /account-settings' do
