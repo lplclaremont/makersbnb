@@ -213,11 +213,10 @@ class Application < Sinatra::Base
 
   def add_dates_to_listing
     repo = DateRepository.new
-    id = params[:id]
+    id = params[:id].to_i
     start_date = params[:start_date]
     end_date = params[:end_date]
     repo.add_dates(id, start_date, end_date)
-
     return erb(:dates_added)
   end
 
