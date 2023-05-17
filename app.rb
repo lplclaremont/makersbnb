@@ -111,6 +111,18 @@ class Application < Sinatra::Base
     return erb(:account_settings)
   end
 
+  post '/update-password' do
+    @can_update = true
+    repo = UserRepo.new
+    id = session[:user_id]
+    old_password = params[:old_password]
+    new_password = params[:new_password]
+    confirm_password = params[:confirm_password]
+    repo.update_password(id, old_password, new_password, confirm_password)
+    @user = repo.find_by_id(id)
+    return erb(:account_settings)
+  end
+
   get '/listing/:id' do
     repo = ListingRepository.new
     @listing = repo.find(params[:id])
