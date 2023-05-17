@@ -153,14 +153,30 @@ class Application < Sinatra::Base
 
     repo = ListingRepository.new
     listing = repo.find(params[:id])
-    if session[:user_id] != listing.user_id
-      redirect '/login'
-    end
+    redirect '/login' if session[:user_id] != listing.user_id
     begin
       add_dates_to_listing
     rescue RuntimeError => e
       status 400
       return e.message
+    end
+  end
+
+  post '/book/:id' do 
+    redirect '/login' if session[:user_id] == nil
+    begin 
+      user_id = session[:user_id]
+      date_id = params[:id].to_i
+      booking = Booking.new
+      booking.booking_user_id = user_id
+      booking.date_id = date_id
+      repo = BookingRepo.new
+      repo.create(booking)
+
+      return "Booking request successfully added!"
+    rescue RuntimeError 
+      status 400
+      return "Booking already exists, try again."
     end
   end
 
