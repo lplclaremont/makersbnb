@@ -176,10 +176,36 @@ describe Application do
       expect(response.body).to include('Sorry, try <a href="/login">logging in</a> to add a listing!')
     end
 
-    it "runs error if parameters not valid" do
+    it "runs error if listing already exists" do
+      session = { user_id: nil }
+      params = {
+        listing_name: "Swamp",
+        listing_description: "Description",
+        price: 0,
+      }
+
+      response = post("/listing/new", params, "rack.session" => session)
+
+      expect(response.status).to eq 400
+      expect(response.body).to include('This listing already exists, try again!')
+    end
+
+    it "runs error if parameters not valid(empty string)" do
       session = { user_id: 1 }
       params = {
         listing_name: "",
+        listing_description: "",
+        price: "hello?",
+      }
+      response = post("/listing/new", params, "rack.session" => session)
+
+      expect(response.status).to eq 400
+      expect(response.body).to eq("We didn't like that... go back to try again!")
+    end
+
+    it "runs error if parameters not valid(nil)" do
+      session = { user_id: 1 }
+      params = {
         listing_description: "",
         price: "hello?",
       }
@@ -478,6 +504,24 @@ describe Application do
 
       expect(response.status).to eq 400
       expect(response.body).to eq "Start date must not be in the past"
+    end
+
+    it 'runs error if parameters not valid(empty string)' do
+      session = { user_id: 1 }
+      params = {start_date: '', end_date: '2023-10-05'}
+      response = post('/available_dates/1', params, "rack.session" => session)
+
+      expect(response.status).to eq 400
+      expect(response.body).to eq "We didn't like that... go back to try again!"
+    end
+
+    it 'runs error if parameters not valid(nil)' do
+      session = { user_id: 1 }
+      params = {end_date: '2023-10-05'}
+      response = post('/available_dates/1', params, "rack.session" => session)
+
+      expect(response.status).to eq 400
+      expect(response.body).to eq "We didn't like that... go back to try again!"
     end
   end
 end
