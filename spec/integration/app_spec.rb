@@ -590,4 +590,29 @@ describe Application do
       expect(response.body).to eq "We didn't like that... go back to try again!"
     end
   end
+
+  context 'POST /book/:id' do
+    it 'requests to book when user is logged in' do
+      session = { user_id: 1 }
+      response = post('/book/1', {}, "rack.session" => session)
+
+      expect(response.status).to eq 200
+      expect(response.body).to include "Booking request successfully added!"
+    end
+
+    it 'booking already exists' do
+      session = { user_id: 3 }
+      response = post('/book/1', {}, "rack.session" => session)
+
+      expect(response.status).to eq 400
+      expect(response.body).to eq "Booking already exists, try again."
+    end
+
+    it 'redirects to login page when not logged in' do
+      session = { user_id: nil }
+      response = post('/book/1', {}, "rack.session" => session)
+
+      expect(response.status).to eq 302
+    end
+  end
 end
