@@ -1,7 +1,7 @@
 {
   "RSpec": {
     "coverage": {
-      "/Users/cyryl/Desktop/MyProjects/makersbnb/spec/booking_repo_spec.rb": {
+      "/Users/louisclaremont/Projects/makersbnb/spec/booking_repo_spec.rb": {
         "lines": [
           1,
           null,
@@ -53,7 +53,7 @@
           null
         ]
       },
-      "/Users/cyryl/Desktop/MyProjects/makersbnb/lib/booking_repo.rb": {
+      "/Users/louisclaremont/Projects/makersbnb/lib/booking_repo.rb": {
         "lines": [
           1,
           null,
@@ -110,14 +110,14 @@
           null
         ]
       },
-      "/Users/cyryl/Desktop/MyProjects/makersbnb/lib/booking.rb": {
+      "/Users/louisclaremont/Projects/makersbnb/lib/booking.rb": {
         "lines": [
           1,
           1,
           null
         ]
       },
-      "/Users/cyryl/Desktop/MyProjects/makersbnb/spec/date_repository_spec.rb": {
+      "/Users/louisclaremont/Projects/makersbnb/spec/date_repository_spec.rb": {
         "lines": [
           1,
           null,
@@ -212,7 +212,7 @@
           null
         ]
       },
-      "/Users/cyryl/Desktop/MyProjects/makersbnb/lib/date_repository.rb": {
+      "/Users/louisclaremont/Projects/makersbnb/lib/date_repository.rb": {
         "lines": [
           1,
           null,
@@ -278,14 +278,14 @@
           null
         ]
       },
-      "/Users/cyryl/Desktop/MyProjects/makersbnb/lib/date_model.rb": {
+      "/Users/louisclaremont/Projects/makersbnb/lib/date_model.rb": {
         "lines": [
           1,
           1,
           null
         ]
       },
-      "/Users/cyryl/Desktop/MyProjects/makersbnb/spec/integration/app_spec.rb": {
+      "/Users/louisclaremont/Projects/makersbnb/spec/integration/app_spec.rb": {
         "lines": [
           null,
           null,
@@ -907,7 +907,7 @@
           null
         ]
       },
-      "/Users/cyryl/Desktop/MyProjects/makersbnb/app.rb": {
+      "/Users/louisclaremont/Projects/makersbnb/app.rb": {
         "lines": [
           null,
           null,
@@ -1154,7 +1154,7 @@
           null
         ]
       },
-      "/Users/cyryl/Desktop/MyProjects/makersbnb/lib/user_repo.rb": {
+      "/Users/louisclaremont/Projects/makersbnb/lib/user_repo.rb": {
         "lines": [
           1,
           1,
@@ -1253,14 +1253,14 @@
           null
         ]
       },
-      "/Users/cyryl/Desktop/MyProjects/makersbnb/lib/user.rb": {
+      "/Users/louisclaremont/Projects/makersbnb/lib/user.rb": {
         "lines": [
           1,
           1,
           null
         ]
       },
-      "/Users/cyryl/Desktop/MyProjects/makersbnb/lib/listing_repository.rb": {
+      "/Users/louisclaremont/Projects/makersbnb/lib/listing_repository.rb": {
         "lines": [
           1,
           1,
@@ -1341,7 +1341,7 @@
           null
         ]
       },
-      "/Users/cyryl/Desktop/MyProjects/makersbnb/lib/listing.rb": {
+      "/Users/louisclaremont/Projects/makersbnb/lib/listing.rb": {
         "lines": [
           1,
           1,
@@ -1349,7 +1349,7 @@
           null
         ]
       },
-      "/Users/cyryl/Desktop/MyProjects/makersbnb/spec/listing_repository_spec.rb": {
+      "/Users/louisclaremont/Projects/makersbnb/spec/listing_repository_spec.rb": {
         "lines": [
           1,
           null,
@@ -1450,7 +1450,7 @@
           null
         ]
       },
-      "/Users/cyryl/Desktop/MyProjects/makersbnb/spec/user_repo_spec.rb": {
+      "/Users/louisclaremont/Projects/makersbnb/spec/user_repo_spec.rb": {
         "lines": [
           1,
           null,
@@ -1653,6 +1653,6 @@
         ]
       }
     },
-    "timestamp": 1684336700
+    "timestamp": 1684337395
   }
 }

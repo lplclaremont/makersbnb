@@ -173,7 +173,7 @@ class Application < Sinatra::Base
       repo = BookingRepo.new
       repo.create(booking)
 
-      return "Booking request successfully added!"
+      return erb(:request_sent)
     rescue RuntimeError 
       status 400
       return "Booking already exists, try again."
