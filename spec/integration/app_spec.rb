@@ -258,12 +258,26 @@ describe Application do
 
   context 'GET /account-settings' do
     it 'shows password form on first entry' do
+      post(
+        '/login',
+        email: 'shrek@swamp.com',
+        password: 'fiona_lover420'
+        )
+
       response = get('/account-settings')
 
       expect(response.status).to eq 200
       expect(response.body).to include "<form action='/account-settings' method='POST'>"
       expect(response.body).to include "<input type='password' required='required' name='password'>"
       expect(response.body).to include "<input type='submit' value='Enter'>"
+    end
+
+    it 'shows login form if session id is nil' do
+      response = get('/account-settings')
+      expect(response.status).to eq 200
+
+      expect(response.body).to include '<input type="text" placeholder="Email" required="required" name="email">'
+      expect(response.body).to include '<input type="password" placeholder="Password" required="required" name="password">'
     end
   end
 
@@ -310,6 +324,32 @@ describe Application do
       expect(response.body).to include "<form action='/account-settings' method='POST'>"
       expect(response.body).to include "<input type='password' required='required' name='password'>"
       expect(response.body).to include "<input type='submit' value='Enter'>"
+    end
+  end
+
+  context 'GET /update-username-email' do
+    it 'goes to account settings page if logged in' do
+      post(
+        '/login',
+        email: 'shrek@swamp.com',
+        password: 'fiona_lover420'
+        )
+
+      response = get('/update-username-email')
+
+      expect(response.status).to eq 200
+      expect(response.body).to include "<form action='/account-settings' method='POST'>"
+      expect(response.body).to include "<input type='password' required='required' name='password'>"
+      expect(response.body).to include "<input type='submit' value='Enter'>"
+    end
+
+    it 'goes to login page if not logged in' do
+      response = get('/update-username-email')
+
+      expect(response.status).to eq 200
+
+      expect(response.body).to include '<input type="text" placeholder="Email" required="required" name="email">'
+      expect(response.body).to include '<input type="password" placeholder="Password" required="required" name="password">'
     end
   end
 
@@ -364,6 +404,32 @@ describe Application do
       expect(response.status).to eq 200
       expect(response.body).to include 'Current username: Shrek'
       expect(response.body).to include 'Current email: shrek@swamp.com'
+    end
+  end
+
+  context 'GET /update-password' do
+    it 'goes to account settings page if logged in' do
+      post(
+        '/login',
+        email: 'shrek@swamp.com',
+        password: 'fiona_lover420'
+        )
+
+      response = get('/update-password')
+
+      expect(response.status).to eq 200
+      expect(response.body).to include "<form action='/account-settings' method='POST'>"
+      expect(response.body).to include "<input type='password' required='required' name='password'>"
+      expect(response.body).to include "<input type='submit' value='Enter'>"
+    end
+
+    it 'goes to login page if not logged in' do
+      response = get('/update-password')
+
+      expect(response.status).to eq 200
+
+      expect(response.body).to include '<input type="text" placeholder="Email" required="required" name="email">'
+      expect(response.body).to include '<input type="password" placeholder="Password" required="required" name="password">'
     end
   end
 
