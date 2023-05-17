@@ -90,7 +90,7 @@ class Application < Sinatra::Base
   end
 
   get '/account-settings' do
-    return erb(:account_settings)
+    account_settings_access
   end
 
   post '/account-settings' do
@@ -98,6 +98,10 @@ class Application < Sinatra::Base
     @can_update = UserRepo.new.check_password(session[:user_id], password)
     @user = UserRepo.new.find_by_id(session[:user_id])
     return erb(:account_settings)
+  end
+
+  get '/update-username-email' do
+    account_settings_access
   end
 
   post '/update-username-email' do
@@ -109,6 +113,10 @@ class Application < Sinatra::Base
     repo.update(session[:user_id], email, name)
     @user = repo.find_by_id(session[:user_id])
     return erb(:account_settings)
+  end
+
+  get '/update-password' do
+    account_settings_access
   end
 
   post '/update-password' do
@@ -211,5 +219,10 @@ class Application < Sinatra::Base
     repo.add_dates(id, start_date, end_date)
 
     return erb(:dates_added)
+  end
+
+  def account_settings_access
+    return erb(:login) if session[:user_id].nil?
+    return erb(:account_settings)
   end
 end
