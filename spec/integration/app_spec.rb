@@ -304,6 +304,45 @@ describe Application do
       expect(response.status).to eq 200
       expect(response.body).to include 'Current username: King Shrek'
     end
+
+    it 'correctly updates email' do
+      post(
+        '/login',
+        email: 'shrek@swamp.com',
+        password: 'fiona_lover420'
+      )
+
+      response = post(
+        '/update-username-email',
+        name: nil,
+        email: 'shrek@newswamp.com'
+      )
+
+      expect(response.status).to eq 200
+      expect(response.body).to include 'Current email: shrek@newswamp.com'
+    end
+
+    it 'fails to update if email taken' do
+      post(
+        '/login',
+        email: 'shrek@swamp.com',
+        password: 'fiona_lover420'
+      )
+
+      response = post(
+        '/update-username-email',
+        name: 'King Shrek',
+        email: 'shrek@swamp.com'
+      )
+
+      expect(response.status).to eq 200
+      expect(response.body).to include 'Current username: Shrek'
+      expect(response.body).to include 'Current email: shrek@swamp.com'
+    end
+  end
+
+  context 'POST /update-password' do
+    
   end
   
   context 'GET /available_dates/:id' do
