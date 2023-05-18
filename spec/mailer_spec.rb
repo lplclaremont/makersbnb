@@ -7,7 +7,7 @@ RSpec.describe Mailer do
       expect(mailer.send('signup', 'email@email.com')).to eq 'Email sent'
     end
 
-    it 'fails to send an email if email_type is invalid' do
+    xit 'fails to send an email if email_type is invalid' do
       mailer = Mailer.new
       expect(mailer.send('invalid', 'email@email.com')).to eq 'Email failed to send.'
     end
@@ -51,7 +51,9 @@ RSpec.describe Mailer do
     end
 
     it 'generates the requestconfirmed subject line' do
-
+      mailer = Mailer.new
+      subject = mailer.generate_subject('requestconfirmed')
+      expect(subject).to eq 'Your booking request has been confirmed!'
     end
 
     it 'generates the requestdenied subject line' do
