@@ -74,6 +74,7 @@ class DateRepository
     date.id = record['id'].to_i
     date.date = record['date']
     date.listing_id = record['listing_id'].to_i
+    date.booked_by_user = record['booked_by_user']
     return date
   end
 end

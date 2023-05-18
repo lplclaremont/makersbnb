@@ -45,6 +45,18 @@ RSpec.describe DateRepository do
 
       expect { repo.create(date) }.to raise_error "Date already exists for this listing"
     end
+
+    it 'throws error when adding a date which is already booked' do
+      repo = DateRepository.new
+      booking_repo = BookingRepo.new
+      booking_repo.confirm(3, 1)
+
+      date_to_add = Date.new
+      date_to_add.date = '2023-05-12'
+      date_to_add.listing_id = 1
+
+      expect{ repo.create(date_to_add) }.to raise_error "One or more of these dates is already booked"
+    end
   end
 
   context '#add_dates' do
