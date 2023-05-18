@@ -20,7 +20,7 @@ class Mailer
     subject = generate_subject(email_type)
     body = generate_body(email_type)
 
-    return 'Email failed to send' unless subject || body
+    return 'Email failed to send.' unless subject || body
     
     Mail.deliver do
       to email_address
@@ -29,7 +29,7 @@ class Mailer
       body body
     end
 
-    return 'Email sent'
+    return "#{email_type} email sent"
   end
 
   def generate_subject(email_type)

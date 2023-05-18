@@ -6,6 +6,11 @@ RSpec.describe Mailer do
       mailer = Mailer.new
       expect(mailer.send('signup', 'email@email.com')).to eq 'Email sent'
     end
+
+    it 'fails to send an email if email_type is invalid' do
+      mailer = Mailer.new
+      expect(mailer.send('invalid', 'email@email.com')).to eq 'Email failed to send.'
+    end
   end
 
   context 'generate_subject method' do
