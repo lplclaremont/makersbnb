@@ -2,13 +2,29 @@
 <html>
     <head>
         <title>MakersBnB - Sign up</title>
+        <link rel="stylesheet" href="/style-login.css"
+        <link rel="icon" href="/MakersBnB Logo Just M.svg">
     </head>
+    <nav>
+      <div>
+        <a href="/">
+          <img class="resize" src="logo.png"  />
+        </a>
+      </div>
+      <div class="nav_links_container">
+        <div class="nav_links"><a href="/login" class="button-link">Log in</a></div>
+      </div>
+    </nav>
     <body>
+    <div class="interior">
+      <div class="login-container">
       <form action="/signup" method="POST">
         <input type="text" placeholder="Name" required="required" name="name"><br>
         <input type="text" placeholder="Email" required="required" name="email"><br>
         <input type="password" placeholder="Password" required="required" name="password"><br>
         <input type="submit" value="Sign up!">
       </form>
+      </div>
+    </div>
     </body>
 </html>

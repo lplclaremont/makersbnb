@@ -54,8 +54,9 @@
     </nav>
     
     <body  class="interior">
-
-        <h2 class="listing-title">View current properties:</h2>
+        <div class="listing-title">
+        <h2>View current properties:</h2><a class="new-listing-link" href="/listing/new">Add a new listing!</a>
+        </div>
         <div class="listing-container">
         <% @listings.each do |listing| %>
             <div class="listing-box">

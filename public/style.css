@@ -58,6 +58,25 @@ body.interior {
 
 .listing-title {
     padding-left: 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: Orem calc((100vw - 1300px) / 2) ;
+    padding-right: 30px;
+}
+
+
+.new-listing-link {
+  display: inline-block;
+  padding: 10px 10px;
+  background-color: black;
+  color: #fffff2;
+  text-decoration: none;
+  border-radius: 15px;
+}
+
+.new-listing-link:hover {
+  background-color: #343434;
 }
 
 .listing-container {

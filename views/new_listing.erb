@@ -1,18 +1,39 @@
-<h1>Makersbnb</h1>
-<h2>Add a new listing</h2>
-
-<form action="/listing/new" method="POST">
-  <p>
-    <label>Property name:</label>
-    <input type="text" name="listing_name">
-  </p>
-  <p>
-    <label>A short description:</label>
-    <input type="text" name="listing_description">
-  </p>
-  <p>
-    <label>Price per night (GBP):</label>
-    <input type="number" name="price">
-  </p>
-  <input type="submit" value="Submit the form">
-</form>
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>MakersBnB - New Listing</title>
+        <link rel="stylesheet" href="/style-new-listing.css"
+        <link rel="icon" href="/MakersBnB Logo Just M.svg">
+    </head>
+    <nav>
+      <div>
+        <a href="/">
+          <img class="resize" src="logo.png" />
+        </a>
+      </div>
+      <div class="nav_links_container">
+        <div class="nav_links"><a href="/logout" class="button-link">Log out</a></div>
+      </div>
+    </nav>
+    <body>
+      <div>
+        <h2>Add a new listing</h2> 
+          <div class="form-container">
+            <form action="/listing/new" method="POST">
+              <div class="form-group">
+                <label for="listing-name">Property name:</label>
+                <input id="listing-name" type="text" name="listing_name">
+              </div>
+              <div class="form-group">
+                <label for="description">A short description:</label>
+                <textarea id="description" type="text" name="listing_description"></textarea>
+              </div>
+              <div class="form-group">
+                <label for="ppn">Price per night (GBP):</label>
+                <input id="ppn" type="number" name="price">
+              </div>
+              <button type="submit" class="submit-btn">Submit the form</button>
+            </form>
+          </div>
+        </div>
+      </body>
