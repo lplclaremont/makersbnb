@@ -14,7 +14,7 @@ RSpec.describe Mailer do
   end
 
   context 'generate_subject method' do
-    it 'generates the sign up subject line' do
+    it 'generates the sign up subject subject' do
       mailer = Mailer.new
       subject = mailer.generate_subject('signup')
       expect(subject).to eq 'Welcome to MakersBnB!'
@@ -76,31 +76,45 @@ RSpec.describe Mailer do
     end
 
     it 'generates the createlisting body' do
-      
+      mailer = Mailer.new
+      body = mailer.generate_body('createlisting')
+      expect(body).to eq 'You created a new listing!'
     end
 
     it 'generates the updatelisting body' do
-
+      mailer = Mailer.new
+      body = mailer.generate_body('updatelisting')
+      expect(body).to eq 'You updated your listing!'
     end
 
     it 'generates the bookingrequested body' do
-
+      mailer = Mailer.new
+      body = mailer.generate_body('bookingrequested')
+      expect(body).to eq 'New booking request received!'
     end
 
     it 'generates the confirmrequest body' do
-
+      mailer = Mailer.new
+      body = mailer.generate_body('confirmrequest')
+      expect(body).to eq 'You approved a booking!'
     end
 
     it 'generates the requestbooking body' do
-
+      mailer = Mailer.new
+      body = mailer.generate_body('requestbooking')
+      expect(body).to eq 'You requested a new booking!'
     end
 
     it 'generates the requestconfirmed body' do
-
+      mailer = Mailer.new
+      body = mailer.generate_body('requestconfirmed')
+      expect(body).to eq 'Your booking request has been confirmed!'
     end
 
     it 'generates the requestdenied body' do
-
+      mailer = Mailer.new
+      body = mailer.generate_body('requestdenied')
+      expect(body).to eq 'Your booking request has been denied.'
     end
 
     it 'returns false if the email_type does not exist' do
