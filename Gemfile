@@ -13,3 +13,5 @@ gem 'webrick', '~> 1.7'
 gem 'rspec', '~> 3.11'
 
 gem 'rainbow', '~> 3.1'
+
+gem "rackup", "~> 1.0"
