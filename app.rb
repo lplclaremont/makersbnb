@@ -177,10 +177,6 @@ class Application < Sinatra::Base
     begin 
       user_id = session[:user_id].to_i
       date_id = params[:date_id].to_i
-      p user_id
-      p user_id.class
-      p date_id
-      p date_id.class
       booking = Booking.new
       booking.booking_user_id = user_id
       booking.date_id = date_id
