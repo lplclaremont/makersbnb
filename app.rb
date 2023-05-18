@@ -9,7 +9,7 @@ require_relative 'lib/listing_repository'
 require_relative 'lib/date_repository'
 require_relative 'lib/booking_repo'
 
-DatabaseConnection.connect('makersbnb')
+DatabaseConnection.connect
 
 class Application < Sinatra::Base
   enable :sessions
