@@ -310,6 +310,14 @@ describe Application do
       expect(response.body).to include '<h1>These are the requests for: Far Far Away Castle</h1>'
       expect(response.body).to include '<h2> Your listing currently has no requests </h2>'
     end
+
+    it 'returns 400 with error msg if accessing a non existent listing' do
+      session = { user_id: 1 }
+      response = get('/view-requests/listing/25')
+
+      expect(response.status).to eq 400
+      expect(response.body).to eq 'Listing does not exist'
+    end
   end
 
   context 'GET /account-settings' do

@@ -91,10 +91,12 @@ class Application < Sinatra::Base
   end
 
   get '/view-requests/listing/:id' do
-    @listing = ListingRepository.new.find(params[:id])
-    return erb(:login) if session[:user_id] != @listing.user_id
-    @requests = BookingRepo.new.find_requests_by_listing_id(params[:id])
-    return erb(:view_requests)
+    begin
+      go_to_booking_requests
+    rescue RuntimeError => e
+      status 400
+      return e.message
+    end
   end
 
   get '/account-settings' do
@@ -205,30 +207,11 @@ class Application < Sinatra::Base
     return erb(:index)
   end
 
-  def invalid_listing_params
-    if params['listing_name'] == nil ||
-      params['listing_description'] == nil ||
-      params['price'] == nil
-      return true
-    end
-    if params['listing_name'] == '' ||
-      params['listing_description'] == '' ||
-      params['price'] == ''
-      return true
-    end
-    return false
-  end
-
-  def invalid_date_params
-    if params['start_date'] == nil ||
-      params['end_date'] == nil
-      return true
-    end
-    if params['start_date'] == '' ||
-      params['end_date'] == ''
-      return true
-    end
-    return false
+  def go_to_booking_requests
+    @listing = ListingRepository.new.find(params[:id])
+    return erb(:login) if session[:user_id] != @listing.user_id
+    @requests = BookingRepo.new.find_requests_by_listing_id(params[:id])
+    return erb(:view_requests)
   end
 
   def post_listing
@@ -255,5 +238,32 @@ class Application < Sinatra::Base
   def account_settings_access
     return erb(:login) if session[:user_id].nil?
     return erb(:account_settings)
+  end
+
+
+  def invalid_listing_params
+    if params['listing_name'] == nil ||
+      params['listing_description'] == nil ||
+      params['price'] == nil
+      return true
+    end
+    if params['listing_name'] == '' ||
+      params['listing_description'] == '' ||
+      params['price'] == ''
+      return true
+    end
+    return false
+  end
+
+  def invalid_date_params
+    if params['start_date'] == nil ||
+      params['end_date'] == nil
+      return true
+    end
+    if params['start_date'] == '' ||
+      params['end_date'] == ''
+      return true
+    end
+    return false
   end
 end
