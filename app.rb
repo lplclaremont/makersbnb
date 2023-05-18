@@ -198,6 +198,10 @@ class Application < Sinatra::Base
     BookingRepo.new.confirm(params[:user_id].to_i, params[:date_id].to_i)
     send_email_to_self('confirmrequest')
     send_email_to_other('requestconfirmed', params[:user_id].to_i)
+    denied_users = BookingRepo.new.fetch_requester_ids(params[:date_id], params[:user_id])
+    denied_users.each do |user_id|
+      send_email_to_other('requestdenied', user_id)
+    end
     BookingRepo.new.delete_requests(params[:date_id].to_i)
     return erb(:booking_confirmed)
   end

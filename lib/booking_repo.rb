@@ -102,6 +102,7 @@ class BookingRepo
     params = [date_id, confirmed_id]
     results = DatabaseConnection.exec_params(sql, params)
     return false if results.first.nil?
+    
     results.each do |result|
       user_ids << result['user_id'].to_i
     end
