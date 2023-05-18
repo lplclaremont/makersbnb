@@ -83,10 +83,12 @@ class Application < Sinatra::Base
 
   get '/account' do
     return erb(:login) if session[:user_id].nil?
+    id = session[:user_id]
     repo = UserRepo.new
     listing_repo = ListingRepository.new
-    @user = repo.find_by_id(session[:user_id])
-    @listings = listing_repo.all_by_id(session[:user_id])
+    @total_requests = BookingRepo.new.find_requests_by_listing_id(id).length
+    @user = repo.find_by_id(id)
+    @listings = listing_repo.all_by_id(id)
     return erb(:account_page)
   end
 
