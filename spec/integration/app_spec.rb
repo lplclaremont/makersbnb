@@ -226,6 +226,19 @@ describe Application do
       expect(response.body).to include "Hosted by: Shrek"
       expect(response.body).to include "Price per night: £69"
     end
+
+    it 'contains a drop down with all available dates' do
+      response = get("/listing/1")
+
+      expect(response.status).to eq 200
+
+      expect(response.body).to include('<form action="/book/<%= params[:date_id] %>" method="post">')
+      expect(response.body).to include('<label for="available-dates">Pick a night from available dates:</label>')
+      expect(response.body).to include('<select name="date_id" id="available-dates">')
+      expect(response.body).to include('<option value="1">2023-05-12</option>')
+      expect(response.body).to include('<option value="2">2023-05-13</option>')
+
+    end
   end
 
   context 'GET /account' do

@@ -99,7 +99,6 @@ RSpec.describe DateRepository do
       expect(dates.first.listing_id).to eq 1
       expect(dates.last.date).to eq '2023-05-13'
       expect(dates.last.listing_id).to eq 1
-
     end
   end
 end

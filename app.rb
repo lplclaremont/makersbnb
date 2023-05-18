@@ -9,7 +9,7 @@ require_relative 'lib/listing_repository'
 require_relative 'lib/date_repository'
 require_relative 'lib/booking_repo'
 
-DatabaseConnection.connect('makersbnb')
+DatabaseConnection.connect('makersbnb_test')
 
 class Application < Sinatra::Base
   enable :sessions
@@ -141,7 +141,9 @@ class Application < Sinatra::Base
 
   get '/listing/:id' do
     repo = ListingRepository.new
+    date_repo = DateRepository.new
     @listing = repo.find(params[:id])
+    @dates = date_repo.find_by_listing(params[:id])
 
     return erb(:listing_details)
   end
