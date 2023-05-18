@@ -89,4 +89,17 @@ RSpec.describe DateRepository do
     end
   end
 
+  context '#find_by_listing' do
+    it 'returns the dates available for listing 1' do
+      repo = DateRepository.new
+
+      dates = repo.find_by_listing(1)
+      
+      expect(dates.first.date).to eq '2023-05-12'
+      expect(dates.first.listing_id).to eq 1
+      expect(dates.last.date).to eq '2023-05-13'
+      expect(dates.last.listing_id).to eq 1
+
+    end
+  end
 end

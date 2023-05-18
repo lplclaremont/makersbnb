@@ -38,6 +38,23 @@ class DateRepository
     end
   end
 
+  def find_by_listing(listing_id)
+    
+    sql = 'SELECT * FROM dates WHERE listing_id = $1;'
+    
+    results = DatabaseConnection.exec_params(sql, [listing_id])
+    #result_set gives an array of hashes, so for each record so
+    #we want to create a new object in the date model class i.e 
+    #INFLATING the object with the values of the hash which is done by the record_to_date method
+    dates = []
+
+    results.each do |record|
+      dates << record_to_date(record)
+    end
+  
+    return dates
+  end
+
   private
 
   def date_exists?(date)
