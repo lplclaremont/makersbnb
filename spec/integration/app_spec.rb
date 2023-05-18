@@ -226,6 +226,19 @@ describe Application do
       expect(response.body).to include "Hosted by: Shrek"
       expect(response.body).to include "Price per night: £69"
     end
+
+    it 'contains a drop down with all available dates' do
+      response = get("/listing/1")
+
+      expect(response.status).to eq 200
+
+      expect(response.body).to include('<form action="/book" method="post">')
+      expect(response.body).to include('<label for="available-dates">Pick a night from available dates:</label>')
+      expect(response.body).to include('<select name="date_id" id="available-dates">')
+      expect(response.body).to include('<option value="1">2023-05-12</option>')
+      expect(response.body).to include('<option value="2">2023-05-13</option>')
+
+    end
   end
 
   context 'GET /account' do
@@ -634,10 +647,10 @@ describe Application do
     end
   end
 
-  context 'POST /book/:id' do
+  context 'POST /book' do
     it 'requests to book when user is logged in' do
       session = { user_id: 1 }
-      response = post('/book/1', {}, "rack.session" => session)
+      response = post('/book', { date_id: 1 }, "rack.session" => session)
 
       expect(response.status).to eq 200
       expect(response.body).to include "Booking request successfully added!"
@@ -645,7 +658,7 @@ describe Application do
 
     it 'booking already exists' do
       session = { user_id: 3 }
-      response = post('/book/1', {}, "rack.session" => session)
+      response = post('/book', { date_id: 1 }, "rack.session" => session)
 
       expect(response.status).to eq 400
       expect(response.body).to eq "Booking already exists, try again."
@@ -653,7 +666,7 @@ describe Application do
 
     it 'redirects to login page when not logged in' do
       session = { user_id: nil }
-      response = post('/book/1', {}, "rack.session" => session)
+      response = post('/book', { date_id: 1 }, "rack.session" => session)
 
       expect(response.status).to eq 302
     end

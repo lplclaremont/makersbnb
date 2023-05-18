@@ -4,8 +4,14 @@
 <div>Price per night: £<%= @listing.price %> </div><br/>
 <div>Hosted by: <%= @listing.host_name %> </div><br/>
 
-<div><p>Your Listings:</p></div><br/>
-<div><p>current placeholder</p></div><br/>
-
+<form action="/book" method="post">
+  <label for="available-dates">Pick a night from available dates:</label>
+    <select name="date_id" id="available-dates">
+      <% @dates.each do |date| %>
+        <option value="<%= date.id %>"><%= date.date %></option>
+      <% end %>
+    </select>
+  <button type="submit">Request to book this date!</button>
+</form>
 
 <a href='/'>Return to homepage</a>

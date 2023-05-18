@@ -141,7 +141,9 @@ class Application < Sinatra::Base
 
   get '/listing/:id' do
     repo = ListingRepository.new
+    date_repo = DateRepository.new
     @listing = repo.find(params[:id])
+    @dates = date_repo.find_by_listing(params[:id])
 
     return erb(:listing_details)
   end
@@ -170,11 +172,11 @@ class Application < Sinatra::Base
     end
   end
 
-  post '/book/:id' do 
+  post '/book' do 
     redirect '/login' if session[:user_id] == nil
     begin 
       user_id = session[:user_id]
-      date_id = params[:id].to_i
+      date_id = params[:date_id].to_i
       booking = Booking.new
       booking.booking_user_id = user_id
       booking.date_id = date_id
