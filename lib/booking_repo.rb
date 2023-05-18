@@ -92,8 +92,21 @@ class BookingRepo
     return result
   end
 
-  def fetch_requester_ids(date_id)
+  def fetch_requester_ids(date_id, confirmed_id)
+    user_ids = []
+    
+    sql = 'SELECT user_id
+            FROM dates_users_join
+            WHERE dates_id=$1 AND NOT user_id=$2;'
 
+    params = [date_id, confirmed_id]
+    results = DatabaseConnection.exec_params(sql, params)
+    return false if results.first.nil?
+    results.each do |result|
+      user_ids << result['user_id'].to_i
+    end
+
+    return user_ids
   end
 
   private
