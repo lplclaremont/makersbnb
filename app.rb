@@ -185,6 +185,8 @@ class Application < Sinatra::Base
       repo = BookingRepo.new
       repo.create(booking)
       send_email_to_self('requestbooking')
+      send_to_other_id = repo.fetch_host_id(params[:date_id])
+      send_email_to_other('bookingrequested', send_to_other_id)
       return erb(:request_sent)
     rescue RuntimeError 
       status 400
