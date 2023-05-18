@@ -1,4 +1,5 @@
 require "date_repository"
+require "booking_repo"
 
 RSpec.describe DateRepository do
   before(:each) do
@@ -99,6 +100,17 @@ RSpec.describe DateRepository do
       expect(dates.first.listing_id).to eq 1
       expect(dates.last.date).to eq '2023-05-13'
       expect(dates.last.listing_id).to eq 1
+    end
+
+    it 'does not show a date if it has been booked' do
+      repo = DateRepository.new
+      booking_repo = BookingRepo.new
+      booking_repo.confirm(3, 1)
+
+      dates = repo.find_by_listing(1)
+      expect(dates.length).to eq 1
+      expect(dates.first.date).to eq '2023-05-13'
+      expect(dates.first.listing_id).to eq 1
     end
   end
 end

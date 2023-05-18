@@ -53,10 +53,10 @@ INSERT INTO listings(listing_name, listing_description, price, user_id) VALUES
 ('Swamp', 'Lovely swamp. Shrek lives here. Scenic outhouse. Donkey not included!', '69', '1'),
 ('Far Far Away Castle', 'Big castle. Very far away.', '420', '2');
 
-INSERT INTO dates(date, listing_id) VALUES
-('2023-05-12', '1'),
-('2023-05-13', '1'),
-('2023-05-12', '2');
+INSERT INTO dates(date, listing_id, booked_by_user) VALUES
+('2023-05-12', '1', NULL),
+('2023-05-13', '1', NULL),
+('2023-05-12', '2', NULL);
 
 INSERT INTO dates_users_join(user_id, dates_id) VALUES
 ('3', '1'),
