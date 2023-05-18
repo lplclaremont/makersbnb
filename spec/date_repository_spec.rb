@@ -88,4 +88,5 @@ RSpec.describe DateRepository do
       .to raise_error "Start date must not be in the past"
     end
   end
+
 end
