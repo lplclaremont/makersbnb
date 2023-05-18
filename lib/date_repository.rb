@@ -40,7 +40,7 @@ class DateRepository
 
   def find_by_listing(listing_id)
     
-    sql = 'SELECT * FROM dates WHERE listing_id = $1;'
+    sql = 'SELECT * FROM dates WHERE listing_id = $1 AND booked_by_user IS NULL;'
     
     results = DatabaseConnection.exec_params(sql, [listing_id])
     #result_set gives an array of hashes, so for each record so
