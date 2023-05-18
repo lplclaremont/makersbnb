@@ -40,10 +40,9 @@ class DateRepository
 
   def find_by_listing(listing_id)
     
-    my = 'SELECT * FROM dates WHERE listing_id = 1 ;'
+    sql = 'SELECT * FROM dates WHERE listing_id = $1;'
     
-    #params = [listing_id]
-    results = DatabaseConnection.exec_params(my, [])
+    results = DatabaseConnection.exec_params(sql, [listing_id])
     #result_set gives an array of hashes, so for each record so
     #we want to create a new object in the date model class i.e 
     #INFLATING the object with the values of the hash which is done by the record_to_date method
