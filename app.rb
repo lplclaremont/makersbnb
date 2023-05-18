@@ -175,7 +175,7 @@ class Application < Sinatra::Base
   post '/book' do 
     redirect '/login' if session[:user_id] == nil
     begin 
-      user_id = session[:user_id]
+      user_id = session[:user_id].to_i
       date_id = params[:date_id].to_i
       p user_id
       p user_id.class
