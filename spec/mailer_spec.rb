@@ -2,12 +2,12 @@ require 'mailer'
 
 RSpec.describe Mailer do
   context 'send' do
-    xit 'sends an email' do
+    it 'sends an email' do
       mailer = Mailer.new
-      expect(mailer.send('signup', 'email@email.com')).to eq 'Email sent'
+      expect(mailer.send('signup', 'email@email.com')).to eq 'signup email sent'
     end
 
-    xit 'fails to send an email if email_type is invalid' do
+    it 'fails to send an email if email_type is invalid' do
       mailer = Mailer.new
       expect(mailer.send('invalid', 'email@email.com')).to eq 'Email failed to send.'
     end

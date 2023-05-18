@@ -54,11 +54,25 @@ class Mailer
       return false
     end
   end
-
+  
   def generate_body(email_type)
     case email_type
     when 'signup'
       return 'Welcome to MakersBnB!'
+    when 'createlisting'
+      return 'You created a new listing!'
+    when 'updatelisting'
+      return 'You updated your listing!'
+    when 'bookingrequested'
+      return 'New booking request received!'
+    when 'confirmrequest'
+      return 'You approved a booking!'
+    when 'requestbooking'
+      return 'You requested a new booking!'
+    when 'requestconfirmed'
+      return 'Your booking request has been confirmed!'
+    when 'requestdenied'
+      return 'Your booking request has been denied.'
     else
       return false
     end
