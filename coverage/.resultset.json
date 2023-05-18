@@ -1,13 +1,13 @@
 {
   "RSpec": {
     "coverage": {
-      "/Users/barney/Makers/engineering-project-1/makersbnb/spec/booking_repo_spec.rb": {
+      "/Users/cyryl/Desktop/MyProjects/makersbnb/spec/booking_repo_spec.rb": {
         "lines": [
           1,
           null,
           1,
           1,
-          9,
+          14,
           null,
           null,
           1,
@@ -97,63 +97,106 @@
           1,
           1,
           2,
+          null,
+          null,
+          null,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          null,
+          1,
+          null,
+          null,
+          1,
+          1,
+          1,
+          1,
+          1,
+          null,
+          1,
+          null,
+          null,
+          1,
+          1,
+          null,
+          2,
+          null,
+          null,
+          null,
+          1,
+          1,
+          1,
+          null,
+          1,
+          null,
+          null,
+          1,
+          1,
+          null,
+          1,
           null,
           null,
           null
         ]
       },
-      "/Users/barney/Makers/engineering-project-1/makersbnb/lib/booking_repo.rb": {
+      "/Users/cyryl/Desktop/MyProjects/makersbnb/lib/booking_repo.rb": {
         "lines": [
           1,
           null,
           1,
           1,
+          7,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          7,
+          null,
+          7,
+          7,
+          null,
+          22,
+          null,
+          7,
+          null,
+          null,
+          1,
+          7,
+          7,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          7,
+          7,
+          2,
           6,
           null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          6,
-          null,
-          6,
-          6,
-          null,
-          19,
-          null,
-          6,
+          2,
           null,
           null,
           1,
           5,
-          5,
           null,
+          3,
           null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          5,
-          5,
-          2,
-          6,
-          null,
-          2,
-          null,
-          null,
-          1,
-          4,
-          null,
-          2,
-          null,
-          2,
-          2,
+          3,
+          3,
           null,
           null,
           null,
@@ -166,42 +209,54 @@
           null,
           null,
           1,
-          5,
-          5,
-          5,
-          5,
-          null,
-          null,
-          1,
-          null,
-          1,
           4,
-          8,
+          3,
+          3,
+          null,
+          null,
+          1,
+          5,
+          5,
+          5,
+          5,
+          null,
+          null,
+          1,
+          6,
+          6,
+          6,
+          null,
+          null,
+          1,
+          null,
+          1,
+          5,
+          11,
           null,
           null,
           null,
           null,
           1,
-          25,
-          25,
-          25,
-          25,
-          25,
-          25,
+          28,
+          28,
+          28,
+          28,
+          28,
+          28,
           null,
-          25,
+          28,
           null,
           null
         ]
       },
-      "/Users/barney/Makers/engineering-project-1/makersbnb/lib/booking.rb": {
+      "/Users/cyryl/Desktop/MyProjects/makersbnb/lib/booking.rb": {
         "lines": [
           1,
           1,
           null
         ]
       },
-      "/Users/barney/Makers/engineering-project-1/makersbnb/spec/date_repository_spec.rb": {
+      "/Users/cyryl/Desktop/MyProjects/makersbnb/spec/date_repository_spec.rb": {
         "lines": [
           1,
           null,
@@ -297,7 +352,7 @@
           null
         ]
       },
-      "/Users/barney/Makers/engineering-project-1/makersbnb/lib/date_repository.rb": {
+      "/Users/cyryl/Desktop/MyProjects/makersbnb/lib/date_repository.rb": {
         "lines": [
           1,
           null,
@@ -363,14 +418,14 @@
           null
         ]
       },
-      "/Users/barney/Makers/engineering-project-1/makersbnb/lib/date_model.rb": {
+      "/Users/cyryl/Desktop/MyProjects/makersbnb/lib/date_model.rb": {
         "lines": [
           1,
           1,
           null
         ]
       },
-      "/Users/barney/Makers/engineering-project-1/makersbnb/spec/integration/app_spec.rb": {
+      "/Users/cyryl/Desktop/MyProjects/makersbnb/spec/integration/app_spec.rb": {
         "lines": [
           null,
           null,
@@ -1035,7 +1090,7 @@
           null
         ]
       },
-      "/Users/barney/Makers/engineering-project-1/makersbnb/app.rb": {
+      "/Users/cyryl/Desktop/MyProjects/makersbnb/app.rb": {
         "lines": [
           null,
           null,
@@ -1290,7 +1345,7 @@
           null
         ]
       },
-      "/Users/barney/Makers/engineering-project-1/makersbnb/lib/user_repo.rb": {
+      "/Users/cyryl/Desktop/MyProjects/makersbnb/lib/user_repo.rb": {
         "lines": [
           1,
           1,
@@ -1389,14 +1444,14 @@
           null
         ]
       },
-      "/Users/barney/Makers/engineering-project-1/makersbnb/lib/user.rb": {
+      "/Users/cyryl/Desktop/MyProjects/makersbnb/lib/user.rb": {
         "lines": [
           1,
           1,
           null
         ]
       },
-      "/Users/barney/Makers/engineering-project-1/makersbnb/lib/listing_repository.rb": {
+      "/Users/cyryl/Desktop/MyProjects/makersbnb/lib/listing_repository.rb": {
         "lines": [
           1,
           1,
@@ -1477,7 +1532,7 @@
           null
         ]
       },
-      "/Users/barney/Makers/engineering-project-1/makersbnb/lib/listing.rb": {
+      "/Users/cyryl/Desktop/MyProjects/makersbnb/lib/listing.rb": {
         "lines": [
           1,
           1,
@@ -1485,7 +1540,7 @@
           null
         ]
       },
-      "/Users/barney/Makers/engineering-project-1/makersbnb/spec/listing_repository_spec.rb": {
+      "/Users/cyryl/Desktop/MyProjects/makersbnb/spec/listing_repository_spec.rb": {
         "lines": [
           1,
           null,
@@ -1586,7 +1641,7 @@
           null
         ]
       },
-      "/Users/barney/Makers/engineering-project-1/makersbnb/spec/user_repo_spec.rb": {
+      "/Users/cyryl/Desktop/MyProjects/makersbnb/spec/user_repo_spec.rb": {
         "lines": [
           1,
           null,
@@ -1789,6 +1844,6 @@
         ]
       }
     },
-    "timestamp": 1684404216
+    "timestamp": 1684406639
   }
 }

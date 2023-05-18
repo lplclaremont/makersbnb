@@ -94,4 +94,47 @@ RSpec.describe BookingRepo do
       expect{ repo.confirm(3, 1) }.to raise_error "Booking is already confirmed."
     end
   end
+
+  context '#delete_requests method' do
+    it 'deletes a single request for a date in join table' do
+      repo = BookingRepo.new
+      booking = Booking.new
+      booking.booking_user_id = 1
+      booking.date_id = 3
+      repo.create(booking)
+      repo.delete_requests(3)
+      response = repo.find_requests_by_listing_id(2)
+
+      expect(response).to eq false
+    end
+
+    it 'deletes all requests for a date in join table' do
+      repo = BookingRepo.new
+      repo.delete_requests(1)
+      repo.delete_requests(2)
+      response = repo.find_requests_by_listing_id(1)
+
+      expect(response).to eq false
+    end
+
+    it 'returns error when no requests found' do
+      repo = BookingRepo.new
+
+      expect { repo.delete_requests(3) }.to raise_error "No requests found."
+    end
+  end
+
+  context '#date_has_request? method' do
+    it 'returns true if requests exist' do
+      repo = BookingRepo.new
+
+      expect(repo.date_has_request?(1)).to eq true
+    end
+
+    it 'returns false if no requests exist' do
+      repo = BookingRepo.new
+
+      expect(repo.date_has_request?(3)).to eq false
+    end
+  end
 end

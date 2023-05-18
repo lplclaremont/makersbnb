@@ -59,11 +59,23 @@ class BookingRepo
     DatabaseConnection.exec_params(sql, params)
   end
 
+  def delete_requests(date_id)
+    fail "No requests found." if !date_has_request?(date_id)
+    sql = 'DELETE FROM dates_users_join WHERE dates_id = $1;'
+    DatabaseConnection.exec_params(sql, [date_id])
+  end
+
   def is_booked?(date_id)
     sql = 'SELECT booked_by_user FROM dates WHERE id=$1;'
     result = DatabaseConnection.exec_params(sql, [date_id]).first
     status = result['booked_by_user']
     return !status.nil? # Returns false if booked_by_user returns nil
+  end
+
+  def date_has_request?(date_id)
+    sql = 'SELECT * FROM dates_users_join WHERE dates_id = $1;'
+    result = DatabaseConnection.exec_params(sql, [date_id]).first
+    return result.nil? ? false : true
   end
 
   private
