@@ -40,7 +40,7 @@ class Application < Sinatra::Base
     user = repo.find_by_email(new_user.email)
     session[:user_id] = user.id
     
-    Mailer.new.send('signup', new_user.email)
+    send_email_to_self('signup')
     go_to_homepage
   end
 
@@ -242,7 +242,7 @@ class Application < Sinatra::Base
     listing.user_id = session[:user_id]
     repo.create(listing)
 
-    Mailer.new.send('createlisting', find_email(session[:user_id]))
+    send_email_to_self('createlisting')
     return erb(:listing_created)
   end
 
@@ -252,6 +252,8 @@ class Application < Sinatra::Base
     start_date = params[:start_date]
     end_date = params[:end_date]
     repo.add_dates(id, start_date, end_date)
+
+    send_email_to_self('updatelisting')
     return erb(:dates_added)
   end
 
@@ -264,5 +266,14 @@ class Application < Sinatra::Base
     repo = UserRepo.new
     result = repo.find_by_id(id)
     return result.email
+  end
+
+  def send_email_to_self(email_type)
+    Mailer.new.send(email_type, find_email(session[:user_id]))
+  end
+
+  def send_email_to_other(email_type, user_id)
+    send_to_email = find_email(user_id)
+    Mailer.new.send(email_type, send_to_email)
   end
 end
