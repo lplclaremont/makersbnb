@@ -92,6 +92,10 @@ class BookingRepo
     return result
   end
 
+  def fetch_requester_ids(date_id)
+
+  end
+
   private
 
   def booking_exists?(booking)
