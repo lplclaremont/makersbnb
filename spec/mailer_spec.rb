@@ -22,7 +22,9 @@ RSpec.describe Mailer do
     end
 
     it 'generates the updatelisting subject line' do
-
+      mailer = Mailer.new
+      subject = mailer.generate_subject('updatelisting')
+      expect(subject).to eq 'You updated your listing!'
     end
 
     it 'generates the bookingrequested subject line' do

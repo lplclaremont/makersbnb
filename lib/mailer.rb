@@ -38,6 +38,8 @@ class Mailer
       return 'Welcome to MakersBnB!'
     when 'createlisting'
       return 'You created a new listing!'
+    when 'updatelisting'
+      return 'You updated your listing!'
     else
       return false
     end
