@@ -87,8 +87,9 @@ class BookingRepo
             WHERE dates_users_join.dates_id=$1;'
 
     result = DatabaseConnection.exec_params(sql, [date_id])
+    return false if result.first.nil?
     result = result.first['id'].to_i
-    return result.nil? ? false : result
+    return result
   end
 
   private

@@ -143,5 +143,10 @@ RSpec.describe BookingRepo do
       repo = BookingRepo.new
       expect(repo.fetch_host_id(1)).to eq 1
     end
+
+    it 'returns false when date_id is not valid' do
+      repo = BookingRepo.new
+      expect(repo.fetch_host_id(7)).to eq false
+    end
   end
 end
