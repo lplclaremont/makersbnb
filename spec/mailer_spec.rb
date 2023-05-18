@@ -2,9 +2,44 @@ require 'mailer'
 
 RSpec.describe Mailer do
   context 'send' do
-    it 'sends an email' do
+    it 'sends the signup email' do
       mailer = Mailer.new
       expect(mailer.send('signup', 'email@email.com')).to eq 'signup email sent'
+    end
+    
+    it 'sends the createlisting email' do
+      mailer = Mailer.new
+      expect(mailer.send('createlisting', 'email@email.com')).to eq 'createlisting email sent'
+    end
+    
+    it 'sends the updatelisting email' do
+      mailer = Mailer.new
+      expect(mailer.send('updatelisting', 'email@email.com')).to eq 'updatelisting email sent'
+    end
+    
+    it 'sends the bookingrequested email' do
+      mailer = Mailer.new
+      expect(mailer.send('bookingrequested', 'email@email.com')).to eq 'bookingrequested email sent'
+    end
+    
+    it 'sends the confirmrequest email' do
+      mailer = Mailer.new
+      expect(mailer.send('confirmrequest', 'email@email.com')).to eq 'confirmrequest email sent'
+    end
+    
+    it 'sends the requestbooking email' do
+      mailer = Mailer.new
+      expect(mailer.send('requestbooking', 'email@email.com')).to eq 'requestbooking email sent'
+    end
+    
+    it 'sends the requestconfirmed email' do
+      mailer = Mailer.new
+      expect(mailer.send('requestconfirmed', 'email@email.com')).to eq 'requestconfirmed email sent'
+    end
+    
+    it 'sends the requestdenied email' do
+      mailer = Mailer.new
+      expect(mailer.send('requestdenied', 'email@email.com')).to eq 'requestdenied email sent'
     end
 
     it 'fails to send an email if email_type is invalid' do
