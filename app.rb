@@ -38,7 +38,7 @@ class Application < Sinatra::Base
     
     user = repo.find_by_email(new_user.email)
     session[:user_id] = user.id
-
+    
     go_to_homepage
   end
 

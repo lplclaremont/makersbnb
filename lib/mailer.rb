@@ -16,14 +16,37 @@ class Mailer
     end
   end
 
-  def send
+  def send(email_type, email_address)
+    subject = generate_subject(email_type)
+    body = generate_body(email_type)
+
+    return 'Email failed to send' unless subject || body
+    
     Mail.deliver do
-      to 'b.wilton1993@gmail.com'
+      to email_address
       from 'Shrek @ MakersBnB'
-      subject 'Sending email using Ruby'
-      body 'Easy peasy lemon squeezy'
+      subject subject
+      body body
     end
 
     return 'Email sent'
+  end
+
+  def generate_subject(email_type)
+    case email_type
+    when 'signup'
+      return 'Welcome to MakersBnB!'
+    else
+      return false
+    end
+  end
+
+  def generate_body(email_type)
+    case email_type
+    when 'signup'
+      return 'Welcome to MakersBnB!'
+    else
+      return false
+    end
   end
 end
