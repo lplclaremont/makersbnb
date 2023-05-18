@@ -48,6 +48,8 @@ class Mailer
       return 'You requested a new booking!'
     when 'requestconfirmed'
       return 'Your booking request has been confirmed!'
+    when 'requestdenied'
+      return 'Your booking request has been denied.'
     else
       return false
     end

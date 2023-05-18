@@ -57,7 +57,9 @@ RSpec.describe Mailer do
     end
 
     it 'generates the requestdenied subject line' do
-
+      mailer = Mailer.new
+      subject = mailer.generate_subject('requestdenied')
+      expect(subject).to eq 'Your booking request has been denied.'
     end
     
     it 'returns false if email_type does not exist' do
