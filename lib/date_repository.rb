@@ -2,6 +2,7 @@ require_relative './date_model'
 
 class DateRepository
   def create(date)
+    fail 'One or more of these dates is already booked' if !date.booked_by_user.nil?
     fail 'Date already exists for this listing' if date_exists?(date)
 
     sql = 'INSERT INTO dates (date, listing_id)
