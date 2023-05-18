@@ -34,11 +34,15 @@ RSpec.describe Mailer do
     end
 
     it 'generates the confirmrequest subject line' do
-
+      mailer = Mailer.new
+      subject = mailer.generate_subject('confirmrequest')
+      expect(subject).to eq 'You approved a booking!'
     end
 
     it 'generates the requestbooking subject line' do
-
+      mailer = Mailer.new
+      subject = mailer.generate_subject('requestbooking')
+      expect(subject).to eq 'You requested a new booking!'
     end
 
     it 'generates the requestconfirmed subject line' do

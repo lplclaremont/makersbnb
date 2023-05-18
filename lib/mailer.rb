@@ -42,6 +42,10 @@ class Mailer
       return 'You updated your listing!'
     when 'bookingrequested'
       return 'New booking request received!'
+    when 'confirmrequest'
+      return 'You approved a booking!'
+    when 'requestbooking'
+      return 'You requested a new booking!'
     else
       return false
     end
