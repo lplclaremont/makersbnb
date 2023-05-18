@@ -36,6 +36,8 @@ class Mailer
     case email_type
     when 'signup'
       return 'Welcome to MakersBnB!'
+    when 'createlisting'
+      return 'You created a new listing!'
     else
       return false
     end

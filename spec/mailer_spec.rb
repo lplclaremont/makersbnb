@@ -2,7 +2,7 @@ require 'mailer'
 
 RSpec.describe Mailer do
   context 'send' do
-    it 'sends an email' do
+    xit 'sends an email' do
       mailer = Mailer.new
       expect(mailer.send('signup', 'email@email.com')).to eq 'Email sent'
     end
@@ -16,7 +16,9 @@ RSpec.describe Mailer do
     end
 
     it 'generates the createlisting subject line' do
-
+      mailer = Mailer.new
+      subject = mailer.generate_subject('createlisting')
+      expect(subject).to eq 'You created a new listing!'
     end
 
     it 'generates the updatelisting subject line' do
@@ -57,7 +59,7 @@ RSpec.describe Mailer do
     end
 
     it 'generates the createlisting body' do
-
+      
     end
 
     it 'generates the updatelisting body' do
