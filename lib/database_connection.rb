@@ -17,6 +17,12 @@ class DatabaseConnection
     @host = '127.0.0.1'
     @database_name = database_name
     
+
+    if ENV['DATABASE_URL'] != nil
+      @connection = PG.connect(ENV['DATABASE_URL'])
+      return
+    end
+    
     if test_mode?
       @database_name += '_test'
     end
