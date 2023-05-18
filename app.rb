@@ -242,6 +242,7 @@ class Application < Sinatra::Base
     listing.user_id = session[:user_id]
     repo.create(listing)
 
+    Mailer.new.send('createlisting', find_email(session[:user_id]))
     return erb(:listing_created)
   end
 
@@ -257,5 +258,11 @@ class Application < Sinatra::Base
   def account_settings_access
     return erb(:login) if session[:user_id].nil?
     return erb(:account_settings)
+  end
+
+  def find_email(id)
+    repo = UserRepo.new
+    result = repo.find_by_id(id)
+    return result.email
   end
 end
