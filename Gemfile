@@ -15,3 +15,5 @@ gem 'rspec', '~> 3.11'
 gem 'rainbow', '~> 3.1'
 
 gem "rackup", "~> 1.0"
+
+gem "bcrypt", "~> 3.1"
