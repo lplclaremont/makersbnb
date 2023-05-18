@@ -188,6 +188,12 @@ class Application < Sinatra::Base
     end
   end
 
+  post '/confirm' do
+    BookingRepo.new.confirm(params[:user_id].to_i, params[:date_id].to_i)
+    BookingRepo.new.delete_requests(params[:date_id].to_i)
+    return erb(:booking_confirmed)
+  end
+
   private
 
   def go_to_homepage

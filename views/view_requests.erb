@@ -13,7 +13,9 @@
             <div>
             Booking User: <%= request.booking_user_name %><br />
             Date: <%= request.date %><br />
-            <form method='POST' action='/confirm/<%= request.booking_user_id %>'>
+            <form method='POST' action='/confirm'>
+              <input type="hidden" name="user_id" value="<%= request.booking_user_id %>"><br>
+              <input type="hidden" name="date_id" value="<%= request.date_id %>"<br>
               <input type='submit' value='Confirm Booking'>
             </form>
             </div>

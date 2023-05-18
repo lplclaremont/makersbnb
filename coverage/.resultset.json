@@ -1,13 +1,13 @@
 {
   "RSpec": {
     "coverage": {
-      "/Users/louisclaremont/Projects/makersbnb/spec/booking_repo_spec.rb": {
+      "/Users/barney/Makers/engineering-project-1/makersbnb/spec/booking_repo_spec.rb": {
         "lines": [
           1,
           null,
           1,
           1,
-          6,
+          14,
           null,
           null,
           1,
@@ -72,40 +72,107 @@
           1,
           1,
           2,
+          null,
+          null,
+          null,
+          1,
+          1,
+          1,
+          1,
+          1,
+          null,
+          null,
+          null,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          null,
+          null,
+          1,
+          1,
+          1,
+          2,
+          null,
+          null,
+          null,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          null,
+          1,
+          null,
+          null,
+          1,
+          1,
+          1,
+          1,
+          1,
+          null,
+          1,
+          null,
+          null,
+          1,
+          1,
+          null,
+          2,
+          null,
+          null,
+          null,
+          1,
+          1,
+          1,
+          null,
+          1,
+          null,
+          null,
+          1,
+          1,
+          null,
+          1,
           null,
           null,
           null
         ]
       },
-      "/Users/louisclaremont/Projects/makersbnb/lib/booking_repo.rb": {
+      "/Users/barney/Makers/engineering-project-1/makersbnb/lib/booking_repo.rb": {
         "lines": [
           1,
           null,
           1,
+          1,
+          7,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          7,
+          null,
+          7,
+          7,
+          null,
+          22,
+          null,
+          7,
+          null,
           null,
           1,
-          6,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          6,
-          null,
-          6,
-          6,
-          null,
-          19,
-          null,
-          6,
-          null,
-          null,
-          1,
-          5,
-          5,
+          7,
+          7,
           null,
           null,
           null,
@@ -115,54 +182,81 @@
           null,
           null,
           null,
-          5,
-          5,
+          7,
+          7,
           2,
           6,
           null,
           2,
+          null,
+          null,
+          1,
+          5,
+          null,
+          3,
+          null,
+          3,
+          3,
+          null,
           null,
           null,
           1,
           4,
+          3,
           null,
-          2,
-          null,
-          2,
-          2,
-          null,
+          3,
+          3,
           null,
           null,
           1,
-          null,
-          1,
+          5,
           4,
-          8,
+          4,
+          null,
+          null,
+          1,
+          6,
+          6,
+          6,
+          6,
+          null,
+          null,
+          1,
+          7,
+          7,
+          7,
+          null,
+          null,
+          1,
+          null,
+          1,
+          5,
+          11,
           null,
           null,
           null,
           null,
           1,
-          25,
-          25,
-          25,
-          25,
-          25,
-          25,
+          28,
+          28,
+          28,
+          28,
+          28,
+          28,
           null,
-          25,
+          28,
           null,
           null
         ]
       },
-      "/Users/louisclaremont/Projects/makersbnb/lib/booking.rb": {
+      "/Users/barney/Makers/engineering-project-1/makersbnb/lib/booking.rb": {
         "lines": [
           1,
           1,
           null
         ]
       },
-      "/Users/louisclaremont/Projects/makersbnb/spec/date_repository_spec.rb": {
+      "/Users/barney/Makers/engineering-project-1/makersbnb/spec/date_repository_spec.rb": {
         "lines": [
           1,
           null,
@@ -254,10 +348,11 @@
           null,
           null,
           null,
+          null,
           null
         ]
       },
-      "/Users/louisclaremont/Projects/makersbnb/lib/date_repository.rb": {
+      "/Users/barney/Makers/engineering-project-1/makersbnb/lib/date_repository.rb": {
         "lines": [
           1,
           null,
@@ -323,14 +418,14 @@
           null
         ]
       },
-      "/Users/louisclaremont/Projects/makersbnb/lib/date_model.rb": {
+      "/Users/barney/Makers/engineering-project-1/makersbnb/lib/date_model.rb": {
         "lines": [
           1,
           1,
           null
         ]
       },
-      "/Users/louisclaremont/Projects/makersbnb/spec/integration/app_spec.rb": {
+      "/Users/barney/Makers/engineering-project-1/makersbnb/spec/integration/app_spec.rb": {
         "lines": [
           null,
           null,
@@ -341,21 +436,21 @@
           null,
           1,
           1,
-          45,
-          null,
-          null,
-          1,
-          null,
-          null,
-          null,
           46,
           null,
           null,
+          1,
+          null,
+          null,
+          null,
+          47,
           null,
           null,
           null,
           null,
           null,
+          null,
+          null,
           1,
           1,
           1,
@@ -987,15 +1082,25 @@
           null,
           1,
           1,
+          1,
+          null,
           1,
           null,
+          null,
+          null,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
           1,
           null,
           null,
           null
         ]
       },
-      "/Users/louisclaremont/Projects/makersbnb/app.rb": {
+      "/Users/barney/Makers/engineering-project-1/makersbnb/app.rb": {
         "lines": [
           null,
           null,
@@ -1188,6 +1293,12 @@
           null,
           null,
           1,
+          1,
+          1,
+          1,
+          null,
+          null,
+          1,
           null,
           1,
           19,
@@ -1250,7 +1361,7 @@
           null
         ]
       },
-      "/Users/louisclaremont/Projects/makersbnb/lib/user_repo.rb": {
+      "/Users/barney/Makers/engineering-project-1/makersbnb/lib/user_repo.rb": {
         "lines": [
           1,
           1,
@@ -1349,14 +1460,14 @@
           null
         ]
       },
-      "/Users/louisclaremont/Projects/makersbnb/lib/user.rb": {
+      "/Users/barney/Makers/engineering-project-1/makersbnb/lib/user.rb": {
         "lines": [
           1,
           1,
           null
         ]
       },
-      "/Users/louisclaremont/Projects/makersbnb/lib/listing_repository.rb": {
+      "/Users/barney/Makers/engineering-project-1/makersbnb/lib/listing_repository.rb": {
         "lines": [
           1,
           1,
@@ -1437,7 +1548,7 @@
           null
         ]
       },
-      "/Users/louisclaremont/Projects/makersbnb/lib/listing.rb": {
+      "/Users/barney/Makers/engineering-project-1/makersbnb/lib/listing.rb": {
         "lines": [
           1,
           1,
@@ -1445,7 +1556,7 @@
           null
         ]
       },
-      "/Users/louisclaremont/Projects/makersbnb/spec/listing_repository_spec.rb": {
+      "/Users/barney/Makers/engineering-project-1/makersbnb/spec/listing_repository_spec.rb": {
         "lines": [
           1,
           null,
@@ -1546,7 +1657,7 @@
           null
         ]
       },
-      "/Users/louisclaremont/Projects/makersbnb/spec/user_repo_spec.rb": {
+      "/Users/barney/Makers/engineering-project-1/makersbnb/spec/user_repo_spec.rb": {
         "lines": [
           1,
           null,
@@ -1749,6 +1860,6 @@
         ]
       }
     },
-    "timestamp": 1684401337
+    "timestamp": 1684411176
   }
 }
