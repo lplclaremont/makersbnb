@@ -8,6 +8,7 @@ require_relative 'lib/user_repo'
 require_relative 'lib/listing_repository'
 require_relative 'lib/date_repository'
 require_relative 'lib/booking_repo'
+require_relative 'lib/mailer'
 
 DatabaseConnection.connect
 
@@ -39,6 +40,7 @@ class Application < Sinatra::Base
     user = repo.find_by_email(new_user.email)
     session[:user_id] = user.id
     
+    Mailer.new.send('signup', new_user.email)
     go_to_homepage
   end
 
