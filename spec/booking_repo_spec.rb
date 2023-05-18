@@ -137,4 +137,11 @@ RSpec.describe BookingRepo do
       expect(repo.date_has_request?(3)).to eq false
     end
   end
+
+  context '#fetch_host_id' do
+    it 'fetches host id when passed a valid date id' do
+      repo = BookingRepo.new
+      expect(repo.fetch_host_id(1)).to eq 1
+    end
+  end
 end

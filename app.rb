@@ -184,7 +184,7 @@ class Application < Sinatra::Base
       booking.date_id = date_id
       repo = BookingRepo.new
       repo.create(booking)
-
+      send_email_to_self('requestbooking')
       return erb(:request_sent)
     rescue RuntimeError 
       status 400
@@ -194,6 +194,8 @@ class Application < Sinatra::Base
 
   post '/confirm' do
     BookingRepo.new.confirm(params[:user_id].to_i, params[:date_id].to_i)
+    send_email_to_self('confirmrequest')
+    send_email_to_other('requestconfirmed', params[:user_id].to_i)
     BookingRepo.new.delete_requests(params[:date_id].to_i)
     return erb(:booking_confirmed)
   end

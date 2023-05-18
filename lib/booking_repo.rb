@@ -78,6 +78,19 @@ class BookingRepo
     return result.nil? ? false : true
   end
 
+  def fetch_host_id(date_id)
+    sql = 'SELECT users.id 
+            FROM users 
+              JOIN listings ON listings.user_id = users.id
+              JOIN dates ON dates.listing_id = listings.id
+              JOIN dates_users_join ON dates_users_join.dates_id = dates.id
+            WHERE dates_users_join.dates_id=$1;'
+
+    result = DatabaseConnection.exec_params(sql, [date_id])
+    result = result.first['id'].to_i
+    return result.nil? ? false : result
+  end
+
   private
 
   def booking_exists?(booking)
