@@ -284,10 +284,10 @@ describe Application do
       expect(response.body).to include '<h1>These are the requests for: Swamp</h1>'
       expect(response.body).to include 'Booking User: Donkey'
       expect(response.body).to include 'Date: 2023-05-12'
-      expect(response.body).to include "<form method='POST' action='/confirm/3'>"
+      expect(response.body).to include "<form method='POST' action='/confirm'>"
       expect(response.body).to include 'Booking User: Fiona'
       expect(response.body).to include 'Date: 2023-05-12'
-      expect(response.body).to include "<form method='POST' action='/confirm/2'>"
+      expect(response.body).to include "<form method='POST' action='/confirm'>"
     end
 
     it 'takes you to login page if not logged in' do
@@ -669,6 +669,16 @@ describe Application do
       response = post('/book', { date_id: 1 }, "rack.session" => session)
 
       expect(response.status).to eq 302
+    end
+  end
+
+  context 'POST /confirm' do
+    it 'returns a booking confirmation message to the host' do
+      session = { user_id: 1 }
+      response = post('/confirm', {user_id: 3, date_id: 1}, "rack.session" => session)
+      expect(response.status).to eq 200
+      expect(response.body).to include "Booking confirmed."
+      expect(response.body).to include "<a href='/account'>Return to listings</a>"
     end
   end
 end
