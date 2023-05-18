@@ -244,6 +244,7 @@ describe Application do
       expect(response.body).to include 'Price per night: £69'
       expect(response.body).to include 'Hosted by: Shrek'
       expect(response.body).to include '<a href="available_dates/1">Add dates</a>'
+      expect(response.body).to include '<a href="view-requests/listing/1">View Requests</a>'
       expect(response.body).to include '<a href="/listing/1">here</a>'
     end
 
@@ -253,6 +254,48 @@ describe Application do
       expect(response.status).to eq 200
       expect(response.body).to include '<input type="text" placeholder="Email" required="required" name="email">'
       expect(response.body).to include '<input type="password" placeholder="Password" required="required" name="password">'
+    end
+  end
+
+  context 'GET /view-requests/listing/:id' do
+    it 'shows the list of requests' do
+      post(
+        '/login',
+        email: 'shrek@swamp.com',
+        password: 'fiona_lover420'
+        )
+
+      response = get('/view-requests/listing/1')
+
+      expect(response.status).to eq 200
+      expect(response.body).to include '<h1>These are the requests for: Swamp</h1>'
+      expect(response.body).to include 'Booking User: Donkey'
+      expect(response.body).to include 'Date: 2023-05-12'
+      expect(response.body).to include "<form method='POST' action='/confirm/3'>"
+      expect(response.body).to include 'Booking User: Fiona'
+      expect(response.body).to include 'Date: 2023-05-12'
+      expect(response.body).to include "<form method='POST' action='/confirm/2'>"
+    end
+
+    it 'takes you to login page if not logged in' do
+      response = get('/view-requests/listing/1')
+      expect(response.status).to eq 200
+
+      expect(response.body).to include '<input type="text" placeholder="Email" required="required" name="email">'
+      expect(response.body).to include '<input type="password" placeholder="Password" required="required" name="password">'
+    end
+
+    it 'shows you have no requests if your listing has no requests' do
+      post(
+        '/login',
+        email: 'fiona@farfaraway.com',
+        password: 'save_me9001'
+        )
+
+      response = get('/view-requests/listing/2')
+      expect(response.status).to eq 200
+      expect(response.body).to include '<h1>These are the requests for: Far Far Away Castle</h1>'
+      expect(response.body).to include '<h2> Your listing currently has no requests </h2>'
     end
   end
 
@@ -588,6 +631,31 @@ describe Application do
 
       expect(response.status).to eq 400
       expect(response.body).to eq "We didn't like that... go back to try again!"
+    end
+  end
+
+  context 'POST /book/:id' do
+    it 'requests to book when user is logged in' do
+      session = { user_id: 1 }
+      response = post('/book/1', {}, "rack.session" => session)
+
+      expect(response.status).to eq 200
+      expect(response.body).to include "Booking request successfully added!"
+    end
+
+    it 'booking already exists' do
+      session = { user_id: 3 }
+      response = post('/book/1', {}, "rack.session" => session)
+
+      expect(response.status).to eq 400
+      expect(response.body).to eq "Booking already exists, try again."
+    end
+
+    it 'redirects to login page when not logged in' do
+      session = { user_id: nil }
+      response = post('/book/1', {}, "rack.session" => session)
+
+      expect(response.status).to eq 302
     end
   end
 end

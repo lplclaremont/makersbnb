@@ -12,6 +12,8 @@ createdb makersbnb_test
 
 # Install gems
 bundle install
+gem install bcrypt
+gem install simplecov
 
 # Run the tests
 rspec

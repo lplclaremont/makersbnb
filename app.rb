@@ -7,6 +7,7 @@ require_relative 'lib/database_connection'
 require_relative 'lib/user_repo'
 require_relative 'lib/listing_repository'
 require_relative 'lib/date_repository'
+require_relative 'lib/booking_repo'
 
 DatabaseConnection.connect('makersbnb')
 
@@ -89,6 +90,13 @@ class Application < Sinatra::Base
     return erb(:account_page)
   end
 
+  get '/view-requests/listing/:id' do
+    @listing = ListingRepository.new.find(params[:id])
+    return erb(:login) if session[:user_id] != @listing.user_id
+    @requests = BookingRepo.new.find_requests_by_listing_id(params[:id])
+    return erb(:view_requests)
+  end
+
   get '/account-settings' do
     account_settings_access
   end
@@ -153,14 +161,30 @@ class Application < Sinatra::Base
 
     repo = ListingRepository.new
     listing = repo.find(params[:id])
-    if session[:user_id] != listing.user_id
-      redirect '/login'
-    end
+    redirect '/login' if session[:user_id] != listing.user_id
     begin
       add_dates_to_listing
     rescue RuntimeError => e
       status 400
       return e.message
+    end
+  end
+
+  post '/book/:id' do 
+    redirect '/login' if session[:user_id] == nil
+    begin 
+      user_id = session[:user_id]
+      date_id = params[:id].to_i
+      booking = Booking.new
+      booking.booking_user_id = user_id
+      booking.date_id = date_id
+      repo = BookingRepo.new
+      repo.create(booking)
+
+      return erb(:request_sent)
+    rescue RuntimeError 
+      status 400
+      return "Booking already exists, try again."
     end
   end
 

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>MakersBnB - Requests</title>
+    </head>
+    <body>
+        <h1>These are the requests for: <%= @listing.listing_name %></h1>
+        <br>
+        <hr>
+        <% if @requests %>
+        <h2>View your current requests:</h2>
+        <% @requests.each do |request| %>
+            <div>
+            Booking User: <%= request.booking_user_name %><br />
+            Date: <%= request.date %><br />
+            <form method='POST' action='/confirm/<%= request.booking_user_id %>'>
+              <input type='submit' value='Confirm Booking'>
+            </form>
+            </div>
+            <br />
+            <hr>
+        <% end %>
+        <% else %>
+          <h2> Your listing currently has no requests </h2>
+        <% end %>
+        <a href="/">Homepage</a>
+    </body>
+</html>
