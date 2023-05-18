@@ -14,14 +14,15 @@ class DatabaseConnection
   using Rainbow
 
   def self.connect(database_name)
-    @host = '127.0.0.1'
-    @database_name = database_name
-    
-
     if ENV['DATABASE_URL'] != nil
       @connection = PG.connect(ENV['DATABASE_URL'])
       return
     end
+    
+    @host = '127.0.0.1'
+    @database_name = database_name
+    
+
     
     if test_mode?
       @database_name += '_test'
