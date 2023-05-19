@@ -18,7 +18,7 @@
             Price per night: £<%= listing.price %><br />
             Hosted by: <%= listing.host_name %><br />
             View full details <a href="/listing/<%= listing.id %>">here</a><br />
-            <a href="view-requests/listing/<%= listing.id %>">View Requests (<%= @total_requests %>)</a><br />
+            <a href="view-requests/listing/<%= listing.id %>">View Requests (<%= listing.total_requests %>)</a><br />
             <a href="available_dates/<%= listing.id %>">Add dates</a>
             </div>
             <br />

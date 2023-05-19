@@ -64,6 +64,20 @@ class ListingRepository
     return record_to_listing(result_set[0])
   end
 
+  def total_requests(listing_id)
+    results = []
+    sql = 'SELECT * FROM dates_users_join
+            JOIN dates ON dates.id = dates_users_join.dates_id
+            JOIN listings ON listings.id = dates.listing_id
+            WHERE listings.id=$1;'
+
+    result_set = DatabaseConnection.exec_params(sql, [listing_id])
+    result_set.each do |result|
+      results << result
+    end
+    return results.length
+  end
+
   private
 
   def record_to_listing(record)
@@ -74,6 +88,7 @@ class ListingRepository
     listing.price = record['price'].to_i
     listing.user_id = record['user_id'].to_i
     listing.host_name = record['name']
+    listing.total_requests = total_requests(listing.id)
     return listing
   end
 end
