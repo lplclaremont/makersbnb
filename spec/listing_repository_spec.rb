@@ -83,6 +83,12 @@ RSpec.describe ListingRepository do
       requests = repo.total_requests(2)
       expect(requests).to eq 0
     end
+
+    it 'returns false if listing_id is not valid' do
+      repo = ListingRepository.new
+      requests = repo.total_requests(10)
+      expect(requests).to eq 0
+    end
   end
   
   context '#all_by_id method' do
