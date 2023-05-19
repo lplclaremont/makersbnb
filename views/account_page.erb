@@ -10,6 +10,7 @@
         </div>
         <a href="/account-settings">Account Settings</a><br>
         <hr>
+        <a href="/listing/new">Add a new listing!</a><br/>
         <h2>View your current properties:</h2>
         <% @listings.each do |listing| %>
             <div>
@@ -17,7 +18,7 @@
             Price per night: £<%= listing.price %><br />
             Hosted by: <%= listing.host_name %><br />
             View full details <a href="/listing/<%= listing.id %>">here</a><br />
-            <a href="view-requests/listing/<%= listing.id %>">View Requests</a><br />
+            <a href="view-requests/listing/<%= listing.id %>">View Requests (<%= @total_requests %>)</a><br />
             <a href="available_dates/<%= listing.id %>">Add dates</a>
             </div>
             <br />

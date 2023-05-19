@@ -85,18 +85,22 @@ class Application < Sinatra::Base
 
   get '/account' do
     return erb(:login) if session[:user_id].nil?
+    id = session[:user_id]
     repo = UserRepo.new
     listing_repo = ListingRepository.new
-    @user = repo.find_by_id(session[:user_id])
-    @listings = listing_repo.all_by_id(session[:user_id])
+    @total_requests = total_requests(id)
+    @user = repo.find_by_id(id)
+    @listings = listing_repo.all_by_id(id)
     return erb(:account_page)
   end
 
   get '/view-requests/listing/:id' do
-    @listing = ListingRepository.new.find(params[:id])
-    return erb(:login) if session[:user_id] != @listing.user_id
-    @requests = BookingRepo.new.find_requests_by_listing_id(params[:id])
-    return erb(:view_requests)
+    begin
+      go_to_booking_requests
+    rescue RuntimeError => e
+      status 400
+      return e.message
+    end
   end
 
   get '/account-settings' do
@@ -215,30 +219,11 @@ class Application < Sinatra::Base
     return erb(:index)
   end
 
-  def invalid_listing_params
-    if params['listing_name'] == nil ||
-      params['listing_description'] == nil ||
-      params['price'] == nil
-      return true
-    end
-    if params['listing_name'] == '' ||
-      params['listing_description'] == '' ||
-      params['price'] == ''
-      return true
-    end
-    return false
-  end
-
-  def invalid_date_params
-    if params['start_date'] == nil ||
-      params['end_date'] == nil
-      return true
-    end
-    if params['start_date'] == '' ||
-      params['end_date'] == ''
-      return true
-    end
-    return false
+  def go_to_booking_requests
+    @listing = ListingRepository.new.find(params[:id])
+    return erb(:login) if session[:user_id] != @listing.user_id
+    @requests = BookingRepo.new.find_requests_by_listing_id(params[:id])
+    return erb(:view_requests)
   end
 
   def post_listing
@@ -283,5 +268,40 @@ class Application < Sinatra::Base
   def send_email_to_other(email_type, user_id)
     send_to_email = find_email(user_id)
     Mailer.new.send(email_type, send_to_email)
+  end
+
+  def total_requests(id)
+    if BookingRepo.new.find_requests_by_listing_id(id) == false
+      requests = 0
+    else
+      requests = BookingRepo.new.find_requests_by_listing_id(id).length
+    end
+    return requests
+  end
+
+  def invalid_listing_params
+    if params['listing_name'] == nil ||
+      params['listing_description'] == nil ||
+      params['price'] == nil
+      return true
+    end
+    if params['listing_name'] == '' ||
+      params['listing_description'] == '' ||
+      params['price'] == ''
+      return true
+    end
+    return false
+  end
+
+  def invalid_date_params
+    if params['start_date'] == nil ||
+      params['end_date'] == nil
+      return true
+    end
+    if params['start_date'] == '' ||
+      params['end_date'] == ''
+      return true
+    end
+    return false
   end
 end

@@ -93,5 +93,11 @@ RSpec.describe ListingRepository do
       expect(listing.price).to eq(69)
       expect(listing.host_name).to eq("Shrek")
     end
+
+    it 'fails when searching for listing which doesnt exist' do
+      repo = ListingRepository.new
+
+      expect{ listing = repo.find(6) }.to raise_error "Listing does not exist"
+    end
   end
 end
