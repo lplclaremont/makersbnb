@@ -8,6 +8,7 @@ require_relative 'lib/user_repo'
 require_relative 'lib/listing_repository'
 require_relative 'lib/date_repository'
 require_relative 'lib/booking_repo'
+require_relative 'lib/mailer'
 
 DatabaseConnection.connect
 
@@ -38,7 +39,8 @@ class Application < Sinatra::Base
     
     user = repo.find_by_email(new_user.email)
     session[:user_id] = user.id
-
+    
+    send_email_to_self('signup')
     go_to_homepage
   end
 
@@ -186,7 +188,9 @@ class Application < Sinatra::Base
       booking.date_id = date_id
       repo = BookingRepo.new
       repo.create(booking)
-
+      send_email_to_self('requestbooking')
+      send_to_other_id = repo.fetch_host_id(params[:date_id])
+      send_email_to_other('bookingrequested', send_to_other_id)
       return erb(:request_sent)
     rescue RuntimeError 
       status 400
@@ -196,6 +200,12 @@ class Application < Sinatra::Base
 
   post '/confirm' do
     BookingRepo.new.confirm(params[:user_id].to_i, params[:date_id].to_i)
+    send_email_to_self('confirmrequest')
+    send_email_to_other('requestconfirmed', params[:user_id].to_i)
+    denied_users = BookingRepo.new.fetch_requester_ids(params[:date_id], params[:user_id])
+    denied_users.each do |user_id|
+      send_email_to_other('requestdenied', user_id)
+    end
     BookingRepo.new.delete_requests(params[:date_id].to_i)
     return erb(:booking_confirmed)
   end
@@ -225,6 +235,7 @@ class Application < Sinatra::Base
     listing.user_id = session[:user_id]
     repo.create(listing)
 
+    send_email_to_self('createlisting')
     return erb(:listing_created)
   end
 
@@ -234,12 +245,29 @@ class Application < Sinatra::Base
     start_date = params[:start_date]
     end_date = params[:end_date]
     repo.add_dates(id, start_date, end_date)
+
+    send_email_to_self('updatelisting')
     return erb(:dates_added)
   end
 
   def account_settings_access
     return erb(:login) if session[:user_id].nil?
     return erb(:account_settings)
+  end
+
+  def find_email(id)
+    repo = UserRepo.new
+    result = repo.find_by_id(id)
+    return result.email
+  end
+
+  def send_email_to_self(email_type)
+    Mailer.new.send(email_type, find_email(session[:user_id]))
+  end
+
+  def send_email_to_other(email_type, user_id)
+    send_to_email = find_email(user_id)
+    Mailer.new.send(email_type, send_to_email)
   end
 
   def total_requests(id)
