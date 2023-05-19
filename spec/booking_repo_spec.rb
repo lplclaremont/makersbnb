@@ -137,4 +137,30 @@ RSpec.describe BookingRepo do
       expect(repo.date_has_request?(3)).to eq false
     end
   end
+
+  context '#fetch_host_id' do
+    it 'fetches host id when passed a valid date id' do
+      repo = BookingRepo.new
+      expect(repo.fetch_host_id(1)).to eq 1
+    end
+
+    it 'returns false when date_id is not valid' do
+      repo = BookingRepo.new
+      expect(repo.fetch_host_id(7)).to eq false
+    end
+  end
+
+  context '#fetch_requester_ids' do
+    it 'fetches all the requester ids for a given date' do
+      repo = BookingRepo.new
+      result_ids = repo.fetch_requester_ids(1, 3)
+      expect(result_ids.length).to eq 1
+      expect(result_ids.first).to eq 2
+    end
+
+    it 'retuns false when date_id is not valid' do
+      repo = BookingRepo.new
+      expect(repo.fetch_requester_ids(7, 3)).to eq false
+    end
+  end
 end

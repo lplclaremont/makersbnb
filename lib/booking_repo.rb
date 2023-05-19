@@ -78,6 +78,38 @@ class BookingRepo
     return result.nil? ? false : true
   end
 
+  def fetch_host_id(date_id)
+    sql = 'SELECT users.id 
+            FROM users 
+              JOIN listings ON listings.user_id = users.id
+              JOIN dates ON dates.listing_id = listings.id
+              JOIN dates_users_join ON dates_users_join.dates_id = dates.id
+            WHERE dates_users_join.dates_id=$1;'
+
+    result = DatabaseConnection.exec_params(sql, [date_id])
+    return false if result.first.nil?
+    result = result.first['id'].to_i
+    return result
+  end
+
+  def fetch_requester_ids(date_id, confirmed_id)
+    user_ids = []
+    
+    sql = 'SELECT user_id
+            FROM dates_users_join
+            WHERE dates_id=$1 AND NOT user_id=$2;'
+
+    params = [date_id, confirmed_id]
+    results = DatabaseConnection.exec_params(sql, params)
+    return false if results.first.nil?
+    
+    results.each do |result|
+      user_ids << result['user_id'].to_i
+    end
+
+    return user_ids
+  end
+
   private
 
   def booking_exists?(booking)
