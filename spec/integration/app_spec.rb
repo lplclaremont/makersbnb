@@ -257,8 +257,9 @@ describe Application do
       expect(response.body).to include 'Price per night: £69'
       expect(response.body).to include 'Hosted by: Shrek'
       expect(response.body).to include '<a href="available_dates/1">Add dates</a>'
-      expect(response.body).to include '<a href="view-requests/listing/1">View Requests</a>'
+      expect(response.body).to include '<a href="view-requests/listing/1">View Requests (3)</a>'
       expect(response.body).to include '<a href="/listing/1">here</a>'
+      expect(response.body).to include '<a href="/listing/new">Add a new listing!</a>'
     end
 
     it 'returns the login page when not logged in' do
@@ -309,6 +310,14 @@ describe Application do
       expect(response.status).to eq 200
       expect(response.body).to include '<h1>These are the requests for: Far Far Away Castle</h1>'
       expect(response.body).to include '<h2> Your listing currently has no requests </h2>'
+    end
+
+    it 'returns 400 with error msg if accessing a non existent listing' do
+      session = { user_id: 1 }
+      response = get('/view-requests/listing/25')
+
+      expect(response.status).to eq 400
+      expect(response.body).to eq 'Listing does not exist'
     end
   end
 
