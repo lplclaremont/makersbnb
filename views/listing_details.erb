@@ -1,17 +1,39 @@
-<h1>Makersbnb</h1>
-<h2><%= @listing.listing_name %></h2>
-<div>Description: <%= @listing.listing_description %> </div><br/>
-<div>Price per night: £<%= @listing.price %> </div><br/>
-<div>Hosted by: <%= @listing.host_name %> </div><br/>
-
-<form action="/book" method="post">
-  <label for="available-dates">Pick a night from available dates:</label>
-    <select name="date_id" id="available-dates">
-      <% @dates.each do |date| %>
-        <option value="<%= date.id %>"><%= date.date %></option>
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>MakersBnB - <%= @listing.listing_name %></title>
+        <link rel="stylesheet" href="/style-listing-details.css"
+        <link rel="icon" href="/MakersBnB Logo Just M.svg">
+    </head>
+    <nav>
+      <div>
+        <a href="/">
+          <img class="resize" src="/logo.png" />
+        </a>
+      </div>
+      <% if @session_id.nil? %>
+      <div class="nav_links_container">
+        <div class="nav_links"><a href="/signup" class="button-link">Sign up</a></div>
+        <div class="nav_links"><a href="/login" class="button-link">Log in</a></div>
+      </div>
+      <% else %>
+      <div class="nav_links_container">
+        <div class="nav_links"><a href="/account" class="button-link">Account page</a></div>
+        <a href="/logout" class="button-link">Log out</a>
+      </div>
       <% end %>
-    </select>
-  <button type="submit">Request to book this date!</button>
-</form>
-
-<a href='/'>Return to homepage</a>
+    </nav>
+    <div class="listing-container">
+      <h2 class="listing-title"><%= @listing.listing_name %></h2>
+        <div class="listing-description">Description: <%= @listing.listing_description %> </div><br/>
+        <div class="listing-price">Price per night: £<%= @listing.price %> </div><br/>
+        <div class="listing-description">Hosted by: <%= @listing.host_name %> </div><br/>
+        <form class="date-select" action="/book" method="post">
+          <label for="available-dates">Pick a night from available dates:</label>
+            <select name="date_id" id="available-dates">
+              <% @dates.each do |date| %>
+              <option value="<%= date.id %>"><%= date.date %></option>
+              <% end %>
+            </select>
+          <button class="submit-btn" type="submit">Request to book this date!</button>
+        </form>

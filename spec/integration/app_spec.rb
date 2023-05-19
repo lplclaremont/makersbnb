@@ -49,7 +49,7 @@ describe Application do
       expect(response.status).to eq 200
       expect(response.body).to include "<form"
       expect(response.body).to include '<input type="text" placeholder="Name" required="required" name="name">'
-      expect(response.body).to include '<input type="text" placeholder="Email" required="required" name="email">'
+      expect(response.body).to include '<input type="email" placeholder="Email" required="required" name="email">'
       expect(response.body).to include '<input type="password" placeholder="Password" required="required" name="password">'
     end
   end
@@ -64,9 +64,9 @@ describe Application do
       )
 
       expect(response.status).to eq 200
-      expect(response.body).not_to include '<a href="/signup">Sign up</a>'
-      expect(response.body).not_to include '<a href="/login">Log in</a>'
-      expect(response.body).to include '<a href="/logout">Log out</a>'
+      expect(response.body).not_to include 'href="/signup" class="button-link">Sign up</a>'
+      expect(response.body).not_to include 'href="/login" class="button-link">Log in</a>'
+      expect(response.body).to include 'href="/logout" class="button-link">Log out</a>'
     end
 
     it "should return to sign up form if email already taken" do
@@ -80,7 +80,7 @@ describe Application do
       expect(response.status).to eq 200
       expect(response.body).to include "<form"
       expect(response.body).to include '<input type="text" placeholder="Name" required="required" name="name">'
-      expect(response.body).to include '<input type="text" placeholder="Email" required="required" name="email">'
+      expect(response.body).to include '<input type="email" placeholder="Email" required="required" name="email">'
       expect(response.body).to include '<input type="password" placeholder="Password" required="required" name="password">'
     end
   end
@@ -104,10 +104,10 @@ describe Application do
       )
 
       expect(response.status).to eq 200
-      expect(response.body).not_to include '<a href="/signup">Sign up</a>'
-      expect(response.body).not_to include '<a href="/login">Log in</a>'
-      expect(response.body).to include '<a href="/account">Account page</a>'
-      expect(response.body).to include '<a href="/logout">Log out</a>'
+      expect(response.body).not_to include 'href="/signup" class="button-link">Sign up</a>'
+      expect(response.body).not_to include 'href="/login" class="button-link">Log in</a>'
+      expect(response.body).to include 'href="/account" class="button-link">Account page</a>'
+      expect(response.body).to include 'href="/logout" class="button-link">Log out</a>'
     end
 
     it "should fail to log in if password is wrong" do
@@ -129,9 +129,9 @@ describe Application do
 
       expect(response.status).to eq 200
 
-      expect(response.body).to include '<a href="/signup">Sign up</a>'
-      expect(response.body).to include '<a href="/login">Log in</a>'
-      expect(response.body).not_to include '<a href="/logout">Log out</a>'
+      expect(response.body).to include '<a href="/signup" class="button-link">Sign up</a>'
+      expect(response.body).to include '<a href="/login" class="button-link">Log in</a>'
+      expect(response.body).not_to include '<a href="/logout" class="button-link">Log out</a>'
     end
   end
 
@@ -140,9 +140,8 @@ describe Application do
       response = get "/listing/new"
 
       expect(response.status).to eq 200
-      expect(response.body).to include("<h1>Makersbnb</h1>")
       expect(response.body).to include('<form action="/listing/new" method="POST">')
-      expect(response.body).to include('<input type="text" name="listing_name">')
+      expect(response.body).to include('<input id="listing-name" type="text" name="listing_name">')
     end
   end
 
@@ -158,7 +157,6 @@ describe Application do
       response = post("/listing/new", params, "rack.session" => session)
 
       expect(response.status).to eq 200
-      expect(response.body).to include("<h1>Makersbnb</h1>")
       expect(response.body).to include("<p>Your new listing has been added!</p>")
     end
 
@@ -232,7 +230,7 @@ describe Application do
 
       expect(response.status).to eq 200
 
-      expect(response.body).to include('<form action="/book" method="post">')
+      expect(response.body).to include('<form class="date-select" action="/book" method="post">')
       expect(response.body).to include('<label for="available-dates">Pick a night from available dates:</label>')
       expect(response.body).to include('<select name="date_id" id="available-dates">')
       expect(response.body).to include('<option value="1">2023-05-12</option>')
@@ -256,10 +254,8 @@ describe Application do
       expect(response.body).to include 'Property name: Swamp'
       expect(response.body).to include 'Price per night: £69'
       expect(response.body).to include 'Hosted by: Shrek'
-      expect(response.body).to include '<a href="available_dates/1">Add dates</a>'
-      expect(response.body).to include '<a href="view-requests/listing/1">View Requests (3)</a>'
-      expect(response.body).to include '<a href="/listing/1">here</a>'
-      expect(response.body).to include '<a href="/listing/new">Add a new listing!</a>'
+      expect(response.body).to include 'href="available_dates/1">Add dates</a>'
+      expect(response.body).to include 'href="view-requests/listing/1">View Requests</a>'
     end
 
     it 'returns 0 total requests for account that has no requests' do
@@ -697,7 +693,6 @@ describe Application do
       response = post('/confirm', {user_id: 3, date_id: 1}, "rack.session" => session)
       expect(response.status).to eq 200
       expect(response.body).to include "Booking confirmed."
-      expect(response.body).to include "<a href='/account'>Return to listings</a>"
     end
   end
 end
