@@ -257,7 +257,7 @@ describe Application do
       expect(response.body).to include 'Price per night: £69'
       expect(response.body).to include 'Hosted by: Shrek'
       expect(response.body).to include '<a href="available_dates/1">Add dates</a>'
-      expect(response.body).to include '<a href="view-requests/listing/1">View Requests</a>'
+      expect(response.body).to include '<a href="view-requests/listing/1">View Requests (3)</a>'
       expect(response.body).to include '<a href="/listing/1">here</a>'
       expect(response.body).to include '<a href="/listing/new">Add a new listing!</a>'
     end

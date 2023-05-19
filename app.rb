@@ -83,10 +83,12 @@ class Application < Sinatra::Base
 
   get '/account' do
     return erb(:login) if session[:user_id].nil?
+    id = session[:user_id]
     repo = UserRepo.new
     listing_repo = ListingRepository.new
-    @user = repo.find_by_id(session[:user_id])
-    @listings = listing_repo.all_by_id(session[:user_id])
+    @total_requests = total_requests(id)
+    @user = repo.find_by_id(id)
+    @listings = listing_repo.all_by_id(id)
     return erb(:account_page)
   end
 
@@ -240,6 +242,14 @@ class Application < Sinatra::Base
     return erb(:account_settings)
   end
 
+  def total_requests(id)
+    if BookingRepo.new.find_requests_by_listing_id(id) == false
+      requests = 0
+    else
+      requests = BookingRepo.new.find_requests_by_listing_id(id).length
+    end
+    return requests
+  end
 
   def invalid_listing_params
     if params['listing_name'] == nil ||
