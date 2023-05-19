@@ -32,31 +32,41 @@
                                                                                     
         -->
         <link rel="stylesheet" href="/style.css" >
+        <link rel="icon" href="/MakersBnB Logo Just M.svg">
     </head>
-    <body>
-        <h1>Makersbnb</h1>
-
-        <% if @session_id.nil? %>
-            <div>
-                <a href="/signup">Sign up</a>
-                <a href="/login">Log in</a>
-            </div>
-        <% else %>
-            <div>
-                <a href="/account">Account page</a>
-                <a href="/logout">Log out</a>
-            </div>
-        <% end %>
-
-        <h2>View current properties:</h2>
+    <nav>
+    <div>
+    <a href="/">
+    <img class="resize" src="logo.png"  />
+    </a>
+    </div>
+    <% if @session_id.nil? %>
+    <div class="nav_links_container">
+    <div class="nav_links"><a href="/signup" class="button-link">Sign up</a></div>
+    <div class="nav_links"><a href="/login" class="button-link">Log in</a></div>
+    </div>
+    <% else %>
+    <div class="nav_links_container">
+    <div class="nav_links"><a href="/account" class="button-link">Account page</a></div>
+    <a href="/logout" class="button-link">Log out</a>
+    </div>
+    <% end %>
+    </nav>
+    
+    <body  class="interior">
+        <div class="listing-title">
+        <h2>View current properties:</h2><a class="new-listing-link" href="/listing/new">Add a new listing!</a>
+        </div>
+        <div class="listing-container">
         <% @listings.each do |listing| %>
-            <div>
-            Property name: <%= listing.listing_name %><br />
-            Price per night: £<%= listing.price %><br />
-            View full details <a href="/listing/<%= listing.id %>">here</a>
+            <div class="listing-box">
+                <a href="/listing/<%= listing.id %>">
+                    <h3>Property name: <%= listing.listing_name %></h3>
+                    <p>Price per night: £<%= listing.price %></p>
+                    <p>View full details</p>
+                </a>
             </div>
-            <br />
-            <p>------</p>
         <% end %>
+        <div>
     </body>
 </html>

@@ -110,6 +110,7 @@ class Application < Sinatra::Base
     password = params[:password]
     @can_update = UserRepo.new.check_password(session[:user_id], password)
     @user = UserRepo.new.find_by_id(session[:user_id])
+    @session_id = session[:user_id]
     return erb(:account_settings)
   end
 
@@ -149,6 +150,7 @@ class Application < Sinatra::Base
     date_repo = DateRepository.new
     @listing = repo.find(params[:id])
     @dates = date_repo.find_by_listing(params[:id])
+    @session_id = session[:user_id]
 
     return erb(:listing_details)
   end
