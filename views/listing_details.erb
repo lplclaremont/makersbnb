@@ -23,19 +23,17 @@
       </div>
       <% end %>
     </nav>
-<h2><%= @listing.listing_name %></h2>
-<div>Description: <%= @listing.listing_description %> </div><br/>
-<div>Price per night: £<%= @listing.price %> </div><br/>
-<div>Hosted by: <%= @listing.host_name %> </div><br/>
-
-<form action="/book" method="post">
-  <label for="available-dates">Pick a night from available dates:</label>
-    <select name="date_id" id="available-dates">
-      <% @dates.each do |date| %>
-        <option value="<%= date.id %>"><%= date.date %></option>
-      <% end %>
-    </select>
-  <button type="submit">Request to book this date!</button>
-</form>
-
-<a href='/'>Return to homepage</a>
+    <div class="listing-container">
+      <h2 class="listing-title"><%= @listing.listing_name %></h2>
+        <div class="listing-description">Description: <%= @listing.listing_description %> </div><br/>
+        <div class="listing-price">Price per night: £<%= @listing.price %> </div><br/>
+        <div class="listing-description">Hosted by: <%= @listing.host_name %> </div><br/>
+        <form class="date-select" action="/book" method="post">
+          <label for="available-dates">Pick a night from available dates:</label>
+            <select name="date_id" id="available-dates">
+              <% @dates.each do |date| %>
+              <option value="<%= date.id %>"><%= date.date %></option>
+              <% end %>
+            </select>
+          <button class="submit-btn" type="submit">Request to book this date!</button>
+        </form>

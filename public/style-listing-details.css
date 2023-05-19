@@ -51,7 +51,61 @@ text-decoration: none;
 color: #007291;
 }
 
-body.interior {
+body {
   background-color: #fffff2;
   font-size: 18px;
+}
+
+.listing-container {
+  max-width: 600px;
+  margin: 50px auto;
+  padding: 20px;
+  background-color: #f2f2f2;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+.listing-title {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.listing-description {
+  margin-bottom: 20px;
+}
+
+.listing-price {
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.date-select {
+  margin-bottom: 20px;
+}
+
+.date-select label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.date-select select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+}
+
+.submit-btn {
+  padding: 10px 20px;
+  background-color: #4CAF50;
+  color: #fff;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.submit-btn:hover {
+  background-color: #45a049;
 }

@@ -71,6 +71,7 @@ body {
   background-color: #f2f2f2;
   border-radius: 5px;
   text-align: center; /* Center align the text boxes */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
 }
 
 .form-group {
