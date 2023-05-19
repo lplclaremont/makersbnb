@@ -72,6 +72,7 @@ class ListingRepository
             WHERE listings.id=$1;'
 
     result_set = DatabaseConnection.exec_params(sql, [listing_id])
+    return 0 if result_set.first.nil?
     result_set.each do |result|
       results << result
     end
