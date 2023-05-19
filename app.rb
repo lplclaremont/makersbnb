@@ -40,7 +40,7 @@ class Application < Sinatra::Base
     user = repo.find_by_email(new_user.email)
     session[:user_id] = user.id
     
-    send_email_to_self('signup')
+    send_email_to_self('signup', user.id)
     go_to_homepage
   end
 
@@ -88,7 +88,6 @@ class Application < Sinatra::Base
     id = session[:user_id]
     repo = UserRepo.new
     listing_repo = ListingRepository.new
-    @total_requests = total_requests(id)
     @user = repo.find_by_id(id)
     @listings = listing_repo.all_by_id(id)
     return erb(:account_page)
@@ -188,7 +187,7 @@ class Application < Sinatra::Base
       booking.date_id = date_id
       repo = BookingRepo.new
       repo.create(booking)
-      send_email_to_self('requestbooking')
+      send_email_to_self('requestbooking', user_id)
       send_to_other_id = repo.fetch_host_id(params[:date_id])
       send_email_to_other('bookingrequested', send_to_other_id)
       return erb(:request_sent)
@@ -200,11 +199,13 @@ class Application < Sinatra::Base
 
   post '/confirm' do
     BookingRepo.new.confirm(params[:user_id].to_i, params[:date_id].to_i)
-    send_email_to_self('confirmrequest')
+    send_email_to_self('confirmrequest', session[:user_id])
     send_email_to_other('requestconfirmed', params[:user_id].to_i)
     denied_users = BookingRepo.new.fetch_requester_ids(params[:date_id], params[:user_id])
-    denied_users.each do |user_id|
-      send_email_to_other('requestdenied', user_id)
+    if denied_users
+      denied_users.each do |user_id|
+        send_email_to_other('requestdenied', user_id)
+      end
     end
     BookingRepo.new.delete_requests(params[:date_id].to_i)
     return erb(:booking_confirmed)
@@ -235,7 +236,7 @@ class Application < Sinatra::Base
     listing.user_id = session[:user_id]
     repo.create(listing)
 
-    send_email_to_self('createlisting')
+    send_email_to_self('createlisting', session[:user_id])
     return erb(:listing_created)
   end
 
@@ -246,7 +247,7 @@ class Application < Sinatra::Base
     end_date = params[:end_date]
     repo.add_dates(id, start_date, end_date)
 
-    send_email_to_self('updatelisting')
+    send_email_to_self('updatelisting', session[:user_id])
     return erb(:dates_added)
   end
 
@@ -261,22 +262,13 @@ class Application < Sinatra::Base
     return result.email
   end
 
-  def send_email_to_self(email_type)
-    Mailer.new.send(email_type, find_email(session[:user_id]))
+  def send_email_to_self(email_type, user_id)
+    Mailer.new.send(email_type, find_email(user_id))
   end
 
   def send_email_to_other(email_type, user_id)
     send_to_email = find_email(user_id)
     Mailer.new.send(email_type, send_to_email)
-  end
-
-  def total_requests(id)
-    if BookingRepo.new.find_requests_by_listing_id(id) == false
-      requests = 0
-    else
-      requests = BookingRepo.new.find_requests_by_listing_id(id).length
-    end
-    return requests
   end
 
   def invalid_listing_params
