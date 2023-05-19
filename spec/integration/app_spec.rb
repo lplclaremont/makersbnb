@@ -259,6 +259,7 @@ describe Application do
       expect(response.body).to include '<a href="available_dates/1">Add dates</a>'
       expect(response.body).to include '<a href="view-requests/listing/1">View Requests</a>'
       expect(response.body).to include '<a href="/listing/1">here</a>'
+      expect(response.body).to include '<a href="/listing/new">Add a new listing!</a>'
     end
 
     it 'returns the login page when not logged in' do
