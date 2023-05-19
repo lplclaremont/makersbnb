@@ -1,0 +1,125 @@
+* {
+  font-family: sans-serif;
+  font-style: normal;
+
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+nav {
+  /* background-color: pink; */
+  height: 150px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: Orem calc((100vw - 1300px) / 2) ;
+  background-color: #9fdfe9;
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.5);
+}
+
+.nav_links_container {
+  /* background-color: yellow; */
+  flex-direction: row;
+  display: flex;
+  padding-top: 40px;
+}
+.nav_links {
+  height: 50%;
+  /* background-color: red; */
+  line-height: 100%;
+  padding: 10px;
+}
+
+.resize {
+  width: 400px;
+  height: auto;
+}
+
+.button-link {
+/* display: inline-block; */
+padding: 10px 10px;
+/* background-color: #01a0cb; */
+color: #01a0cb;
+text-decoration: none;
+/* border-radius: 20px; */
+}
+
+.button-link:hover {
+color: #007291;
+}
+
+body {
+  height: 100vh;
+  background-color: #fffff2;
+  font-family: Arial, sans-serif;
+}
+
+.container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  align-items: center;
+}
+
+.password-box {
+  text-align: center;
+}
+
+.password-box h3 {
+  margin-top: 0;
+  width: 100%;
+}
+
+.password-box input[type="password"] {
+  padding: 10px;
+  margin-bottom: 10px;
+  width: 100%;
+}
+
+.password-box button {
+  padding: 10px 20px;
+  background-color: #4CAF50;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+}
+
+h2 {
+  text-align: center;
+}
+
+.section {
+  margin-bottom: 20px;
+}
+
+.section h3 {
+  margin-top: 0;
+}
+
+form {
+  display: grid;
+  grid-template-columns: 150px auto;
+  grid-gap: 10px;
+}
+
+label {
+  font-weight: bold;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+  padding: 10px;
+  width: 100%;
+}
+
+button {
+  padding: 10px 20px;
+  background-color: #4CAF50;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+}

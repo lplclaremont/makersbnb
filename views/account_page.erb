@@ -12,8 +12,10 @@
         </a>
       </div>
       <div class="nav_links_container">
-        <div class="nav_links"><a href="/account-settings" class="button-link">Account Settings</a></div>
+        <div class="nav_links">
+        <a href="/account-settings" class="button-link">Account Settings</a>
         <a href="/logout" class="button-link">Log out</a>
+        </div>
       </div>
     </nav>
     <body>
@@ -34,7 +36,7 @@
                     <p>View full details</p>
                 </a>
             <div class="row2">
-            <a class="additional-box" href="view-requests/listing/<%= listing.id %>">View Requests</a><br />
+            <a class="additional-box" href="view-requests/listing/<%= listing.id %>">View Requests (<%= listing.total_requests %>)</a><br />
             <a class="additional-box" href="available_dates/<%= listing.id %>">Add dates</a>
             </div>
             </div>

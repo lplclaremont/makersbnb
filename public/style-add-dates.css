@@ -1,0 +1,92 @@
+* {
+  font-family: sans-serif;
+  font-style: normal;
+
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+nav {
+  /* background-color: pink; */
+  height: 150px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: Orem calc((100vw - 1300px) / 2) ;
+  background-color: #9fdfe9;
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.5);
+}
+
+.nav_links_container {
+  /* background-color: yellow; */
+  flex-direction: row;
+  display: flex;
+  padding-top: 40px;
+}
+.nav_links {
+  height: 50%;
+  /* background-color: red; */
+  line-height: 100%;
+  padding: 10px;
+}
+
+.resize {
+  width: 400px;
+  height: auto;
+}
+
+.button-link {
+/* display: inline-block; */
+padding: 10px 10px;
+/* background-color: #01a0cb; */
+color: #01a0cb;
+text-decoration: none;
+/* border-radius: 20px; */
+}
+
+.button-link:hover {
+color: #007291;
+}
+
+body {
+  height: 100vh;
+  background-color: #fffff2;
+  font-family: Arial, sans-serif;
+}
+
+.container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+h2 {
+  text-align: center;
+}
+
+.date-input {
+  margin-bottom: 20px;
+}
+
+.date-input label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.date-input input[type="date"] {
+  padding: 10px;
+  width: 100%;
+}
+
+button {
+  padding: 8px 16px;
+  background-color: #4CAF50;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
