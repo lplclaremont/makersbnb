@@ -1,14 +1,36 @@
-<h1>Makersbnb</h1>
-<h2>Add dates for <%= @listing.listing_name %></h2>
-<form action="/available_dates/<%= @listing.id %>" method="POST">
-  <label>
-    Enter start date:
-    <input type="date" name="start_date" />
-  </label>
-  <label>
-    Enter end date:
-    <input type="date" name="end_date" />
-  </label>
-
-  <p><button>Add dates to listing!</button></p>
-</form>
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>MakersBnB - Account Settings</title>
+        <link rel="stylesheet" href="/style-add-dates.css"
+        <link rel="icon" href="/MakersBnB Logo Just M.svg">
+    </head>
+    <nav>
+      <div>
+        <a href="/">
+          <img class="resize" src="/logo.png" />
+        </a>
+      </div>
+      <div class="nav_links_container">
+      <div class="nav_links">
+      <a href="/account" class="button-link">Account Page</a>
+      <a href="/logout" class="button-link">Log out</a>
+      </div>
+      </div>
+    </nav>
+    <body>
+      <div class="container">
+        <h2>Add dates for <%= @listing.listing_name %></h2>
+        <form action="/available_dates/<%= @listing.id %>" method="POST">
+        <div class="date-input"
+        <label>Enter start date:</label>
+        <input type="date" name="start_date" />
+        </div>
+        <div class="date-input">
+        <label>Enter end date:</label>
+        <input type="date" name="end_date" />
+        </div>
+        <button>Add dates to listing!</button>
+      </div>
+    </form>
+</body>
