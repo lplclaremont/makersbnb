@@ -255,7 +255,7 @@ describe Application do
       expect(response.body).to include 'Price per night: £69'
       expect(response.body).to include 'Hosted by: Shrek'
       expect(response.body).to include 'href="available_dates/1">Add dates</a>'
-      expect(response.body).to include 'href="view-requests/listing/1">View Requests</a>'
+      expect(response.body).to include 'href="view-requests/listing/1">View Requests (3)</a>'
     end
 
     it 'returns 0 total requests for account that has no requests' do
@@ -288,7 +288,7 @@ describe Application do
       response = get('/view-requests/listing/1')
 
       expect(response.status).to eq 200
-      expect(response.body).to include '<h1>These are the requests for: Swamp</h1>'
+      expect(response.body).to include '<h2>These are the requests for: Swamp</h2>'
       expect(response.body).to include 'Booking User: Donkey'
       expect(response.body).to include 'Date: 2023-05-12'
       expect(response.body).to include "<form method='POST' action='/confirm'>"
@@ -314,7 +314,7 @@ describe Application do
 
       response = get('/view-requests/listing/2')
       expect(response.status).to eq 200
-      expect(response.body).to include '<h1>These are the requests for: Far Far Away Castle</h1>'
+      expect(response.body).to include '<h2>These are the requests for: Far Far Away Castle</h2>'
       expect(response.body).to include '<h2> Your listing currently has no requests </h2>'
     end
 
@@ -338,9 +338,8 @@ describe Application do
       response = get('/account-settings')
 
       expect(response.status).to eq 200
-      expect(response.body).to include "<form action='/account-settings' method='POST'>"
+      expect(response.body).to include "action='/account-settings' method='POST'>"
       expect(response.body).to include "<input type='password' required='required' name='password'>"
-      expect(response.body).to include "<input type='submit' value='Enter'>"
     end
 
     it 'shows login form if session id is nil' do
@@ -365,19 +364,17 @@ describe Application do
         )
 
       expect(response.status).to eq 200
-      expect(response.body).to include '<h1>Account Settings</h1>'
+      expect(response.body).to include '<h2>Account Settings</h2>'
       expect(response.body).to include "<form action='/update-username-email' method='POST'>"
       expect(response.body).to include 'Current username: Shrek'
       expect(response.body).to include "<input type='text' placeholder='New username' name='name'>"
       expect(response.body).to include 'Current email: shrek@swamp.com'
       expect(response.body).to include "<input type='text' placeholder='New email' name='email'>"
-      expect(response.body).to include "<input type='submit' value='Update'>"
 
       expect(response.body).to include "<form action='/update-password' method='POST'>"
       expect(response.body).to include "<input type='password' placeholder='Password' required='required' name='old_password'>"
       expect(response.body).to include "<input type='password' placeholder='New password' required='required' name='new_password'>"
       expect(response.body).to include "<input type='password' placeholder='Confirm password' required='required' name='confirm_password'>"
-      expect(response.body).to include "<input type='submit' value='Update'>"
     end
 
     it 'shows password form if password is incorrect' do
@@ -392,9 +389,8 @@ describe Application do
         )
 
       expect(response.status).to eq 200
-      expect(response.body).to include "<form action='/account-settings' method='POST'>"
+      expect(response.body).to include "action='/account-settings' method='POST'>"
       expect(response.body).to include "<input type='password' required='required' name='password'>"
-      expect(response.body).to include "<input type='submit' value='Enter'>"
     end
   end
 
@@ -409,9 +405,8 @@ describe Application do
       response = get('/update-username-email')
 
       expect(response.status).to eq 200
-      expect(response.body).to include "<form action='/account-settings' method='POST'>"
+      expect(response.body).to include "action='/account-settings' method='POST'>"
       expect(response.body).to include "<input type='password' required='required' name='password'>"
-      expect(response.body).to include "<input type='submit' value='Enter'>"
     end
 
     it 'goes to login page if not logged in' do
@@ -489,9 +484,8 @@ describe Application do
       response = get('/update-password')
 
       expect(response.status).to eq 200
-      expect(response.body).to include "<form action='/account-settings' method='POST'>"
+      expect(response.body).to include "action='/account-settings' method='POST'>"
       expect(response.body).to include "<input type='password' required='required' name='password'>"
-      expect(response.body).to include "<input type='submit' value='Enter'>"
     end
 
     it 'goes to login page if not logged in' do
@@ -526,19 +520,17 @@ describe Application do
       )
 
       expect(response.status).to eq 200
-      expect(response.body).to include '<h1>Account Settings</h1>'
+      expect(response.body).to include '<h2>Account Settings</h2>'
       expect(response.body).to include "<form action='/update-username-email' method='POST'>"
       expect(response.body).to include 'Current username: Shrek'
       expect(response.body).to include "<input type='text' placeholder='New username' name='name'>"
       expect(response.body).to include 'Current email: shrek@swamp.com'
       expect(response.body).to include "<input type='text' placeholder='New email' name='email'>"
-      expect(response.body).to include "<input type='submit' value='Update'>"
 
       expect(response.body).to include "<form action='/update-password' method='POST'>"
       expect(response.body).to include "<input type='password' placeholder='Password' required='required' name='old_password'>"
       expect(response.body).to include "<input type='password' placeholder='New password' required='required' name='new_password'>"
       expect(response.body).to include "<input type='password' placeholder='Confirm password' required='required' name='confirm_password'>"
-      expect(response.body).to include "<input type='submit' value='Update'>"
     end
 
     it 'doesnt update password if old_password is incorrect' do
@@ -562,9 +554,8 @@ describe Application do
       )
 
       expect(response.status).to eq 200
-      expect(response.body).to include "<form action='/account-settings' method='POST'>"
+      expect(response.body).to include "action='/account-settings' method='POST'>"
       expect(response.body).to include "<input type='password' required='required' name='password'>"
-      expect(response.body).to include "<input type='submit' value='Enter'>"
     end
 
     it 'doesnt update password if new and confirm_password not matching' do
@@ -588,9 +579,8 @@ describe Application do
       )
 
       expect(response.status).to eq 200
-      expect(response.body).to include "<form action='/account-settings' method='POST'>"
+      expect(response.body).to include "action='/account-settings' method='POST'>"
       expect(response.body).to include "<input type='password' required='required' name='password'>"
-      expect(response.body).to include "<input type='submit' value='Enter'>"
     end
   end
   
