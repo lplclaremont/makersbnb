@@ -262,6 +262,16 @@ describe Application do
       expect(response.body).to include '<a href="/listing/new">Add a new listing!</a>'
     end
 
+    it 'returns 0 total requests for account that has no requests' do
+      post(
+        '/login',
+        email: 'donkey@donkey.com',
+        password: 'lust_for_dragons'
+      )
+      response = get('/account')
+      expect(response.body).to include 'Number of Listings: 0'
+    end
+
     it 'returns the login page when not logged in' do
       response = get('/account')
 
