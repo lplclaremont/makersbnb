@@ -144,7 +144,8 @@ class Application < Sinatra::Base
     date_repo = DateRepository.new
     @listing = repo.find(params[:id])
     @dates = date_repo.find_by_listing(params[:id])
-
+    @session_id = session[:user_id]
+    
     return erb(:listing_details)
   end
 
