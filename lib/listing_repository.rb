@@ -51,15 +51,32 @@ class ListingRepository
     return listings
   end
 
-  def find(id) 
+  def find(id)
     sql = 'SELECT listings.id, listings.listing_name, listings.listing_description,
           listings.price, listings.user_id, users.name
           FROM listings JOIN users
           ON users.id = listings.user_id
           WHERE listings.id = $1;'
     result_set = DatabaseConnection.exec_params(sql, [id])
+
+    fail "Listing does not exist" if result_set.num_tuples.zero?
     
     return record_to_listing(result_set[0])
+  end
+
+  def total_requests(listing_id)
+    results = []
+    sql = 'SELECT * FROM dates_users_join
+            JOIN dates ON dates.id = dates_users_join.dates_id
+            JOIN listings ON listings.id = dates.listing_id
+            WHERE listings.id=$1;'
+
+    result_set = DatabaseConnection.exec_params(sql, [listing_id])
+    return 0 if result_set.first.nil?
+    result_set.each do |result|
+      results << result
+    end
+    return results.length
   end
 
   private
@@ -72,6 +89,7 @@ class ListingRepository
     listing.price = record['price'].to_i
     listing.user_id = record['user_id'].to_i
     listing.host_name = record['name']
+    listing.total_requests = total_requests(listing.id)
     return listing
   end
 end

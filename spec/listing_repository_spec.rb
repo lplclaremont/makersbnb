@@ -67,6 +67,27 @@ RSpec.describe ListingRepository do
       expect(listings.first.listing_name).to eq("Swamp")
       expect(listings.first.listing_description).to eq("Lovely swamp. Shrek lives here. Scenic outhouse. Donkey not included!")
       expect(listings.first.price).to eq(69)
+      expect(listings.first.total_requests).to eq(3)
+    end
+  end
+
+  context '#total_requests method' do
+    it 'returns a number of requests for a listing' do
+      repo = ListingRepository.new
+      requests = repo.total_requests(1)
+      expect(requests).to eq 3
+    end
+    
+    it 'returns 0 if no requests found' do
+      repo = ListingRepository.new
+      requests = repo.total_requests(2)
+      expect(requests).to eq 0
+    end
+
+    it 'returns false if listing_id is not valid' do
+      repo = ListingRepository.new
+      requests = repo.total_requests(10)
+      expect(requests).to eq 0
     end
   end
   
@@ -92,6 +113,12 @@ RSpec.describe ListingRepository do
       expect(listing.listing_description).to eq("Lovely swamp. Shrek lives here. Scenic outhouse. Donkey not included!")
       expect(listing.price).to eq(69)
       expect(listing.host_name).to eq("Shrek")
+    end
+
+    it 'fails when searching for listing which doesnt exist' do
+      repo = ListingRepository.new
+
+      expect{ listing = repo.find(6) }.to raise_error "Listing does not exist"
     end
   end
 end

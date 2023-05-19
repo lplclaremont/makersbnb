@@ -8,6 +8,7 @@ require_relative 'lib/user_repo'
 require_relative 'lib/listing_repository'
 require_relative 'lib/date_repository'
 require_relative 'lib/booking_repo'
+require_relative 'lib/mailer'
 
 DatabaseConnection.connect
 
@@ -38,7 +39,8 @@ class Application < Sinatra::Base
     
     user = repo.find_by_email(new_user.email)
     session[:user_id] = user.id
-
+    
+    send_email_to_self('signup', user.id)
     go_to_homepage
   end
 
@@ -83,18 +85,21 @@ class Application < Sinatra::Base
 
   get '/account' do
     return erb(:login) if session[:user_id].nil?
+    id = session[:user_id]
     repo = UserRepo.new
     listing_repo = ListingRepository.new
-    @user = repo.find_by_id(session[:user_id])
-    @listings = listing_repo.all_by_id(session[:user_id])
+    @user = repo.find_by_id(id)
+    @listings = listing_repo.all_by_id(id)
     return erb(:account_page)
   end
 
   get '/view-requests/listing/:id' do
-    @listing = ListingRepository.new.find(params[:id])
-    return erb(:login) if session[:user_id] != @listing.user_id
-    @requests = BookingRepo.new.find_requests_by_listing_id(params[:id])
-    return erb(:view_requests)
+    begin
+      go_to_booking_requests
+    rescue RuntimeError => e
+      status 400
+      return e.message
+    end
   end
 
   get '/account-settings' do
@@ -184,7 +189,9 @@ class Application < Sinatra::Base
       booking.date_id = date_id
       repo = BookingRepo.new
       repo.create(booking)
-
+      send_email_to_self('requestbooking', user_id)
+      send_to_other_id = repo.fetch_host_id(params[:date_id])
+      send_email_to_other('bookingrequested', send_to_other_id)
       return erb(:request_sent)
     rescue RuntimeError 
       status 400
@@ -194,6 +201,14 @@ class Application < Sinatra::Base
 
   post '/confirm' do
     BookingRepo.new.confirm(params[:user_id].to_i, params[:date_id].to_i)
+    send_email_to_self('confirmrequest', session[:user_id])
+    send_email_to_other('requestconfirmed', params[:user_id].to_i)
+    denied_users = BookingRepo.new.fetch_requester_ids(params[:date_id], params[:user_id])
+    if denied_users
+      denied_users.each do |user_id|
+        send_email_to_other('requestdenied', user_id)
+      end
+    end
     BookingRepo.new.delete_requests(params[:date_id].to_i)
     return erb(:booking_confirmed)
   end
@@ -205,6 +220,57 @@ class Application < Sinatra::Base
     @listings = listing_repo.all
     @session_id = session[:user_id]
     return erb(:index)
+  end
+
+  def go_to_booking_requests
+    @listing = ListingRepository.new.find(params[:id])
+    return erb(:login) if session[:user_id] != @listing.user_id
+    @requests = BookingRepo.new.find_requests_by_listing_id(params[:id])
+    return erb(:view_requests)
+  end
+
+  def post_listing
+    repo = ListingRepository.new
+    listing = Listing.new
+    listing.listing_name = params['listing_name']
+    listing.listing_description = params['listing_description']
+    listing.price = params['price'].to_i
+    listing.user_id = session[:user_id]
+    repo.create(listing)
+
+    send_email_to_self('createlisting', session[:user_id])
+    return erb(:listing_created)
+  end
+
+  def add_dates_to_listing
+    repo = DateRepository.new
+    id = params[:id].to_i
+    start_date = params[:start_date]
+    end_date = params[:end_date]
+    repo.add_dates(id, start_date, end_date)
+
+    send_email_to_self('updatelisting', session[:user_id])
+    return erb(:dates_added)
+  end
+
+  def account_settings_access
+    return erb(:login) if session[:user_id].nil?
+    return erb(:account_settings)
+  end
+
+  def find_email(id)
+    repo = UserRepo.new
+    result = repo.find_by_id(id)
+    return result.email
+  end
+
+  def send_email_to_self(email_type, user_id)
+    Mailer.new.send(email_type, find_email(user_id))
+  end
+
+  def send_email_to_other(email_type, user_id)
+    send_to_email = find_email(user_id)
+    Mailer.new.send(email_type, send_to_email)
   end
 
   def invalid_listing_params
@@ -231,31 +297,5 @@ class Application < Sinatra::Base
       return true
     end
     return false
-  end
-
-  def post_listing
-    repo = ListingRepository.new
-    listing = Listing.new
-    listing.listing_name = params['listing_name']
-    listing.listing_description = params['listing_description']
-    listing.price = params['price'].to_i
-    listing.user_id = session[:user_id]
-    repo.create(listing)
-
-    return erb(:listing_created)
-  end
-
-  def add_dates_to_listing
-    repo = DateRepository.new
-    id = params[:id].to_i
-    start_date = params[:start_date]
-    end_date = params[:end_date]
-    repo.add_dates(id, start_date, end_date)
-    return erb(:dates_added)
-  end
-
-  def account_settings_access
-    return erb(:login) if session[:user_id].nil?
-    return erb(:account_settings)
   end
 end

@@ -2,6 +2,7 @@ require_relative './date_model'
 
 class DateRepository
   def create(date)
+    fail 'One or more of these dates is already booked' if date_booked?(date)
     fail 'Date already exists for this listing' if date_exists?(date)
 
     sql = 'INSERT INTO dates (date, listing_id)
@@ -64,6 +65,13 @@ class DateRepository
         }
   end
 
+  def date_booked?(date)
+    all.any?{ |existing_date|
+    existing_date.date == date.date &&
+    existing_date.booked_by_user != nil
+  }
+  end
+
   def check_dates(start_date, end_date)
     fail "End date must be after start date" if start_date > end_date
     fail "Start date must not be in the past" if start_date < Date.today
@@ -74,6 +82,7 @@ class DateRepository
     date.id = record['id'].to_i
     date.date = record['date']
     date.listing_id = record['listing_id'].to_i
+    date.booked_by_user = record['booked_by_user']
     return date
   end
 end
