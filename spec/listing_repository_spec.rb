@@ -67,6 +67,21 @@ RSpec.describe ListingRepository do
       expect(listings.first.listing_name).to eq("Swamp")
       expect(listings.first.listing_description).to eq("Lovely swamp. Shrek lives here. Scenic outhouse. Donkey not included!")
       expect(listings.first.price).to eq(69)
+      expect(listings.first.total_requests).to eq(3)
+    end
+  end
+
+  context '#total_requests method' do
+    it 'returns a number of requests for a listing' do
+      repo = ListingRepository.new
+      requests = repo.total_requests(1)
+      expect(requests).to eq 3
+    end
+    
+    it 'returns 0 if no requests found' do
+      repo = ListingRepository.new
+      requests = repo.total_requests(2)
+      expect(requests).to eq 0
     end
   end
   
