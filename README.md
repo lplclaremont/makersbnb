@@ -1,10 +1,27 @@
-# MakersBnB Project Seed
+# MakersBnB
 
-This repo contains the seed codebase for the MakersBnB project in Ruby (using Sinatra and RSpec).
+## Overview
+This is our first group engineering project at Makers Academy. It is an AirBnb style website using Ruby's Sinatra library and my first complete web application.
+It's functionality includes:
+- Signing up
+- Logging in
+- Creating a property listing
+- Adding dates to listings
+- Making booking requests
+- Viewing requests on your own properties
+- Confirming a booking for a single date
 
-Someone in your team should fork this seed repo to their Github account. Everyone in the team should then clone this fork to their local machine to work on it.
+IMG OF PAGE
+
+## Approach
+
+Design notes and the agile process over the 6 days (Friday - friday)
+
+
+## Running the program
 
 ## Setup
+Fill this in a bit in order to add sql seeds to test DB and main DB.
 
 ```bash
 # Create the test database
@@ -15,6 +32,8 @@ bundle install
 gem install bcrypt
 gem install simplecov
 
+^^ ought to be added to the Gemfile.
+
 # Run the tests
 rspec
 
@@ -22,11 +41,6 @@ rspec
 rackup
 ```
 
-
-
-## Deleting branches
-
-https://www.freecodecamp.org/news/how-to-delete-a-git-branch-both-locally-and-remotely/
 
 ## User passwords for testing
 - Shrek, fiona_lover420
