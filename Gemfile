@@ -18,4 +18,6 @@ gem "rackup", "~> 1.0"
 
 gem "bcrypt", "~> 3.1"
 
+gem 'simplecov', require: false, group: :test
+
 gem "mail", "~> 2.8"
