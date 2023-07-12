@@ -13,7 +13,7 @@ It's functionality includes:
 
 <br>
 <br>
-![a screenshot of the landing page](./plans/user-stories-database-design.png)
+![a screenshot of the landing page](plans/user-stories-database-design.png)
 <br>
 <br>
 
