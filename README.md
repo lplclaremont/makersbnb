@@ -13,7 +13,8 @@ It's functionality includes:
 
 <br>
 <br>
-![a screenshot of the landing page](./landing-page.png)
+
+![a screenshot of the landing page](./public/landing-page.png)
 <br>
 <br>
 
