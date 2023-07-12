@@ -11,9 +11,10 @@ It's functionality includes:
 - Viewing requests on your own properties
 - Confirming a booking for a single date
 
-<br>
-<br>
+Here is a view of the landing page
 
+<br>
+<br>
 ![a screenshot of the landing page](./public/landing-page.png)
 <br>
 <br>
