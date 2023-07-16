@@ -40,6 +40,13 @@ Below is the rspec coverage report
 <br>
 <br>
 
+## Technologies used
+- Ruby Sinatra
+- Rspec for testing
+- PostgreSQL
+- Bcrypt for password encryption
+- Mail library for email feature
+
 ## Running the program
 
 ```bash
