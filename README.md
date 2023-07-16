@@ -2,7 +2,7 @@
 
 ## Overview
 This is our first group engineering project at Makers Academy. It is an AirBnb style website using Ruby's Sinatra library and my first complete web application.
-It's functionality includes:
+Its functionality includes:
 - Signing up
 - Logging in
 - Creating a property listing
@@ -23,7 +23,6 @@ Below is a view of the landing page
 
 ## Approach
 
-Design notes and the agile process over the 6 days (Friday - friday)
 We had 6 total work days for this project, of which we allocated the first to planning and preparation.
 Designing database structures, classes and a minimum viable product together was key to ensuring every group member was comfortable and confident that they understood what we were building towards.
 
