@@ -36,7 +36,7 @@ Below is the rspec coverage report
 <br>
 <br>
 
-![a screenshot of the rspec tests]('./public/makersbnb-test-coverage.png')
+![a screenshot of the rspec tests](./public/makersbnb-test-coverage.png)
 
 <br>
 <br>
